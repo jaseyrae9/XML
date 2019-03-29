@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.tim17.com/room" xmlns:room="http://www.tim17.com/room"
+    xmlns:roomType="http://www.tim17.com/roomType"
+    xmlns:roomCategory="http://www.tim17.com/roomCategory"
+    xmlns:additionalService="http://www.tim17.com/additionalService"
+    xmlns:address="http://www.tim17.com/address" xmlns:hotel="http://www.tim17.com/hotel">
+    <xs:import namespace="http://www.tim17.com/hotel" schemaLocation="hotel.xsd"/>
+    <xs:import namespace="http://www.tim17.com/roomType" schemaLocation="roomType.xsd"/>
+    <xs:import namespace="http://www.tim17.com/roomCategory" schemaLocation="roomCategory.xsd"/>
+    <xs:import namespace="http://www.tim17.com/address" schemaLocation="address.xsd"/>
+    <xs:import namespace="http://www.tim17.com/additionalService"
+        schemaLocation="additionalService.xsd"/>
+    <xs:complexType name="TRoom">
+        <xs:sequence>
+            <xs:element name="id">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="-2147483648"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="hotel" type="hotel:THotel"/>
+            <xs:element name="address" type="address:TAddress"/>
+            <xs:element name="type" type="roomType:TRoomCategory"/>
+            <xs:element name="category" type="roomCategory:TRoomCategory"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="defaultPrice">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="numberOfPeople">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cancelationDays">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="additionalServices"
+                type="additionalService:TAdditionalService"/>
+            <xs:element name="description">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="256"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element default="0" name="totalRating">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element default="0" name="numberOfRatings">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="floor">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="roomNumber">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

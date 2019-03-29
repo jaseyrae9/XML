@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.tim17.com/reservation"
+    xmlns:recension="http://www.tim17.com/recension"
+    xmlns:reservation="http://www.tim17.com/reservation" xmlns:room="http://www.tim17.com/room"
+    xmlns:user="http://www.tim17.com/user">
+    <xs:import namespace="http://www.tim17.com/room" schemaLocation="room.xsd"/>
+    <xs:import namespace="http://www.tim17.com/user" schemaLocation="user.xsd"/>
+    <xs:complexType name="TDayReservation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="roomReservation" type="reservation:TRoomReservation"/>
+            <xs:element name="price">
+                <xs:simpleType>
+                    <xs:restriction base="xs:double">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TReservation">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element maxOccurs="1" name="room" type="room:TRoom"/>
+            <xs:element name="dateOfReservation" type="xs:date"/>
+            <xs:element name="customer" type="user:Customer"/>
+            <xs:element default="false" name="hasHappened" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
