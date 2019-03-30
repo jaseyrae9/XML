@@ -25,7 +25,7 @@
             <xs:element name="id" type="xs:int"/>
             <xs:element maxOccurs="1" name="room" type="room:TRoom"/>
             <xs:element name="dateOfReservation" type="xs:date"/>
-            <xs:element name="customer" type="user:Customer"/>
+            <xs:element name="customer" type="user:TCustomer" minOccurs="0"/>
             <xs:element default="false" name="hasHappened" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>

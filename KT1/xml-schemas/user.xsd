@@ -4,7 +4,7 @@
     xmlns:address="http://www.tim17.com/address" xmlns:hotel="http://www.tim17.com/hotel">
     <xs:import namespace="http://www.tim17.com/address" schemaLocation="address.xsd"/>
     <xs:import namespace="http://www.tim17.com/hotel" schemaLocation="hotel.xsd"/>
-    <xs:complexType abstract="true" name="user">
+    <xs:complexType abstract="true" name="TUser">
         <xs:sequence>
             <xs:element name="id" type="xs:int"/>
             <xs:element name="username">
@@ -23,9 +23,9 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="Customer">
+    <xs:complexType name="TCustomer">
         <xs:complexContent>
-            <xs:extension base="user:user">
+            <xs:extension base="user:TUser">
                 <xs:sequence>
                     <xs:element name="firstName">
                         <xs:simpleType>
@@ -55,14 +55,14 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="Admin">
+    <xs:complexType name="TAdmin">
         <xs:complexContent>
-            <xs:extension base="user:user"/>
+            <xs:extension base="user:TUser"/>
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="Agent">
+    <xs:complexType name="TAgent">
         <xs:complexContent>
-            <xs:extension base="user:user">
+            <xs:extension base="user:TUser">
                 <xs:sequence>
                     <xs:element name="firstName">
                         <xs:simpleType>
