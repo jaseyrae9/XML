@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.tim17.com/message" xmlns:message="http://www.tim17.com/message"
+    xmlns:reservation="http://www.tim17.com/reservation" xmlns:user="http://www.tim17.com/user">
+
+    <xs:import namespace="http://www.tim17.com/user" schemaLocation="user.xsd"/>
+    <xs:import namespace="http://www.tim17.com/reservation" schemaLocation="reservation.xsd"/>
+    <xs:complexType name="Message" abstract="true">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="reservation" type="reservation:Reservation"/>
+            <xs:element name="dateSent" type="xs:dateTime"/>
+            <xs:element name="message">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="256"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Question">
+        <xs:complexContent>
+            <xs:extension base="message:Message">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="answer" type="message:Answer"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Answer">
+        <xs:complexContent>
+            <xs:extension base="message:Message">
+                <xs:sequence>
+                    <xs:element name="answeredBy" type="user:Agent"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

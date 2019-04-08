@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.tim17.com/recension"
+    xmlns:recension="http://www.tim17.com/recension"
+    xmlns:reservation="http://www.tim17.com/reservation">
+    <xs:import namespace="http://www.tim17.com/reservation" schemaLocation="reservation.xsd"/>
+    <xs:complexType name="Recension">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element minOccurs="0" ref="recension:comment"/>
+            <xs:element default="false" name="isApproved" type="xs:boolean"/>
+            <xs:element name="dateOfRecension" type="xs:date"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element ref="recension:rating"/>
+                    <xs:element ref="recension:comment"/>
+                </xs:sequence>
+                <xs:element ref="recension:comment"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="rating">
+        <xs:simpleType>
+            <xs:restriction base="xs:double">
+                <xs:minInclusive value="0"/>
+                <xs:maxInclusive value="10"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="comment">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:minLength value="1"/>
+                <xs:maxLength value="255"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+</xs:schema>
