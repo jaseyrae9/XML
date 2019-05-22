@@ -1,21 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Tickets<b>Reservation</b></a>
+  <a class="navbar-brand" href="#">Mega<b>Travel</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
+
+  
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav">
           <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/">Home</a></li>
-          <li class="nav-item dropdown" routerLinkActive="active">
-              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Flights
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" routerLink="/find-flight">Find flight</a>
-                <a class="dropdown-item" routerLink="/aircompanies">All companies</a>
-                <a class="dropdown-item"re (click)="openNewAirAdminModal()">Add admin</a>
-              </div>
-          </li>
           <li class="nav-item dropdown" routerLinkActive="active">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Hotels
@@ -23,19 +15,8 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" routerLink="/find-room">Find hotel</a>
                 <a class="dropdown-item" routerLink="/hotels">All hotels</a>
-                <a *ngIf="tokenService.isSysAdmin" class="dropdown-item" (click)="openNewHotelAdminModal()" >Add admin</a>
               </div>
-          </li>
-          <li class="nav-item dropdown" routerLinkActive="active">
-              <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Rent-a-Car
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" routerLink="/find-car">Find rent-a-car company</a>
-                <a class="dropdown-item" routerLink="/rent-a-car-companies">All rent-a-car companies</a>
-                <a *ngIf="tokenService.isSysAdmin" class="dropdown-item" (click)="openNewCarCompanyAdminModal()">Add admin</a>
-              </div>
-          </li>
+          </li>        
       </ul>
 
       <ul class="nav navbar-nav navbar-right ml-auto" *ngIf="loggedIn; else notShow">
@@ -45,11 +26,8 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" routerLink="/profile">Profile</a>
-                      <a class="dropdown-item" routerLink="/friends" *ngIf="tokenService.isCustomer" >Friends</a>
-                      <div class="dropdown-divider" *ngIf="tokenService.isCustomer || tokenService.isSysAdmin" ></div>
+                      <div class="dropdown-divider" *ngIf="tokenService.isCustomer"></div>
                       <a class="dropdown-item" routerLink="/history" *ngIf="tokenService.isCustomer" >History</a>
-                      <a class="dropdown-item" routerLink="/invites" *ngIf="tokenService.isCustomer" >Trip invites</a>
-                      <a *ngIf="tokenService.isSysAdmin" class="dropdown-item" (click)="openSysAdminModal()">Add system admin</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" (click)="logout()">Log out</a>
                   </div>

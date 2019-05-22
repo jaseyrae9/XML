@@ -18,7 +18,7 @@ export class RegisterFormComponent implements OnInit {
   errorMessage = '';
 
   constructor(private authService: AuthService,
-    private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -33,6 +33,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSignup() {
+    console.log('Pritisnut sign up');
     const pass = this.registerForm.value.password;
     const confirmPass = this.registerForm.value.matchingPassword;
     if (pass !== confirmPass) {

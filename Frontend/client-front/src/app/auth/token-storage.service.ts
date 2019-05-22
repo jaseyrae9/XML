@@ -10,26 +10,26 @@ const ROLES_KEY = 'roles';
   providedIn: 'root'
 })
 export class TokenStorageService {
-  
-  private isLoggedIn = new Subject<Boolean>();
-  private username = new Subject<String>();
+
+  private isLoggedIn = new Subject<boolean>();
+  private username = new Subject<string>();
   private roles = new Subject<Role[]>();
 
   public logggedInEmitter = this.isLoggedIn.asObservable();
   public usernameEmitter = this.username.asObservable();
-  
+
   public isCustomer = false;
   public isVistor = false;
 
-  constructor() { 
+  constructor() {
     this.isLoggedIn.next(false);
   }
 
-  loggedInEmitChange(loggedIn: Boolean) {
+  loggedInEmitChange(loggedIn: boolean) {
     this.isLoggedIn.next(loggedIn);
   }
 
-  usernameEmitChange(username: String) {
+  usernameEmitChange(username: string) {
     this.username.next(username);
   }
 
@@ -81,7 +81,7 @@ export class TokenStorageService {
     this.usernameEmitChange(null);
   }
 
-  public checkIsLoggedIn(): Boolean {
+  public checkIsLoggedIn(): boolean {
     // TODO: Promeniti da proveri vazi li token i dalje
     if (sessionStorage.getItem(TOKEN_KEY)) {
       return true;

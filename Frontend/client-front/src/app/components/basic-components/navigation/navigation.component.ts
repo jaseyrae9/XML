@@ -11,10 +11,9 @@ export class NavigationComponent implements OnInit {
   public loggedIn: Boolean;
   public username: String;
 
-  constructor(private router: Router, 
-    public tokenService: TokenStorageService) {
+  constructor(private router: Router,
+              public tokenService: TokenStorageService) {
 
-      
     this.loggedIn = tokenService.checkIsLoggedIn();
 
   }
