@@ -25,6 +25,9 @@ public class TokenUtils {
 	
 	private String generateAudience(Device device) {
 		String audience = this.tokenParameters.getAUDIENCE_UNKNOWN();
+		if(device == null) {
+			return audience;
+		}
 		if (device.isNormal()) {
 			audience = this.tokenParameters.getAUDIENCE_WEB();
 		} else if (device.isTablet()) {
@@ -62,7 +65,7 @@ public class TokenUtils {
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put("roles", userDetails.getAuthorities());			
 		claims.put("sub", userDetails.getUsername());
-		//claims.put("audience", this.generateAudience(device));
+		claims.put("audience", this.generateAudience(device));
 		claims.put("created", new Date(System.currentTimeMillis()));
 		return this.generateToken(claims);
 	}

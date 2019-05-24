@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Parameters for tokens.
+ * @author Milica
+ */
 @Getter
 @Setter
 @NoArgsConstructor

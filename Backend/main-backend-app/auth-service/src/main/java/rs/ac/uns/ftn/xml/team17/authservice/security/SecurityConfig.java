@@ -14,40 +14,36 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import rs.ac.uns.ftn.xml.team17.authservice.service.auth.CustomUserDetailsService;
+import rs.ac.uns.ftn.xml.team17.authservice.service.actionservice.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
-	
+
+	@Bean
+	public PasswordEncoder getEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(this.getEncoder());
+	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 
-		http.
-		sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
-		.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
-		.authorizeRequests()
-		.antMatchers("/auth/login").permitAll()
-		.anyRequest().authenticated();
-	}
-	
-	@Override 
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.parentAuthenticationManager(authenticationManagerBean());
-		auth.userDetailsService(userDetailsService).passwordEncoder(this.getEncoder());
-	}
-	
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-	    return super.authenticationManagerBean();
-	}
-	
-	@Bean
-	public PasswordEncoder getEncoder() {
-	    return new BCryptPasswordEncoder();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
+				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
+				.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
 	}
 }
