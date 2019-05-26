@@ -23,6 +23,9 @@ public class AuthorizationController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> login(@RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO, HttpServletRequest request){		
 		String token = authenticationService.login(authenticationRequestDTO.getUsername(), authenticationRequestDTO.getPassword(), request);
+		if(request == null ) {
+			System.out.println("Request is null");
+		}
 		return ResponseEntity.ok(token);
 	}
 

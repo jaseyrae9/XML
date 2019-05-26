@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.xml.team17.authservice.model.entity.address;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
-
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
