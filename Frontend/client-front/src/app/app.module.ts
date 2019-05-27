@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RoutingModule } from './app-routing.module';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+// datepicker
+import { BsDatepickerModule} from 'ngx-bootstrap';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/basic-components/navigation/navigation.component';
@@ -18,6 +21,13 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { RoleGuardService } from './auth/role-guard.service';
 import { HotelBasicDetailsComponent } from './components/hotel/hotel-basic-details/hotel-basic-details.component';
 import { AllHotelsPageComponent } from './pages/all-hotels-page/all-hotels-page.component';
+import { MapComponent } from './components/map/map.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import { EditProfileFormComponent } from './components/user/edit-profile-form/edit-profile-form.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { AllReservationsComponent } from './components/reservations-history/all-reservations/all-reservations.component';
+import { ReservationComponent } from './components/reservations-history/reservation/reservation.component';
+import { ReservationDetailsComponent } from './components/reservations-history/reservation-details/reservation-details.component';
 
 
 @NgModule({
@@ -31,7 +41,14 @@ import { AllHotelsPageComponent } from './pages/all-hotels-page/all-hotels-page.
     ErrorPageComponent,
     BannerComponent,
     HotelBasicDetailsComponent,
-    AllHotelsPageComponent
+    AllHotelsPageComponent,
+    MapComponent,
+    ProfileComponent,
+    EditProfileFormComponent,
+    SearchPageComponent,
+    AllReservationsComponent,
+    ReservationComponent,
+    ReservationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +58,10 @@ import { AllHotelsPageComponent } from './pages/all-hotels-page/all-hotels-page.
     ModalModule.forRoot(),
     ReactiveFormsModule,
     NgBootstrapFormValidationModule.forRoot(),
-    NgBootstrapFormValidationModule
+    NgBootstrapFormValidationModule,
+    BsDatepickerModule.forRoot(),
   ],
-  providers: [RoleGuardService],
+  providers: [RoleGuardService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

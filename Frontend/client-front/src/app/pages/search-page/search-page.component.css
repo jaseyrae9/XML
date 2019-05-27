@@ -1,0 +1,16 @@
+.btn-space {
+    margin-right: 5px;
+}
+
+a:hover{
+    color: darkslategrey;
+  }
+  
+  a:focus{
+    color: darkslategrey;
+  }
+  
+  a{
+    color: #33cabb;
+  }
+  

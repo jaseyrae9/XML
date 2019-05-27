@@ -22,11 +22,10 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
       password: ['', [Validators.required]],
       matchingPassword: ['', [Validators.required]]
     });
@@ -43,11 +42,10 @@ export class RegisterFormComponent implements OnInit {
 
     console.log(this.registerForm.value);
     this.signupInfo = new SignUpInfo(
+      this.registerForm.value.username,
       this.registerForm.value.email,
       this.registerForm.value.firstName,
       this.registerForm.value.lastName,
-      this.registerForm.value.address,
-      this.registerForm.value.phoneNumber,
       this.registerForm.value.password
     );
 

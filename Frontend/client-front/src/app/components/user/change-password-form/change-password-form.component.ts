@@ -15,7 +15,7 @@ import * as decode from 'jwt-decode';
 @Component({
   selector: 'app-change-password-form',
   templateUrl: './change-password-form.component.html',
-  styleUrls: ['./change-password-form.component.css']
+  styleUrls: ['./change-password-form.component.css', '../../../shared/css/inputField.css']
 })
 
 export class ChangePasswordFormComponent implements OnInit {
@@ -33,8 +33,10 @@ export class ChangePasswordFormComponent implements OnInit {
 
   @ViewChild('changePasswordModal') changePasswordModal;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService,
-    private tokenService: TokenStorageService, private modalService: BsModalService) { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private tokenService: TokenStorageService,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     this.editForm = this.formBuilder.group({

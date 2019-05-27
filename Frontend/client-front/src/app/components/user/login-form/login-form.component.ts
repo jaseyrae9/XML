@@ -22,7 +22,7 @@ export class LoginFormComponent implements OnInit {
   private loginInfo: AuthLoginInfo;
 
   constructor(private authService: AuthService,
-     private tokenStorage: TokenStorageService) { }
+              private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }
