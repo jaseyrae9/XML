@@ -1,5 +1,4 @@
-
-package rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService;
+package rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +15,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 /**
  * <p>
- * Java class for AdditionalService complex type.
+ * Java class for RoomCategory complex type.
  * </p>
  */
-
 //Database annotations
 @Entity
 //Lambok annotations
@@ -31,27 +30,33 @@ import lombok.Setter;
 @Setter
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AdditionalService", namespace = "http://www.tim17.com/additionalService", propOrder = { "id", "name" })
-public class AdditionalService {
-
+@XmlType(name = "RoomCategory", namespace = "http://www.tim17.com/roomCategory", propOrder = { "id", "numberOfStars",
+		"description" })
+public class RoomCategory {
+	
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "additionalService_generator")
-	@SequenceGenerator(name="additionalService_generator", sequenceName = "additionalService_seq")
-	@XmlElement(namespace = "http://www.tim17.com/additionalService")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomCategory_generator")
+	@SequenceGenerator(name="roomCategory_generator", sequenceName = "roomCategory_seq")
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
 	protected Integer id;
 
 	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/additionalService", required = true)
-	protected String name;
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
+	protected Integer numberOfStars;
+
+	@Column
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
+	protected String description;
 	
 	@Column(nullable = false)
 	private Boolean active;
-
-	public AdditionalService(String name) {
+	
+	public RoomCategory(Integer numberOfStars, String description) {
 		super();
-		this.name = name;
+		this.numberOfStars = numberOfStars;
+		this.description = description;
+		
 		this.active = true; // when created it is active
 	}
-
 }

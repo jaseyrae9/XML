@@ -1,5 +1,6 @@
 
-package rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService;
+
+package rs.ac.uns.ftn.xml.team17.adminservice.model.roomType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,42 +17,41 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 /**
  * <p>
- * Java class for AdditionalService complex type.
+ * Java class for RoomType complex type.
  * </p>
  */
-
 //Database annotations
 @Entity
 //Lambok annotations
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AdditionalService", namespace = "http://www.tim17.com/additionalService", propOrder = { "id", "name" })
-public class AdditionalService {
-
-	@EqualsAndHashCode.Include
+@XmlType(name = "RoomType", namespace = "http://www.tim17.com/roomType", propOrder = { "id", "name" })
+public class RoomType {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "additionalService_generator")
-	@SequenceGenerator(name="additionalService_generator", sequenceName = "additionalService_seq")
-	@XmlElement(namespace = "http://www.tim17.com/additionalService")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomType_generator")
+	@SequenceGenerator(name="roomType_generator", sequenceName = "roomType_seq")
+	@XmlElement(namespace = "http://www.tim17.com/roomType")
 	protected Integer id;
 
-	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/additionalService", required = true)
+	@Column(nullable = false, unique = true)
+	@XmlElement(namespace = "http://www.tim17.com/roomType", required = true)
 	protected String name;
 	
 	@Column(nullable = false)
 	private Boolean active;
-
-	public AdditionalService(String name) {
+	
+	public RoomType(String name) {
 		super();
 		this.name = name;
 		this.active = true; // when created it is active
-	}
 
+	}
 }
