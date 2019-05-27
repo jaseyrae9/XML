@@ -34,9 +34,10 @@ public class AdditionalServiceController {
 	}
 	
 	/**
+	 * Returns data about the additional service with selected id.
 	 * 
 	 * @param id - id of additional service
-	 * @return returns data about additional service with selected id.
+	 * @return 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
@@ -48,7 +49,7 @@ public class AdditionalServiceController {
 	}
 	
 	/**
-	 * Adds new additional service.
+	 * Adds a new additional service.
 	 * 
 	 * @param additionalServiceDTO  - informations of additional service
 	 * @return
@@ -60,9 +61,9 @@ public class AdditionalServiceController {
 	}
 	
 	/**
-	 * Edit existing additional service.
+	 * Edits the existing additional service with selected id.
 	 * 
-	 * @param id - id of selected additional service
+	 * @param id - id of additional service
 	 * @param additionalServiceDTO - contains new informations for additional service
 	 * @return
 	 */
@@ -82,6 +83,12 @@ public class AdditionalServiceController {
 		return new ResponseEntity<>(new AdditionalServiceDTO(additionalServiceService.save(opt.get())), HttpStatus.OK);
 	}
 	
+	/**
+	 * Deletes the existing additional service.
+	 * 
+	 * @param id - id of selected additional service
+	 * @return
+	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteAdditionalService(@PathVariable Integer id) {
 		additionalServiceService.deleteAdditionalService(id);

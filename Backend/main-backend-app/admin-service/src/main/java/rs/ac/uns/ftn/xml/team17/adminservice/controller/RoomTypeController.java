@@ -46,7 +46,7 @@ public class RoomTypeController {
 	} 	
 	
 	/**
-	 * Adds new room type.
+	 * Adds a new room type.
 	 * 
 	 * @param roomTypeDTO - informations of room type
 	 * @return
@@ -58,7 +58,7 @@ public class RoomTypeController {
 	}
 	
 	/**
-	 * Edit existing room type.
+	 * Edits the existing room type with selected id.
 	 * 
 	 * @param id - id of room type
 	 * @param roomTypeDTO - contains new information for room type
@@ -78,5 +78,17 @@ public class RoomTypeController {
 		});
 		
 		return new ResponseEntity<>(new RoomTypeDTO(roomTypeService.save(opt.get())), HttpStatus.OK);
+	}
+	
+	/**
+	 * Deletes the existing room type.
+	 * 
+	 * @param id - id of selected room type
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteRoomType(@PathVariable Integer id) {
+		roomTypeService.deleteRoomType(id);
+		return new ResponseEntity<>(HttpStatus.OK);	
 	}
 }

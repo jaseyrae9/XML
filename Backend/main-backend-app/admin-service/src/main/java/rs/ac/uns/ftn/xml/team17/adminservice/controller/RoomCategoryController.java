@@ -35,7 +35,7 @@ public class RoomCategoryController {
 	}
 	
 	/** 
-	 * Returns data about room category with selected id.
+	 * Returns data about the room category with selected id.
 	 * 
 	 * @param id - id of room category.
 	 * @return 
@@ -50,7 +50,7 @@ public class RoomCategoryController {
 	} 
 	
 	/**
-	 * Adds new room category.
+	 * Adds a new room category.
 	 * 
 	 * @param roomCategoryDTO - informations of room category
 	 * @return
@@ -62,9 +62,9 @@ public class RoomCategoryController {
 	}
 	
 	/**
-	 * Edit existing room category.
+	 * Edits the existing room category with selected id.
 	 * 
-	 * @param id- id of room category
+	 * @param id - id of room category
 	 * @param roomCategoryDTO - contains new information for room category
 	 * @return
 	 */
@@ -84,5 +84,17 @@ public class RoomCategoryController {
 		
 		return new ResponseEntity<>(new RoomCategoryDTO(roomCategoryService.save(opt.get())), HttpStatus.OK);
 
+	}
+	
+	/**
+	 * Deletes the existing room category.
+	 * 
+	 * @param id - id of selected additional service
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteRoomCategory(@PathVariable Integer id) {
+		roomCategoryService.deleteRoomCategory(id);
+		return new ResponseEntity<>(HttpStatus.OK);	
 	}
 }

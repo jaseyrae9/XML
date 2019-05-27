@@ -33,9 +33,25 @@ public class RoomCategoryService {
 	public Optional<RoomCategory> findRoomCategory(Integer id) {
 		return roomCategoryRepository.findById(id);
 	}
+
+	/**
+	 * Deactivates the existing room category.
+	 * @param id - id of the selected room category
+	 */
+	public void deleteRoomCategory(Integer id) {
+		Optional<RoomCategory> opt = findRoomCategory(id);
 		
-	// TODO: Logicko?
-//	public void delete(RoomCategory roomCategory) {
-//		roomCategoryRepository.delete(roomCategory);
-//	}
+		if(!opt.isPresent()) {
+			// TODO: exception
+		}
+		
+		RoomCategory roomCategory = opt.get();
+		if(!roomCategory.getActive()) {
+			// TODO: exception
+		}
+		
+		roomCategory.setActive(false);
+		roomCategoryRepository.save(roomCategory);
+	}
+		
 }

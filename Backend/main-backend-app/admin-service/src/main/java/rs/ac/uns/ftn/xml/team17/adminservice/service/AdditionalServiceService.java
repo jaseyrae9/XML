@@ -4,11 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import isa.project.exception_handlers.RequestDataException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.AdditionalServiceRepository;
 
@@ -37,6 +33,10 @@ public class AdditionalServiceService {
 		return additionalServiceRepository.findById(id);
 	}
 
+	/**
+	 * Deactivates the existing additional service.
+	 * @param id - id of the selected additional service
+	 */
 	public void deleteAdditionalService(Integer id) {
 		Optional<AdditionalService> opt = findAdditionalService(id);
 		
@@ -48,8 +48,8 @@ public class AdditionalServiceService {
 		if (!additionalService.getActive()) {
 			// TODO: exception
 		}
-		additionalService.setActive(false);
 		
+		additionalService.setActive(false);		
 		additionalServiceRepository.save(additionalService);
 	}
 }

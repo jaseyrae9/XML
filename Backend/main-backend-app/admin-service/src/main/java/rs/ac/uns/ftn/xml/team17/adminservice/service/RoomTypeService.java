@@ -33,10 +33,26 @@ public class RoomTypeService {
 	public Optional<RoomType> findRoomType(Integer id) {
 		return roomTypeRepository.findById(id);
 	}
+
+	/**
+	 * Deactivates the existing room type.
+	 * @param id - id of the selected room type
+	 */
+	public void deleteRoomType(Integer id) {
+		Optional<RoomType> opt = findRoomType(id);
 		
-	// TODO: Logicko?
-//	public void delete(RoomType roomType) {
-//		roomTypeRepository.delete(roomType);
-//	}
+		if(!opt.isPresent()) {
+			// TODO: exception
+		}
+		
+		RoomType roomType = opt.get();
+		if(!roomType.getActive()) {
+			// TODO: exception
+		}
+		
+		roomType.setActive(false);
+		roomTypeRepository.save(roomType);
+	}
+	
 	
 }
