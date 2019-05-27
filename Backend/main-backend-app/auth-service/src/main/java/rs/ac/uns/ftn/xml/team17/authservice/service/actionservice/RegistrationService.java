@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.xml.team17.authservice.dto.CustomerRegistrationDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.CustomerRegistrationDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Authority;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.AuthorityService;

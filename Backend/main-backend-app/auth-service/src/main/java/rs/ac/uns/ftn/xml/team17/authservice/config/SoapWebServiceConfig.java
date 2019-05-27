@@ -26,17 +26,17 @@ public class SoapWebServiceConfig extends WsConfigurerAdapter {
 	
 	@Bean
     public XsdSchema userSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("auth.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("soap/auth.xsd"));
     }
 	
-	@Bean(name = "authentification")
+	@Bean(name = "authentication")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userSchema) {
 
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setSchema(userSchema);
         definition.setLocationUri("/auth/soap");
-        definition.setPortTypeName("AuthentificationPort");
-        definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/Authentification");
+        definition.setPortTypeName("AuthenticationPort");
+        definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/authentication");
         return definition;
     }
 }

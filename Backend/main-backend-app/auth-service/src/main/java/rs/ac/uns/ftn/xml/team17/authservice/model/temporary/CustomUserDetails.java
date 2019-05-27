@@ -44,5 +44,4 @@ public class CustomUserDetails extends User implements UserDetails {
 				.map(authority -> new SimpleGrantedAuthority("ROLE_" + authority.getAuthority()))
 				.collect(Collectors.toList());
 	}
-
 }

@@ -5,5 +5,5 @@
 // Generated on: 2019.05.25 at 04:24:33 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Authentification", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package rs.ac.uns.ftn.xml.team17.authservice.soap;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.team17.xml.ftn.uns.ac.rs/authentication", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package rs.ac.uns.ftn.xml.team17.authservice.dto.authentication;

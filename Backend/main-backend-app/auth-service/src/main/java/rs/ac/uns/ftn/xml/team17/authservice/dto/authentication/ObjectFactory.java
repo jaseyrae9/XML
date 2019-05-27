@@ -6,7 +6,7 @@
 //
 
 
-package rs.ac.uns.ftn.xml.team17.authservice.soap;
+package rs.ac.uns.ftn.xml.team17.authservice.dto.authentication;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -37,19 +37,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AuthentificationRequest }
+     * Create an instance of {@link AuthenticationRequest }
      * 
      */
-    public AuthentificationRequest createAuthentificationRequest() {
-        return new AuthentificationRequest();
+    public AuthenticationRequest createAuthentificationRequest() {
+        return new AuthenticationRequest();
     }
 
     /**
-     * Create an instance of {@link AuthentificationResponse }
+     * Create an instance of {@link AuthenticationResponse }
      * 
      */
-    public AuthentificationResponse createAuthentificationResponse() {
-        return new AuthentificationResponse();
+    public AuthenticationResponse createAuthentificationResponse() {
+        return new AuthenticationResponse();
     }
 
 }

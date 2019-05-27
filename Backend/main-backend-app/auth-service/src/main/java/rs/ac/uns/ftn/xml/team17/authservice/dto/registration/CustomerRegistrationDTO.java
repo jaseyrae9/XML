@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.xml.team17.authservice.dto;
+package rs.ac.uns.ftn.xml.team17.authservice.dto.registration;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

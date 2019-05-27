@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/Authentification"
-    xmlns="http://www.team17.xml.ftn.uns.ac.rs/Authentification">
-    <xs:element name="authentificationRequest">
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/Authentication"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/Authentication">
+    <xs:element name="authenticationRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="username" type="xs:string"/>
@@ -11,7 +11,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="authentificationResponse">
+    <xs:element name="authenticationResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="token" type="xs:string"/>
