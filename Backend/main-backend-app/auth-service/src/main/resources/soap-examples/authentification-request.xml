@@ -1,10 +1,10 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:us="http://www.team17.xml.ftn.uns.ac.rs/Authentification">
+                  xmlns:us="http://www.team17.xml.ftn.uns.ac.rs/authentication">
     <soapenv:Header/>
     <soapenv:Body>
-        <us:authentificationRequest>
+        <us:authenticationRequest>
             <us:username>Milos</us:username>
             <us:password>Krstic</us:password>
-        </us:authentificationRequest>
+        </us:authenticationRequest>
     </soapenv:Body>
 </soapenv:Envelope>
