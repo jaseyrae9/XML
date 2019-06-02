@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/Authentification"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/Authentification">
+
+    <xs:element name="getReservationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="getReservationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DayReservation" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id" type="xs:int"/>
+                            <xs:element name="date" type="xs:date"/>
+                            <xs:element name="price">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:double">
+                                        <xs:minInclusive value="0"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
