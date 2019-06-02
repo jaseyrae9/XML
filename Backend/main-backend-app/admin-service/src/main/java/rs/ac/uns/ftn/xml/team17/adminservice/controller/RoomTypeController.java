@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -31,7 +33,15 @@ public class RoomTypeController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomTypes(){
-		return new ResponseEntity<>(roomTypeService.findAll(), HttpStatus.OK);
+		Iterable<RoomType> types = roomTypeService.findAll();
+		
+		// convert types to DTO
+		List<RoomTypeDTO> ret = new ArrayList<>();
+		for(RoomType type: types) {
+			ret.add(new RoomTypeDTO(type));			
+		}
+		
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 
 	/**

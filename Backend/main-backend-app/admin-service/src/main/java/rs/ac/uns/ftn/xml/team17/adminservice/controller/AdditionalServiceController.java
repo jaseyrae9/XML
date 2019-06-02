@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -30,7 +32,15 @@ public class AdditionalServiceController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalServices(){
-		return new ResponseEntity<>(additionalServiceService.findAll(), HttpStatus.OK);
+		Iterable<AdditionalService> additionalServices = additionalServiceService.findAll();
+		
+		// convert services to DTO
+		List<AdditionalServiceDTO> ret = new ArrayList<>();
+		for(AdditionalService service: additionalServices) {
+			ret.add(new AdditionalServiceDTO(service));
+		}
+		
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
 	/**

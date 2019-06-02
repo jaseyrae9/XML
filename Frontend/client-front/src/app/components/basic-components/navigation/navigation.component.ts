@@ -15,6 +15,11 @@ export class NavigationComponent implements OnInit {
               public tokenService: TokenStorageService) {
 
     this.loggedIn = tokenService.checkIsLoggedIn();
+    this.tokenService.logggedInEmitter.subscribe(loggedIn => {
+      this.loggedIn = loggedIn;
+    });
+    this.username = tokenService.getUsername();
+    this.tokenService.usernameEmitter.subscribe(username => this.username = username);
 
   }
 

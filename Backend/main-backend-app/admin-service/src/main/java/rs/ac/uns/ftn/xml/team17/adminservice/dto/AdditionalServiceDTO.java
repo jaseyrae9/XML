@@ -17,11 +17,8 @@ public class AdditionalServiceDTO {
 	@NotBlank(message = "Plese, a additional service name.")
 	private String name;
 	
-	private Boolean active; 
-	
 	public AdditionalServiceDTO(AdditionalService additionalService) {
 		this.id = additionalService.getId();
 		this.name = additionalService.getName();
-		this.active = additionalService.getActive();
 	}
 }

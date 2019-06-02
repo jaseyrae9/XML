@@ -81,6 +81,10 @@ export class TokenStorageService {
     this.usernameEmitChange(null);
   }
 
+  public getUsername(): string {
+    return sessionStorage.getItem(USERNAME_KEY);
+  }
+
   public checkIsLoggedIn(): boolean {
     // TODO: Promeniti da proveri vazi li token i dalje
     if (sessionStorage.getItem(TOKEN_KEY)) {

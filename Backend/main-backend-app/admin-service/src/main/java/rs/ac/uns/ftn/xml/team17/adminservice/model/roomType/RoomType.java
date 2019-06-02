@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.hibernate.annotations.Where;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ import lombok.Setter;
  */
 //Database annotations
 @Entity
+@Where(clause="active=true")
 //Lambok annotations
 @NoArgsConstructor
 @Getter

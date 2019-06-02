@@ -1,11 +1,15 @@
 package rs.ac.uns.ftn.xml.team17.authservice.service.entityservice;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
 import rs.ac.uns.ftn.xml.team17.authservice.repository.UserRepository;
 
@@ -38,5 +42,60 @@ public class UserService {
 	 */
 	public User saveUser(User user) {
 		return userRepository.save(user);
+	}
+	
+	public void blockCustomer(Integer id) {
+		Optional <User> user = userRepository.findById(id);
+		if(!user.isPresent()) { 
+			// TODO: exception
+		}
+		
+		if(!(user.get() instanceof Customer)) {
+			// TODO: exception
+		}
+		user.get().setBlocked(true);	
+		
+		userRepository.save(user.get());
+	}
+
+	public void activateCustomer(Integer id) {
+		Optional <User> user = userRepository.findById(id);
+		if(!user.isPresent()) { 
+			// TODO: exception
+		}
+		
+		if(!(user.get() instanceof Customer)) {
+			// TODO: exception
+		}
+		
+		user.get().setBlocked(false);
+		userRepository.save(user.get());
+	}
+
+	public void removeCustomer(Integer id) {
+		// TODO Auto-generated method stub
+		Optional <User> user = userRepository.findById(id);
+		if(!user.isPresent()) { 
+			// TODO: exception
+		}
+		
+		if(!(user.get() instanceof Customer)) {
+			// TODO: exception
+		}
+		user.get().setActive(false);
+		userRepository.save(user.get());
+	}
+	
+	public List<CustomerDTO> getCustomers() {
+		Iterable<User> users = userRepository.findAll();
+		
+		// convert services to DTO
+		List<CustomerDTO> ret = new ArrayList<>();
+		for(User user: users) {
+			if(user instanceof Customer) {
+				ret.add(new CustomerDTO(user));
+			}
+		}
+		return ret;		
 	}
 }

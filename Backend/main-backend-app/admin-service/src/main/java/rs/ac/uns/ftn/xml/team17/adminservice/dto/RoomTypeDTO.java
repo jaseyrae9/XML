@@ -15,12 +15,9 @@ public class RoomTypeDTO {
 	
 	@NotBlank(message = "Plese, a additional service name.")
 	private String name;
-	
-	private Boolean active;
 
 	public RoomTypeDTO(RoomType roomType) {
 		this.id = roomType.getId();
-		this.name = roomType.getName();		
-		this.active = roomType.getActive();
+		this.name = roomType.getName();
 	}
 }

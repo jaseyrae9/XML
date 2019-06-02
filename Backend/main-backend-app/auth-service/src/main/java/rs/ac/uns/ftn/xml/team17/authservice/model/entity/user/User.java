@@ -25,6 +25,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import org.hibernate.annotations.Where;
+
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,6 +41,7 @@ import lombok.Setter;
 //Database annotations
 @Entity
 @Table(name = "users")
+@Where(clause="active=true")
 @Inheritance(strategy = SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = STRING)
 //Lambok annotations
@@ -75,6 +78,12 @@ public abstract class User {
 
 	@Column
 	private Timestamp passwordChangedDate;
+	
+	@Column
+	private Boolean blocked = false;
+	
+	@Column
+	private Boolean active = true;
 
 	public User(User user) {
 		this.id = user.getId();
@@ -82,6 +91,8 @@ public abstract class User {
 		this.password = user.getPassword();
 		this.authorities = user.getUserAuthorities();
 		this.passwordChangedDate = user.getPasswordChangedDate();
+		this.blocked = user.getBlocked();
+		this.active = user.getActive();
 	}
 
 	public List<Authority> getUserAuthorities() {

@@ -24,7 +24,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return !getBlocked();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return getActive();
 	}
 	
 	@Override

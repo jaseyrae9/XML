@@ -20,14 +20,11 @@ public class RoomCategoryDTO {
 	
 	@NotBlank(message = "Please, enter a description.")
 	private String description;
-
-	private Boolean active;
 	
 	public RoomCategoryDTO(RoomCategory roomCategory) {
 		this.id = roomCategory.getId();
 		this.numberOfStars = roomCategory.getNumberOfStars();
 		this.description = roomCategory.getDescription();
-		this.active = roomCategory.getActive();
 	}
 	
 }
