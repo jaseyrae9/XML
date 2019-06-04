@@ -1,13 +1,10 @@
 
 
-package rs.ac.uns.ftn.xml.team17.adminservice.model.roomType;
+package rs.ac.uns.ftn.xml.team17.roomservice.model.roomType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -40,8 +37,6 @@ public class RoomType {
 	
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomType_generator")
-	@SequenceGenerator(name="roomType_generator", sequenceName = "roomType_seq")
 	@XmlElement(namespace = "http://www.tim17.com/roomType")
 	protected Integer id;
 

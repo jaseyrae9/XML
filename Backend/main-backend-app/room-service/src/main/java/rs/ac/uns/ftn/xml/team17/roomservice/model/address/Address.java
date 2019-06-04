@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.authservice.model.entity.address;
+package rs.ac.uns.ftn.xml.team17.roomservice.model.address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

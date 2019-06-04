@@ -1,13 +1,9 @@
 
-
-package rs.ac.uns.ftn.xml.team17.adminservice.model.roomType;
+package rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,43 +15,41 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 /**
  * <p>
- * Java class for RoomType complex type.
+ * Java class for AdditionalService complex type.
  * </p>
  */
+
 //Database annotations
 @Entity
 @Where(clause="active=true")
 //Lambok annotations
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "RoomType", namespace = "http://www.tim17.com/roomType", propOrder = { "id", "name" })
-public class RoomType {
-	
+@XmlType(name = "AdditionalService", namespace = "http://www.tim17.com/additionalService", propOrder = { "id", "name" })
+public class AdditionalService {
+
 	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomType_generator")
-	@SequenceGenerator(name="roomType_generator", sequenceName = "roomType_seq")
-	@XmlElement(namespace = "http://www.tim17.com/roomType")
+	@Id	
+	@XmlElement(namespace = "http://www.tim17.com/additionalService")
 	protected Integer id;
 
-	@Column(nullable = false, unique = true)
-	@XmlElement(namespace = "http://www.tim17.com/roomType", required = true)
+	@Column(nullable = false)
+	@XmlElement(namespace = "http://www.tim17.com/additionalService", required = true)
 	protected String name;
 	
 	@Column(nullable = false)
 	private Boolean active;
-	
-	public RoomType(String name) {
+
+	public AdditionalService(String name) {
 		super();
 		this.name = name;
 		this.active = true; // when created it is active
-
 	}
+
 }

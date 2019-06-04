@@ -1,15 +1,15 @@
 
-package rs.ac.uns.ftn.xml.team17.authservice.model.entity.hotel;
+package rs.ac.uns.ftn.xml.team17.roomservice.model.hotel;
+
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +18,8 @@ import javax.xml.bind.annotation.XmlType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import rs.ac.uns.ftn.xml.team17.authservice.model.entity.address.Address;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.address.Address;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room;
 
 /**
  * <p>
@@ -37,8 +38,6 @@ import rs.ac.uns.ftn.xml.team17.authservice.model.entity.address.Address;
 public class Hotel {
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hotel_generator")
-	@SequenceGenerator(name="hotel_generator", sequenceName = "hotel_seq")
 	@XmlElement(namespace = "http://www.tim17.com/hotel")
 	protected Integer id;
 	
@@ -53,4 +52,7 @@ public class Hotel {
 	@Column(nullable = false, unique = true)
 	@XmlElement(name = "PIB", namespace = "http://www.tim17.com/hotel", required = true)
 	protected String pib;
+	
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	protected Set<Room> rooms;
 }

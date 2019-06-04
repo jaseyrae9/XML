@@ -1,18 +1,14 @@
 
-package rs.ac.uns.ftn.xml.team17.authservice.model.entity.address;
+package rs.ac.uns.ftn.xml.team17.reservationsservice.model.address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,16 +22,13 @@ import lombok.Setter;
 //Lambok annotations
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Address", namespace = "http://www.tim17.com/address", propOrder = { "id", "country", "state", "city",
 		"postalCode", "street", "streetNumber", "lat", "lng" })
 public class Address {
-	@EqualsAndHashCode.Include
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
-	@SequenceGenerator(name="address_generator", sequenceName = "address_seq")
 	@XmlElement(namespace = "http://www.tim17.com/address")
 	protected Integer id;
 

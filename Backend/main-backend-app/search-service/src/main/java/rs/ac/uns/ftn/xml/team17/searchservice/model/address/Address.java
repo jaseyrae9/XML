@@ -1,12 +1,9 @@
 
-package rs.ac.uns.ftn.xml.team17.authservice.model.entity.address;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,8 +31,6 @@ import lombok.Setter;
 public class Address {
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
-	@SequenceGenerator(name="address_generator", sequenceName = "address_seq")
 	@XmlElement(namespace = "http://www.tim17.com/address")
 	protected Integer id;
 
