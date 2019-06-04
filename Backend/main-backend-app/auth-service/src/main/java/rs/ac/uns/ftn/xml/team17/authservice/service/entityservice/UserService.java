@@ -44,6 +44,12 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
+	/**
+	 * Blocks the existing customer. Checks if the user is a customer
+	 * and has been previously blocked.
+	 * 
+	 * @param id - id of the customer
+	 */
 	public void blockCustomer(Integer id) {
 		Optional <User> user = userRepository.findById(id);
 		if(!user.isPresent()) { 
@@ -53,11 +59,22 @@ public class UserService {
 		if(!(user.get() instanceof Customer)) {
 			// TODO: exception
 		}
+		
+		if(user.get().getBlocked()) {
+			// TODO: exception
+			System.out.println("vec je blokiran, ne mozete ga opet blokirati.");
+		}
 		user.get().setBlocked(true);	
 		
 		userRepository.save(user.get());
 	}
 
+	/**
+	 * Activates the blocked customer. Checks if the user is a customer
+	 * and has been previously blocked.
+	 * 
+	 * @param id - id of the customer
+	 */
 	public void activateCustomer(Integer id) {
 		Optional <User> user = userRepository.findById(id);
 		if(!user.isPresent()) { 
@@ -68,10 +85,19 @@ public class UserService {
 			// TODO: exception
 		}
 		
+		if(!user.get().getBlocked()) {
+			// TODO: exception
+			System.out.println("nije blokiran, pa se ne moze blokirati");
+		}
 		user.get().setBlocked(false);
 		userRepository.save(user.get());
 	}
 
+	/**
+	 * Removes the active customer. Checks if the user is a customer.
+	 * 
+	 * @param id - id of the customer
+	 */
 	public void removeCustomer(Integer id) {
 		// TODO Auto-generated method stub
 		Optional <User> user = userRepository.findById(id);
@@ -84,11 +110,16 @@ public class UserService {
 		}
 		
 		user.get().setActive(false);
-		user.get().setUsername(null);
+		user.get().setUsername(null); // TODO: ispraviti
 		
 		userRepository.save(user.get());
 	}
 	
+	/**
+	 * Converts user to customer DTO.
+	 * 
+	 * @return informations about all customers
+	 */
 	public List<CustomerDTO> getCustomers() {
 		Iterable<User> users = userRepository.findAll();
 		

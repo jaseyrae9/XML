@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +31,8 @@ public class RoomCategoryController {
 	 * @return information about all room categories.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getRoomCategories(){
-		Iterable<RoomCategory> categories = roomCategoryService.findAll();
-		
-		// convert categories to DTO
-		List<RoomCategoryDTO> ret = new ArrayList<>();
-		for(RoomCategory category: categories) {
-			ret.add(new RoomCategoryDTO(category));
-		}
-		
+	public ResponseEntity<?> getRoomCategories() {		
+		List<RoomCategoryDTO> ret = roomCategoryService.getRoomCategories();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -80,19 +72,8 @@ public class RoomCategoryController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<RoomCategoryDTO> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategoryDTO roomCategoryDTO) {
-		Optional<RoomCategory> opt = roomCategoryService.findRoomCategory(roomCategoryDTO.getId());
-		
-		if(!opt.isPresent()) {
-			// TODO: exception
-		}
-		
-		// set number of stars and description
-		opt.ifPresent(roomCategory -> {
-			roomCategory.setNumberOfStars(roomCategoryDTO.getNumberOfStars());
-			roomCategory.setDescription(roomCategoryDTO.getDescription());
-		});
-		
-		return new ResponseEntity<>(new RoomCategoryDTO(roomCategoryService.save(opt.get())), HttpStatus.OK);
+		RoomCategoryDTO ret = new RoomCategoryDTO(roomCategoryService.editRoomCategory(roomCategoryDTO));
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 
 	}
 	

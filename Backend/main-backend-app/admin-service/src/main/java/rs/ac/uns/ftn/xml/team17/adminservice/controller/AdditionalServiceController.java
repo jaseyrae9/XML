@@ -1,6 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,15 +30,8 @@ public class AdditionalServiceController {
 	 * @return information about all additional services.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getAdditionalServices(){
-		Iterable<AdditionalService> additionalServices = additionalServiceService.findAll();
-		
-		// convert services to DTO
-		List<AdditionalServiceDTO> ret = new ArrayList<>();
-		for(AdditionalService service: additionalServices) {
-			ret.add(new AdditionalServiceDTO(service));
-		}
-		
+	public ResponseEntity<?> getAdditionalServices(){		
+		List<AdditionalServiceDTO> ret = additionalServiceService.getServices();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -75,22 +67,12 @@ public class AdditionalServiceController {
 	 * 
 	 * @param id - id of additional service
 	 * @param additionalServiceDTO - contains new informations for additional service
-	 * @return
+	 * @return updated additional service
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<AdditionalServiceDTO> editAdditionalService(@PathVariable Integer id, @Valid @RequestBody AdditionalServiceDTO additionalServiceDTO) {
-		Optional<AdditionalService> opt = additionalServiceService.findAdditionalService(additionalServiceDTO.getId());
-		
-		if(!opt.isPresent()) {
-			// TODO: exception
-		}
-		
-		// set name and description
-		opt.ifPresent(additionalService -> {
-			additionalService.setName(additionalServiceDTO.getName());
-		});
-		
-		return new ResponseEntity<>(new AdditionalServiceDTO(additionalServiceService.save(opt.get())), HttpStatus.OK);
+		AdditionalServiceDTO ret = new AdditionalServiceDTO(additionalServiceService.editAddtionalService(additionalServiceDTO));
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
 	/**

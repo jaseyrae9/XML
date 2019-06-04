@@ -1,8 +1,6 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -32,15 +30,8 @@ public class RoomTypeController {
 	 * @return information about all room types.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getRoomTypes(){
-		Iterable<RoomType> types = roomTypeService.findAll();
-		
-		// convert types to DTO
-		List<RoomTypeDTO> ret = new ArrayList<>();
-		for(RoomType type: types) {
-			ret.add(new RoomTypeDTO(type));			
-		}
-		
+	public ResponseEntity<?> getRoomTypes(){		
+		List<RoomTypeDTO> ret = roomTypeService.getRoomTypes();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 
@@ -76,18 +67,8 @@ public class RoomTypeController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<RoomTypeDTO> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomTypeDTO roomTypeDTO) {
-		Optional<RoomType> opt = roomTypeService.findRoomType(roomTypeDTO.getId());
-		
-		if(!opt.isPresent()) {
-			// TODO: exception
-		}
-		
-		// set name and description
-		opt.ifPresent(roomType -> {
-			roomType.setName(roomTypeDTO.getName());
-		});
-		
-		return new ResponseEntity<>(new RoomTypeDTO(roomTypeService.save(opt.get())), HttpStatus.OK);
+		RoomTypeDTO ret = new RoomTypeDTO(roomTypeService.editRoomType(roomTypeDTO));
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
 	/**

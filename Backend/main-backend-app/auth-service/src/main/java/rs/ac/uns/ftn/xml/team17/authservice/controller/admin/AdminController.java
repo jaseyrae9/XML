@@ -19,12 +19,24 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * Blocks the existing customer with selected id.
+	 * 
+	 * @param id - id of the customer
+	 * @return 
+	 */
 	@RequestMapping(value = "/block/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> blockCustomer(@PathVariable Integer id) {
 		userService.blockCustomer(id);		
 		return  new ResponseEntity<>("Customer is successfully blocked.", HttpStatus.OK);
 	}
 
+	/**
+	 * Activates the blocked customer with selected id.
+	 * 
+	 * @param id - id of the customer
+	 * @return 
+	 */
 	@RequestMapping(value = "/activate/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> activateCustomer(@PathVariable Integer id) {
 		userService.activateCustomer(id);
@@ -32,12 +44,23 @@ public class AdminController {
 
 	}
 	
+	/**
+	 * Removes the existing customer with selected id.
+	 * 
+	 * @param id - id of the customer
+	 * @return
+	 */
 	@RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> removeCustomer(@PathVariable Integer id) {
 		userService.removeCustomer(id);
 		return  new ResponseEntity<>("Customer is successfully removed.", HttpStatus.OK);
 	}
 
+	/**
+	 *  Returns DTO objects for customers. Objects contain username and if it is blocked.
+	 *  
+	 * @return information about all customers.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getCustomers() {
 		List<CustomerDTO> ret = userService.getCustomers();
