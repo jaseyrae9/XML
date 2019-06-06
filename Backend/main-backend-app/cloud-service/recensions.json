@@ -1,0 +1,16 @@
+[
+    {
+        "id": "1",
+        "rating": "5",
+        "comment": "Dobar",
+		"approved": "false",
+		"roomId": "1"
+    },
+    {
+        "id": "2",
+        "rating": "6",
+        "comment": "Bolji",
+		"approved": "true",
+		"roomId": "2"
+    }
+]
