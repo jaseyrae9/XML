@@ -1,7 +1,6 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -43,11 +42,9 @@ public class AdditionalServiceController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
-		Optional<AdditionalService> additionalService = additionalServiceService.findAdditionalService(id);
-		if(!additionalService.isPresent()) {
-			// TODO: exception
-		}
-		return new ResponseEntity<>(additionalServiceService.getAdditionalService(id), HttpStatus.OK);
+		AdditionalService additionalService = additionalServiceService.getAdditionalService(id);		
+		AdditionalServiceDTO ret = new AdditionalServiceDTO(additionalService);
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
 	/**

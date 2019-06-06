@@ -43,7 +43,9 @@ public class RoomTypeController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
-		return new ResponseEntity<>(roomTypeService.getRoomType(id), HttpStatus.OK);
+		RoomType roomType = roomTypeService.getRoomType(id);
+		RoomTypeDTO ret = new RoomTypeDTO(roomType);
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	} 	
 	
 	/**

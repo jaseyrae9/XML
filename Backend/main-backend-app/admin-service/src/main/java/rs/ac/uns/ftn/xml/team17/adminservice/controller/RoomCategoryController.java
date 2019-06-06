@@ -1,7 +1,6 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -44,11 +43,9 @@ public class RoomCategoryController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomCategory(@PathVariable Integer id){
-		Optional<RoomCategory> roomCategory = roomCategoryService.findRoomCategory(id);
-		if(!roomCategory.isPresent()) {
-			// TODO: exception
-		}
-		return new ResponseEntity<>(roomCategoryService.getRoomCategory(id), HttpStatus.OK);
+		RoomCategory roomCategory = roomCategoryService.getRoomCategory(id);
+		RoomCategoryDTO ret = new RoomCategoryDTO(roomCategory);
+		return new ResponseEntity<>(ret, HttpStatus.OK);
 	} 
 	
 	/**
