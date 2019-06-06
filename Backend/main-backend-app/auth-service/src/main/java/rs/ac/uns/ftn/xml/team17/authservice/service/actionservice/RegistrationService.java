@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.AgentRegistrationDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.CustomerRegistrationDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Agent;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Authority;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
+import rs.ac.uns.ftn.xml.team17.authservice.service.agentservice.HotelService;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.AuthorityService;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
@@ -18,6 +21,8 @@ public class RegistrationService {
 	private AuthorityService authorityService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private HotelService hotelService;
 	
 	/**
 	 * Registers new customer. Encrypts password. Adds role CUSTOMER to user.
@@ -27,6 +32,12 @@ public class RegistrationService {
 	public User registerCustomer(CustomerRegistrationDTO customerRegistrationDTO) {
 		User customer = customerRegistrationDTO.createCustomer();
 		return registerUser(customer, customerRegistrationDTO.getPassword(), "CUSTOMER");
+	}
+	
+	public User registerAgent(AgentRegistrationDTO agentRegistrationDTO) {
+		Agent agent = agentRegistrationDTO.createAgent();	
+		agent.setHotel(hotelService.getHotel(agentRegistrationDTO.getHotelId()));
+		return registerUser(agent, "agent", "AGENT");
 	}
 	
 	private User registerUser(User user, String password, String role) {

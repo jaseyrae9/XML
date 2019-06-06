@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.AgentRegistrationDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.CustomerRegistrationDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
 import rs.ac.uns.ftn.xml.team17.authservice.service.actionservice.RegistrationService;
@@ -25,4 +26,11 @@ public class RegistrationController {
 		User user = registrationService.registerCustomer(customerRegistrationDTO);
 		return ResponseEntity.ok(user);
 	}
+	
+	@RequestMapping(value = "/registerAgent", method = RequestMethod.POST)
+	public ResponseEntity<User> registerAgent(@RequestBody @Valid AgentRegistrationDTO agentRegistrationDTO) {	
+		User user = registrationService.registerAgent(agentRegistrationDTO);
+		return ResponseEntity.ok(user);
+	}
+
 }
