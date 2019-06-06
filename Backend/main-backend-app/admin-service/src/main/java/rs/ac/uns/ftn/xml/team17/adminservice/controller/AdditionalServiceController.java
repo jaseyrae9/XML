@@ -38,7 +38,7 @@ public class AdditionalServiceController {
 	/**
 	 * Returns data about the additional service with selected id.
 	 * 
-	 * @param id - id of additional service
+	 * @param id - id of the additional service
 	 * @return 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class AdditionalServiceController {
 	/**
 	 * Adds a new additional service.
 	 * 
-	 * @param additionalServiceDTO  - informations of additional service
+	 * @param additionalServiceDTO  - informations of the additional service
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -65,7 +65,7 @@ public class AdditionalServiceController {
 	/**
 	 * Edits the existing additional service with selected id.
 	 * 
-	 * @param id - id of additional service
+	 * @param id - id of the additional service
 	 * @param additionalServiceDTO - contains new informations for additional service
 	 * @return updated additional service
 	 */
@@ -76,9 +76,9 @@ public class AdditionalServiceController {
 	}
 	
 	/**
-	 * Deletes the existing additional service.
+	 * Deletes the existing additional service with selected it.
 	 * 
-	 * @param id - id of selected additional service
+	 * @param id - id of the additional service
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

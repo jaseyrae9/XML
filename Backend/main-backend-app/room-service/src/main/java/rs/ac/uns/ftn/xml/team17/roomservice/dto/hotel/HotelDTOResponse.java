@@ -9,14 +9,18 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HotelPreview {
-	private Integer id;
-	private String name;
-	private Address address;
+public class HotelDTOResponse {
 	
-	public HotelPreview(Hotel hotel) {
+	private Integer id;
+	private String name;	
+	private Address address;	
+	private String pib;
+	
+	public HotelDTOResponse(Hotel hotel) {
 		this.id = hotel.getId();
 		this.name = hotel.getName();
 		this.address = hotel.getAddress();
+		this.pib = hotel.getPib();
 	}
+
 }

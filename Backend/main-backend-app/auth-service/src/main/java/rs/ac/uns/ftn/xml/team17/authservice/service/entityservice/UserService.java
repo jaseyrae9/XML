@@ -60,7 +60,7 @@ public class UserService {
 			// TODO: exception
 		}
 		
-		if(user.get().getBlocked()) {
+		if(user.get().getBlocked()) { // TODO: proveriti uslov
 			// TODO: exception
 			System.out.println("vec je blokiran, ne mozete ga opet blokirati.");
 		}
@@ -85,7 +85,7 @@ public class UserService {
 			// TODO: exception
 		}
 		
-		if(!user.get().getBlocked()) {
+		if(!user.get().getBlocked()) { // TODO: proveriti uslov
 			// TODO: exception
 			System.out.println("nije blokiran, pa se ne moze blokirati");
 		}

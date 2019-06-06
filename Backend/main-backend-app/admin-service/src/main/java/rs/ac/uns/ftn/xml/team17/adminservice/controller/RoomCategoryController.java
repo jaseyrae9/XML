@@ -39,7 +39,7 @@ public class RoomCategoryController {
 	/** 
 	 * Returns data about the room category with selected id.
 	 * 
-	 * @param id - id of room category.
+	 * @param id - id of the room category.
 	 * @return 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -54,7 +54,7 @@ public class RoomCategoryController {
 	/**
 	 * Adds a new room category.
 	 * 
-	 * @param roomCategoryDTO - informations of room category
+	 * @param roomCategoryDTO - informations of the room category
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -66,7 +66,7 @@ public class RoomCategoryController {
 	/**
 	 * Edits the existing room category with selected id.
 	 * 
-	 * @param id - id of room category
+	 * @param id - id of the room category
 	 * @param roomCategoryDTO - contains new information for room category
 	 * @return
 	 */
@@ -78,9 +78,9 @@ public class RoomCategoryController {
 	}
 	
 	/**
-	 * Deletes the existing room category.
+	 * Deletes the existing room category with selected id.
 	 * 
-	 * @param id - id of selected additional service
+	 * @param id - id of the additional service
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

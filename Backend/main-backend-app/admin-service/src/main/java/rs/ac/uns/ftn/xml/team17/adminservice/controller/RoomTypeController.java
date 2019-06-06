@@ -38,7 +38,7 @@ public class RoomTypeController {
 	/**
 	 * Returns data about room type with selected id.
 	 * 
-	 * @param id - id of room type
+	 * @param id - id of the room type
 	 * @return 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -49,7 +49,7 @@ public class RoomTypeController {
 	/**
 	 * Adds a new room type.
 	 * 
-	 * @param roomTypeDTO - informations of room type
+	 * @param roomTypeDTO - informations of the room type
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -61,7 +61,7 @@ public class RoomTypeController {
 	/**
 	 * Edits the existing room type with selected id.
 	 * 
-	 * @param id - id of room type
+	 * @param id - id of the room type
 	 * @param roomTypeDTO - contains new information for room type
 	 * @return
 	 */
@@ -72,9 +72,9 @@ public class RoomTypeController {
 	}
 	
 	/**
-	 * Deletes the existing room type.
+	 * Deletes the existing room type with selected id.
 	 * 
-	 * @param id - id of selected room type
+	 * @param id - id of the room type
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -1,0 +1,50 @@
+
+<div class="container">
+  <div class="row profile">
+  <div class="col-md-3">
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div>
+        <app-map class="center"></app-map>
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+
+      <!-- SIDEBAR USER TITLE -->
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+          {{hotelFull.name}}
+        </div>
+       
+      </div>
+      <!-- END SIDEBAR USER TITLE -->
+      
+      <!-- SIDEBAR MENU -->
+      <div class="profile-usermenu">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">{{hotelFull.address.street}} {{hotelFull.address.streetNumber}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">{{hotelFull.address.city}}, {{hotelFull.address.postalCode}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">{{hotelFull.address.state}}</a>         
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">{{hotelFull.address.country}}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- END MENU -->
+    </div>
+  </div>
+  <div class="col-md-9">
+          <div class="profile-content">
+          <p *ngIf='hotelFull.rooms.length == 0' align="center">There are no rooms.</p>
+          <div *ngFor="let room of hotelFull.rooms">
+            <app-room-basic-info [room]='room'></app-room-basic-info>
+          </div>
+          </div>
+  </div>
+</div>
+</div>

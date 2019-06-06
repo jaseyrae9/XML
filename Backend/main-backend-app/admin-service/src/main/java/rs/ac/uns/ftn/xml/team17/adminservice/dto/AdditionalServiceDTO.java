@@ -14,7 +14,7 @@ public class AdditionalServiceDTO {
 
 	private Integer id;
 	
-	@NotBlank(message = "Plese, a additional service name.")
+	@NotBlank(message = "Plese, enter a additional service name.")
 	private String name;
 	
 	public AdditionalServiceDTO(AdditionalService additionalService) {
