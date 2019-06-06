@@ -41,7 +41,6 @@ public class AdminController {
 	public ResponseEntity<?> activateCustomer(@PathVariable Integer id) {
 		userService.activateCustomer(id);
 		return  new ResponseEntity<>("Customer is successfully activated.", HttpStatus.OK);
-
 	}
 	
 	/**
