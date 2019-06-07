@@ -31,6 +31,7 @@ import { ReservationDetailsComponent } from './components/reservations-history/r
 import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.component';
 import { RoomBasicInfoComponent } from './components/hotel/room-basic-info/room-basic-info.component';
 import { RoomPageComponent } from './components/hotel/room-page/room-page.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { RoomPageComponent } from './components/hotel/room-page/room-page.compon
     NgBootstrapFormValidationModule.forRoot(),
     NgBootstrapFormValidationModule,
     BsDatepickerModule.forRoot(),
+    NgxGalleryModule
   ],
   providers: [RoleGuardService, DatePipe],
   bootstrap: [AppComponent]

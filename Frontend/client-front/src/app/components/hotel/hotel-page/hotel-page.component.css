@@ -15,7 +15,7 @@ body {
   
   /* Profile sidebar */
   .profile-sidebar {
-    padding: 20px 0 10px 0;
+    padding: 25px 0 10px 0;
     background: #fff;
   }
 
@@ -39,8 +39,9 @@ body {
   
   .profile-usertitle-name {
     color: #33cabb;
-    font-size: 15px;
+    font-size: 25px;
     font-weight: 600;
+    margin-top: 10px;
     margin-bottom: 2px;
   }
   

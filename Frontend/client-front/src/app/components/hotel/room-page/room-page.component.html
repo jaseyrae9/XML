@@ -1,3 +1,92 @@
-<p>
-  room-page works!
-</p>
+<div class="container">
+  <div class="row profile">
+    <!--left (location)-->
+    <div class="col-md-3">
+      <!---->
+      <div class="profile-sidebar">
+        <!-- SIDEBAR USERPIC -->
+        <div>
+          <app-map></app-map>
+        </div>
+        <!-- END SIDEBAR USERPIC -->
+
+       
+        <!-- SIDEBAR MENU -->
+        <div class="profile-usermenu">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Street Number</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">City, Postal code</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                state
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                country
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- END MENU -->
+      </div>
+    </div>
+    <!--end left (location)-->
+
+    <!--center-->
+    <div class="col-md-6">
+      <div class="profile-content">
+        
+      </div>
+    </div>
+    <!--end center-->
+
+    <!--right (gallery)-->
+    <div class="col-md-3">
+      <div class="profile-sidebar">
+        <ngx-gallery
+          [options]="galleryOptions"
+          [images]="galleryImages"
+        ></ngx-gallery>
+      </div>
+      
+      <!-- SIDEBAR MENU -->
+      <div class="profile-usermenu">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"
+              ><i class="fa fa-hashtag" aria-hidden="true"></i>Room type</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"
+              ><i class="fa fa-hashtag" aria-hidden="true"></i>Floor number, Room number</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#"
+              ><i class="fa fa-star" aria-hidden="true"></i> stars</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <i class="fa fa-hashtag" aria-hidden="true"></i>Number of people:
+              4
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">
+              <i class="fa fa-hashtag" aria-hidden="true"></i>
+              Cancelation days
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- END MENU -->
+    </div>
+  </div>
+</div>
