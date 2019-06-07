@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomTypeDTO;
+import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomType.GetRoomTypesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomType.RoomType;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomTypeRepository;
 
@@ -72,6 +73,17 @@ public class RoomTypeService {
 		List<RoomTypeDTO> ret = new ArrayList<>();
 		for (RoomType type : types) {
 			ret.add(new RoomTypeDTO(type));
+		}
+		return ret;
+	}
+	
+	public List<GetRoomTypesResponse.RoomType> getRoomTypesSoap() {
+		Iterable<RoomType> types = roomTypeRepository.findAll();
+
+		// convert services to DTO
+		List<GetRoomTypesResponse.RoomType> ret = new ArrayList<>();
+		for (RoomType type : types) {
+			ret.add(new GetRoomTypesResponse.RoomType(type));
 		}
 		return ret;
 	}

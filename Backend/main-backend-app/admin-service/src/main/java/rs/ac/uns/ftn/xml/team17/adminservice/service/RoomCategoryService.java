@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomCategoryDTO;
+import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomCategory.GetRoomCategoriesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomCategoryRepository;
 
@@ -74,6 +75,17 @@ public class RoomCategoryService {
 			ret.add(new RoomCategoryDTO(category));
 		}
 		return ret;
+	}
+	
+	public List<GetRoomCategoriesResponse.RoomCategory> getRoomCategoriesSoap() {
+		Iterable<RoomCategory> categories = roomCategoryRepository.findAll();
+
+		// convert categories to DTO
+		List<GetRoomCategoriesResponse.RoomCategory> ret = new ArrayList<>();
+		for (RoomCategory category : categories) {
+			ret.add(new GetRoomCategoriesResponse.RoomCategory(category));
+		}
+		return ret; 
 	}
 
 	/**

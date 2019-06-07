@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.AdditionalServiceDTO;
+import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.AdditionalService.GetAdditionalServicesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.AdditionalServiceRepository;
 
@@ -72,6 +73,23 @@ public class AdditionalServiceService {
 		}
 		return ret;
 	}
+	
+	/**
+	 * Converts additional services to SOAP DTO.
+	 * 
+	 * @return informations about all additional services
+	 */
+	public List<GetAdditionalServicesResponse.AdditionalService> getServicesSoap() {
+		Iterable<AdditionalService> additionalServices = additionalServiceRepository.findAll();
+
+		// convert services to DTO
+		List<GetAdditionalServicesResponse.AdditionalService> ret = new ArrayList<>();
+		for (AdditionalService service : additionalServices) {
+			ret.add(new GetAdditionalServicesResponse.AdditionalService(service));
+		}
+		return ret;
+	}
+	
 
 	/**
 	 * Edits the existing additional service.
