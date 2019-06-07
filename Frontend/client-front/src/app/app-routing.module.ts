@@ -8,11 +8,13 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { AllReservationsComponent } from './components/reservations-history/all-reservations/all-reservations.component';
 import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.component';
+import { RoomPageComponent } from './components/hotel/room-page/room-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'hotels', component: AllHotelsPageComponent },
   { path: 'hotel/:id', component: HotelPageComponent },
+  { path: 'room/:id', component:  RoomPageComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'history', component: AllReservationsComponent},
   { path: 'find-hotel', component: SearchPageComponent },

@@ -4,7 +4,7 @@ import { RoomPreview } from 'src/app/model/room/roomPreview';
 @Component({
   selector: 'app-room-basic-info',
   templateUrl: './room-basic-info.component.html',
-  styleUrls: ['./room-basic-info.component.css']
+  styleUrls: ['./room-basic-info.component.css', '../../../shared/css/inputField.css']
 })
 export class RoomBasicInfoComponent implements OnInit {
   @Input() room: RoomPreview;

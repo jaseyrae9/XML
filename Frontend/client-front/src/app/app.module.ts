@@ -30,6 +30,7 @@ import { ReservationComponent } from './components/reservations-history/reservat
 import { ReservationDetailsComponent } from './components/reservations-history/reservation-details/reservation-details.component';
 import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.component';
 import { RoomBasicInfoComponent } from './components/hotel/room-basic-info/room-basic-info.component';
+import { RoomPageComponent } from './components/hotel/room-page/room-page.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { RoomBasicInfoComponent } from './components/hotel/room-basic-info/room-
     ReservationComponent,
     ReservationDetailsComponent,
     HotelPageComponent,
-    RoomBasicInfoComponent
+    RoomBasicInfoComponent,
+    RoomPageComponent
   ],
   imports: [
     BrowserModule,
