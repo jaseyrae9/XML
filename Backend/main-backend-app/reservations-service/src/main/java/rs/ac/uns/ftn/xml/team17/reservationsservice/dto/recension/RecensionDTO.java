@@ -17,7 +17,7 @@ public class RecensionDTO {
 	private Date dateOfRecension;
 	
 	private Double rating;
-	protected String comment;
+	private String comment;
 	
 	@NotNull(message = "Please, choose a reservation.")
 	private Integer reservationId;
