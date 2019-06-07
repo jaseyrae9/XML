@@ -27,7 +27,4 @@ public class RoomCategoryEndpoint {
 		response.setRoomCategory(ret);
         return response;
 	}
-	
-	
-	
 }
