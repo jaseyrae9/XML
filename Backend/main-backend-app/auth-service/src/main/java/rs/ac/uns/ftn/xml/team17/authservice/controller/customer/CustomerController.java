@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.xml.team17.authservice.controller.admin;
+package rs.ac.uns.ftn.xml.team17.authservice.controller.customer;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/customer")
+public class CustomerController {
 	@Autowired
 	private UserService userService;
 	
