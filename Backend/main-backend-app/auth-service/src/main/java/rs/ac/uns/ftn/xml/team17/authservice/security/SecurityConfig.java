@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import rs.ac.uns.ftn.xml.team17.authservice.service.actionservice.CustomUserDetailsService;
 
@@ -44,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
-				.authorizeRequests().antMatchers("/auth/**", "/admin/**", "/actuator/**").permitAll().anyRequest().authenticated();
+				.authorizeRequests().antMatchers("/auth/**", "/admin/**", "/actuator/**").permitAll().anyRequest().authenticated().and()
+				.addFilterBefore(new AuthenticationFilter(userDetailsService), BasicAuthenticationFilter.class);
 	}
 }

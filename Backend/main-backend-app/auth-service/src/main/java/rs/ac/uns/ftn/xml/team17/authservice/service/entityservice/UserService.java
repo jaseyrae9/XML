@@ -108,9 +108,10 @@ public class UserService {
 		if(!(user.get() instanceof Customer)) {
 			// TODO: exception
 		}
-		
-		user.get().setActive(false);
-		user.get().setUsername(null); // TODO: ispraviti
+		Customer customer = (Customer) user.get();
+		customer.setActive(false);
+		customer.setUsername(null); // TODO: ispraviti
+		customer.setEmail(null);
 		
 		userRepository.save(user.get());
 	}

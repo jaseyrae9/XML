@@ -55,7 +55,7 @@ import lombok.Setter;
 @XmlType(name = "User", namespace = "http://www.tim17.com/user", propOrder = { "id", "username", "password",
 		"authorities" })
 @XmlSeeAlso({ Agent.class, Customer.class, Admin.class })
-@Check(constraints = "username IS NOT NULL OR ( username IS NULL AND active IS FALSE)")
+@Check(constraints = "username IS NOT NULL OR ( username IS NULL AND active = FALSE)")
 public abstract class User {
 
 	@EqualsAndHashCode.Include
