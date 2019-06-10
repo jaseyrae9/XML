@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/Authentication"
-    xmlns="http://www.team17.xml.ftn.uns.ac.rs/Authentication">
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/authentication"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/authentication">
     <xs:element name="authenticationRequest">
         <xs:complexType>
             <xs:sequence>
