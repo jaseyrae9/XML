@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.NoArgsConstructor;
+
 
 /**
  * <p>Java class for Room complex type.
@@ -112,6 +114,7 @@ import javax.xml.bind.annotation.XmlType;
     "floor",
     "roomNumber"
 })
+@NoArgsConstructor
 public class Room {
 
     protected int hotelId;

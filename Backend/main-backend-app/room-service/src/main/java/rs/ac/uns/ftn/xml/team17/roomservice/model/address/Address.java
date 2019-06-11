@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -31,6 +32,7 @@ import lombok.Setter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Address", namespace = "http://www.tim17.com/address", propOrder = { "id", "country", "state", "city",
 		"postalCode", "street", "streetNumber", "lat", "lng" })
+@NoArgsConstructor
 public class Address {
 	@EqualsAndHashCode.Include
 	@Id

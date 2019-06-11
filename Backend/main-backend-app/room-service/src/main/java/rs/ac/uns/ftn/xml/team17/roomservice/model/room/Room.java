@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.address.Address;
@@ -48,6 +49,7 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
 @XmlType(name = "Room", namespace = "http://www.tim17.com/room", propOrder = { "id", "hotel", "address", "type",
 		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "description",
 		"totalRating", "numberOfRatings", "floor", "roomNumber" })
+@NoArgsConstructor
 public class Room {
 	@EqualsAndHashCode.Include
 	@Id
