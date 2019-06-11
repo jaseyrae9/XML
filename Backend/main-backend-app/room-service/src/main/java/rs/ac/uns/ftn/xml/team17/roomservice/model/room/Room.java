@@ -111,4 +111,10 @@ public class Room {
 	@OrderBy("date ASC")
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected List<Price> prices;
+	
+	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.Room r) {
+		//this.address = new Address(r.getAddress())
+		
+		
+	}
 }

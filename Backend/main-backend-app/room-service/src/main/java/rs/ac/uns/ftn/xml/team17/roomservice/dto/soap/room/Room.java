@@ -403,4 +403,10 @@ public class Room {
         this.roomNumber = value;
     }
 
+    
+    // TODO: Dodati konstruktor koji prima pravu model sobu
+    public Room(rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room r) {
+    	
+    }
+    
 }
