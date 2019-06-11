@@ -44,10 +44,10 @@ public class Hotel {
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hotel_generator")
-	@SequenceGenerator(name="hotel_generator", sequenceName = "hotel_seq")
+	@SequenceGenerator(name = "hotel_generator", sequenceName = "hotel_seq")
 	@XmlElement(namespace = "http://www.tim17.com/hotel")
 	protected Integer id;
-	
+
 	@Column(nullable = false)
 	@XmlElement(name = "name", namespace = "http://www.tim17.com/hotel", required = true)
 	protected String name;
@@ -59,7 +59,7 @@ public class Hotel {
 	@Column(nullable = false, unique = true)
 	@XmlElement(name = "PIB", namespace = "http://www.tim17.com/hotel", required = true)
 	protected String pib;
-	
+
 	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected Set<Room> rooms;
 
@@ -68,6 +68,9 @@ public class Hotel {
 		this.name = name;
 		this.address = address;
 		this.pib = pib;
-	}	
-	
+	}
+
+	public void addRoom(Room r) {
+		this.rooms.add(r);
+	}
 }
