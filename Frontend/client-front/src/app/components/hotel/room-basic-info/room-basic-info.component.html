@@ -1,16 +1,11 @@
-<div class="row border rounded align-items-center p-2 mt-2">
-  <div class="col-sm-3 pt-2" align="center">
-        <div class="d-flex flex-column bd-highlight mb-3">
-                <div class="p-2 bd-highlight">
-                        <img src="assets/images/room/queen.png" class="rounded-circle">
-                </div>
-                <div class="p-2 bd-highlight">      
-                    
-                </div>       
-            </div>
+<div class="row border rounded align-items-center py-2 mt-2">
+  <div class="col-auto pt-2 px-4" align="center">
+        
+                        <img src="assets/images/room/queen/medium.jpg" width="200px" class="rounded">
+                
   </div>
 
-  <div class="col-sm-5 pt-2 border-left p-3" align="center">
+  <div class="col pt-2 border-left border-right p-3" align="center">
       <p style="font-size: 22px;"> Room type: {{room.type.name}} 
           <br><small class="text-muted"> Number of stars: {{room.category.numberOfStars}}</small>
           </p>
@@ -21,7 +16,7 @@
       </div>      
   </div>
   
-  <div class="col border-left p-3" align="center">
+  <div class="col-auto p-3" align="center">
         
 
     <a routerLink="/room/{{room.id}}"><button class="btn btn-primary px-4 m-2">Details...</button></a> 

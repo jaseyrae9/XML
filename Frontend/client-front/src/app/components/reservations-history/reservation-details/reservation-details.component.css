@@ -1,0 +1,16 @@
+.badge-primary {
+  background-color: #33cabb;
+}
+
+.fas {
+  color: #33cabb;
+}
+
+a:focus {
+  color: darkslategrey;
+}
+
+a {
+  color: #33cabb;
+}
+

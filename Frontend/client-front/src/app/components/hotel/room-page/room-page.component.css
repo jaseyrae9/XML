@@ -5,91 +5,127 @@ Licensed under MIT
 ***/
 
 /**/
+a:hover {
+  color: darkslategrey;
+}
+
+a {
+  color: #33cabb;
+}
 
 body {
-    background: #F1F3FA;
-  }
-  
-  /* Profile container */
-  .profile {
-    margin: 20px 0;
-  }
-  
-  /* Profile sidebar */
-  .profile-sidebar {
-    padding: 20px 0 10px 0;
-    background: #fff;
-    
-  }
-  
+  background: #f1f3fa;
+}
 
-  /* Center image*/
-  .center {
-    display: block;
-    margin-left: 35px;
+/* Profile container */
+.profile {
+  margin: 20px 0;
+}
 
-    width: 50%;
-  }
-  
-  /* Nav link */
-  .nav-link {
-    margin-left: 35px;
-  }
-  
-  .profile-usertitle {
-    text-align: center;
-    margin-top: 2px;
-  }
-  
-  .profile-usertitle-name {
-    color: #33cabb;
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-  
- .profile-usermenu {
-    margin-top: 10px;
-  }
-  
-  .profile-usermenu ul li {
-    border-bottom: 1px solid #f0f4f7;
-  }
-  
-  .profile-usermenu ul li:last-child {
-    border-bottom: none;
-  }
-  
-  .profile-usermenu ul li a {
-    color: #93a3b5;
-    font-size: 14px;
-    font-weight: 400;
-  }
-  
-  .profile-usermenu ul li a i {
-    margin-right: 8px;
-    font-size: 14px;
-  }
-  
-  .profile-usermenu ul li a:hover {
-    background-color: #fafcfd;
-    color: #5b9bd1;
-  }
-  
-  .profile-usermenu ul li.active {
-    border-bottom: none;
-  }
-  
-  .profile-usermenu ul li.active a {
-    color: #5b9bd1;
-    background-color: #f6f9fb;
-    border-left: 2px solid #5b9bd1;
-    margin-left: -2px;
-  }
-  
-  /* Profile Content */
-  .profile-content {
-    padding: 20px;
-    background: #fff;
-    min-height: 460px;
-  }
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+
+/* Profile sidebar */
+.profile-sidebar1 {
+  padding: 5px 0 10px 0;
+  background: #fff;
+}
+
+
+/* Center image*/
+.center {
+  display: block;
+  margin-left: 35px;
+
+  width: 50%;
+}
+
+/* Nav link */
+.nav-link {
+  margin-left: 35px;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 2px;
+}
+
+.profile-usertitle-name {
+  color: #33cabb;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.profile-usermenu {
+  margin-top: 10px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+
+ngx-gallery{
+  z-index: 10;
+  position: relative;
+}
+
+.additional-service{
+  color: #33cabb;
+  width: 15px;
+  margin: 5px;
+}
+
+.tab-content{
+
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px;
+}
+
+.nav-tabs {
+  margin-bottom: 0;
+}
