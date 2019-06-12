@@ -24,17 +24,26 @@ public class RoomService {
 	public Room addRoom(NewRoomRequest newRoomRequest) {
 		
 		Optional<Hotel> opt = hotelRepository.findById(newRoomRequest.getId());
+		System.out.println("Pronasli smo hotel");
 		
 		if (!opt.isPresent()) {
 			// TODO: exception
 		}
+		System.out.println("Hotel postoji");
 		
 		Hotel hotel = opt.get();
+		System.out.println("Hotel ucitan");
 		
 		Room r = new Room(newRoomRequest.getRoom());
-		r.setHotel(hotel);
+		System.out.println("Naparvljena soba");
 		
-		return save(r);
+		r.setHotel(hotel);
+		System.out.println("Postavljen hotel");
+		
+		Room ret = save(r);
+		
+		System.out.println("Soba sacuvana");
+		return ret;
 	}
 	
 	

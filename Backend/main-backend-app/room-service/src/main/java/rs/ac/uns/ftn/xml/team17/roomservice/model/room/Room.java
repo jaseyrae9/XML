@@ -115,8 +115,20 @@ public class Room {
 	protected List<Price> prices;
 	
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.Room r) {
-		//this.address = new Address(r.getAddress())
-		
+		this.address = new Address(r.getAddress());
+		this.type = new RoomType(r.getType());
+		this.category = new RoomCategory(r.getCategory());
+		this.defaultPrice = r.getDefaultPrice();
+		this.numberOfPeople = r.getNumberOfPeople();
+		this.cancelationDays = r.getCancelationDays();
+		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.AdditionalService a : r.getAdditionalServices()) {
+			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(a);
+			this.additionalServices.add(as);
+		}
+		this.description = r.getDescription();
+		this.totalRating = r.getTotalRating();
+		this.numberOfRatings = r.getNumberOfRatings();
+		this.roomNumber = r.getRoomNumber();
 		
 	}
 }

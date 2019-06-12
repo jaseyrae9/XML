@@ -15,7 +15,7 @@
     <xs:element name="newRoomResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="successfully" type="xs:boolean"/>
+                <xs:element name="room" type="Room"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

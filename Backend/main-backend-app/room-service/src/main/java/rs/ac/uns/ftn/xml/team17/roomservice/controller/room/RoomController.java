@@ -16,11 +16,13 @@ public class RoomController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{roomId}")
 	public ResponseEntity<RoomFull> getRoom(@PathVariable Integer roomId){
+		System.out.println("U metodi getRoom");
 		return null;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "price/{roomId}")
 	public ResponseEntity<?> getRoomPrice(@PathVariable Integer roomId, @RequestBody DateRange dateRange) {
+		System.out.println("U metodi getRoomPrice");
 		return null;
 	}
  	
