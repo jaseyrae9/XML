@@ -20,8 +20,7 @@ public class RoomCategoryEndpoint {
 	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/roomCategory", localPart = "getRoomCategoriesRequest")
 	@ResponsePayload
-	public GetRoomCategoriesResponse getRoomTypes(@RequestPayload GetRoomCategoriesRequest getRoomCategoriesRequest){			
-		System.out.println("Pozvan get room category");
+	public GetRoomCategoriesResponse getRoomTypes(@RequestPayload GetRoomCategoriesRequest getRoomCategoriesRequest){		
 		GetRoomCategoriesResponse response = new GetRoomCategoriesResponse();
 		List<GetRoomCategoriesResponse.RoomCategory> ret = roomCategoryService.getRoomCategoriesSoap();
 		response.setRoomCategory(ret);

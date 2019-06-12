@@ -114,14 +114,16 @@ public class GetAdditionalServicesResponse {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "id",
-        "name"
+        "name",
+        "active"
     })
     public static class AdditionalService {
 
         protected int id;
         @XmlElement(required = true)
         protected String name;
-
+        protected boolean active;
+        
         /**
          * Gets the value of the id property.
          * 
@@ -162,13 +164,22 @@ public class GetAdditionalServicesResponse {
             this.name = value;
         }
 
-        public AdditionalService() {
+        public boolean isActive() {
+			return active;
+		}
+
+		public void setActive(boolean active) {
+			this.active = active;
+		}
+
+		public AdditionalService() {
         	
         }
         
         public AdditionalService(rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService a) {
         	this.id = a.getId();
         	this.name = a.getName();
+        	this.active = a.getActive();
         }
     }
 

@@ -21,7 +21,7 @@ public class RoomService {
 	private RoomRepository roomRepository;
 	
 	// TODO: morace se proveriti da li pravi admin dodaje sobu
-	public Room addRoom(NewRoomRequest newRoomRequest) {
+	public Integer addRoom(NewRoomRequest newRoomRequest) {
 		
 		Optional<Hotel> opt = hotelRepository.findById(newRoomRequest.getId());
 		System.out.println("Pronasli smo hotel");
@@ -43,7 +43,7 @@ public class RoomService {
 		Room ret = save(r);
 		
 		System.out.println("Soba sacuvana");
-		return ret;
+		return ret.getId();
 	}
 	
 	

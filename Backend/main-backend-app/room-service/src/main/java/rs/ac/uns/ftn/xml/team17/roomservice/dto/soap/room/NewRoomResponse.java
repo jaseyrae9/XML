@@ -16,35 +16,19 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "room"
+    "roomId"
 })
 @XmlRootElement(name = "newRoomResponse")
 public class NewRoomResponse {
 
-    protected Room room;
+    protected Integer roomId;
 
-    /**
-     * Gets the value of the room property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Room }
-     *     
-     */
-    public Room getRoom() {
-        return room;
-    }
+	public Integer getRoomId() {
+		return roomId;
+	}
 
-    /**
-     * Sets the value of the room property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Room }
-     *     
-     */
-    public void setRoom(Room value) {
-        this.room = value;
-    }
-
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+	
 }

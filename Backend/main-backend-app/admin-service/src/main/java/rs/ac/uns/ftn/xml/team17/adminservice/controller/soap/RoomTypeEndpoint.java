@@ -22,7 +22,6 @@ public class RoomTypeEndpoint {
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/roomType", localPart = "getRoomTypesRequest")
 	@ResponsePayload
 	public GetRoomTypesResponse getRoomTypes(@RequestPayload GetRoomTypesRequest getRoomTypesRequest){			
-		System.out.println("Pozvan get room type");
 		GetRoomTypesResponse response = new GetRoomTypesResponse();
 		List<RoomType> ret = roomTypeService.getRoomTypesSoap();
 		response.setRoomType(ret);
