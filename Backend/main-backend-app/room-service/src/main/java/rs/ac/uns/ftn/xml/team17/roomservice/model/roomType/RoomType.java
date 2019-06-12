@@ -53,4 +53,11 @@ public class RoomType {
 		this.active = true; // when created it is active
 
 	}
+	
+	public RoomType(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.RoomType r) { 
+		super();
+		this.id = r.getId();
+		this.name = r.getName();
+		this.active = true;
+	}
 }

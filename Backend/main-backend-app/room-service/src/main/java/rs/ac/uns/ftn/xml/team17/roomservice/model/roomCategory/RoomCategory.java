@@ -57,4 +57,14 @@ public class RoomCategory {
 		
 		this.active = true; // when created it is active
 	}
+	
+	public RoomCategory(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.RoomCategory r) {
+		super();
+		
+		this.id = r.getId();
+		this.numberOfStars = r.getNumberOfStars();
+		this.description = r.getDescription();
+		
+		this.active = true;
+	}
 }

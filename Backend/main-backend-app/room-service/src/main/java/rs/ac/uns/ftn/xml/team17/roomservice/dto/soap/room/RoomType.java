@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.NoArgsConstructor;
+
 
 /**
  * <p>Java class for RoomType complex type.
@@ -45,13 +47,19 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "name"
 })
+@NoArgsConstructor
 public class RoomType {
 
     protected int id;
     @XmlElement(required = true)
     protected String name;
 
-    /**
+    public RoomType(rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType type) {
+		this.id = type.getId();
+		this.name = type.getName();
+	}
+
+	/**
      * Gets the value of the id property.
      * 
      */

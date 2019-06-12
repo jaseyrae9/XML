@@ -12,55 +12,28 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.NoArgsConstructor;
 
-/**
- * <p>Java class for RoomCategory complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="RoomCategory">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="numberOfStars">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}int">
- *               &lt;minInclusive value="0"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *         &lt;element name="description" minOccurs="0">
- *           &lt;simpleType>
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *               &lt;minLength value="1"/>
- *               &lt;whiteSpace value="preserve"/>
- *               &lt;maxLength value="256"/>
- *             &lt;/restriction>
- *           &lt;/simpleType>
- *         &lt;/element>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- * 
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RoomCategory", propOrder = {
     "id",
     "numberOfStars",
     "description"
 })
+@NoArgsConstructor
 public class RoomCategory {
 
     protected int id;
     protected int numberOfStars;
     protected String description;
 
-    /**
+    public RoomCategory(rs.ac.uns.ftn.xml.team17.roomservice.model.roomCategory.RoomCategory category) {
+		this.id = category.getId();
+		this.numberOfStars = category.getNumberOfStars();
+		this.description = category.getDescription();
+	}
+
+	/**
      * Gets the value of the id property.
      * 
      */

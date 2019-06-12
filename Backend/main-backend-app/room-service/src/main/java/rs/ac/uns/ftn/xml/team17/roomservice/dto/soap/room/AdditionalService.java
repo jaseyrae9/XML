@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.NoArgsConstructor;
+
 
 /**
  * <p>Java class for AdditionalService complex type.
@@ -45,13 +47,19 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "name"
 })
+@NoArgsConstructor
 public class AdditionalService {
 
     protected int id;
     @XmlElement(required = true)
     protected String name;
 
-    /**
+    public AdditionalService(rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService a) {
+		this.id = a.getId();
+		this.name = a.getName();
+    }
+
+	/**
      * Gets the value of the id property.
      * 
      */
