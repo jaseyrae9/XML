@@ -32,7 +32,7 @@ import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.com
 import { RoomBasicInfoComponent } from './components/hotel/room-basic-info/room-basic-info.component';
 import { RoomPageComponent } from './components/hotel/room-page/room-page.component';
 import { NgxGalleryModule } from 'ngx-gallery';
-
+import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
     NgBootstrapFormValidationModule.forRoot(),
     NgBootstrapFormValidationModule,
     BsDatepickerModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    FullCalendarModule // for FullCalendar!
   ],
   providers: [RoleGuardService, DatePipe],
   bootstrap: [AppComponent]

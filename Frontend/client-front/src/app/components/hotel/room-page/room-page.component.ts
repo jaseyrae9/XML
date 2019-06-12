@@ -3,6 +3,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
 import { RoomFull } from 'src/app/model/room/roomFull';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 @Component({
   selector: 'app-room-page',
@@ -20,7 +22,20 @@ export class RoomPageComponent implements OnInit {
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsRangeValue: Date[];
 
-  constructor(public datePipe: DatePipe) { 
+  calendarPlugins = [dayGridPlugin]; // important!
+
+  calendarEvents = [
+    { title: '€15', date: '2019-06-15',
+    backgroundColor: '#33cabb',
+    borderColor: '#33cabb',
+    textColor: 'darkslategrey'
+   },
+   {
+    title: '€18', date: '2019-06-17'
+   }
+  ];
+
+  constructor(public datePipe: DatePipe) {
     this.datePickerConfig = Object.assign({},
       {
         containerClass: 'theme-default',

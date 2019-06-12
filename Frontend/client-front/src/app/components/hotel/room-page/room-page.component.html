@@ -13,7 +13,7 @@
     <div class="col-3">
       <div class="row">
         <div class="col-12">
-            <div class="profile-sidebar">
+            <div class="profile-sidebar1">
                 <ngx-gallery
                   [options]="galleryOptions"
                   [images]="galleryImages"
@@ -53,28 +53,72 @@
                 </ul>
               </div>
               <!-- END MENU -->
-
-
         </div>
       </div>
-
     </div>
     <!-- kraj levog dela -->
+
 
     <!--centar - opis i tab (cenovnik i dodatne usluge) -->
     <div class="col-6">
       <!--opis red-->
       <div class="row">
-        <div class="col-12">
-
+        <div class="col-12 pb-2">
+            <p align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+               It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+              </p>
         </div>
       </div>
       <!--kraj opis reda-->
 
+
       <!--tab red-->
       <div class="row">
         <div class="col-12">
+      
+              <ul class="nav nav-tabs">
+                  <!--CENOVNIK-->
+                  <li class="nav-item active">
+                    <a href="#pricelist" role="tab" data-toggle="tab" class="nav-link active">
+                      <i class="fa fa-euro-sign" aria-hidden="true"></i>Pricelist
+                    </a>
+                  </li>
+                  <!--ADDITIONAL SERVICES-->
+                  <li class="nav-item">
+                    <a href="#services" role="tab" data-toggle="tab" class="nav-link">
+                      <i class="fa fa-tag" aria-hidden="true"></i> Additional services
+                    </a>
+                  </li>
+                  <!--REVIEWS-->
+                  <li class="nav-item">
+                    <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
+                      <i class="fa fa-star" aria-hidden="true"></i> Reviews
+                    </a>
+                  </li>
+              </ul>
 
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="pricelist" aria-labelledby="pricelist-tab">
+                      <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"
+                      [plugins]="calendarPlugins"
+                      [events]="calendarEvents">
+                    </full-calendar>
+                    </div>
+                
+                    <div class="tab-pane fade" id="services" aria-labelledby="services-tab">
+                        <p>dadada</p>
+                         <!--<app-additional-services-table [companyId]="hotelId" [isAdditionalServicesTab]='true' [additionalServices]="hotel.additionalServices"
+                           (editEmitter)='editClicked($event)' (deleteEmitter)='deleteClicked($event)' (fastEmitter)="fastAdd($event)"
+                           (fastRemoveEmitter)="fastRemove($event)"></app-additional-services-table>-->
+                    </div>
+                    <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
+                      <p>komentari</p>
+                       
+                  </div>
+              </div>
+           
+            <br/>
         </div>
       </div>
       <!--kraj tab reda-->
