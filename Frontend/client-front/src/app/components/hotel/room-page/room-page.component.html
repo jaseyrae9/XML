@@ -1,92 +1,152 @@
 <div class="container">
-  <div class="row profile">
-    <!--left (location)-->
-    <div class="col-md-3">
-      <!---->
-      <div class="profile-sidebar">
-        <!-- SIDEBAR USERPIC -->
-        <div>
-          <app-map></app-map>
-        </div>
-        <!-- END SIDEBAR USERPIC -->
-
-       
-        <!-- SIDEBAR MENU -->
-        <div class="profile-usermenu">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Street Number</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">City, Postal code</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                state
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                country
-              </a>
-            </li>
-          </ul>
-        </div>
-        <!-- END MENU -->
-      </div>
-    </div>
-    <!--end left (location)-->
-
-    <!--center-->
-    <div class="col-md-6">
-      <div class="profile-content">
-        
-      </div>
-    </div>
-    <!--end center-->
-
-    <!--right (gallery)-->
-    <div class="col-md-3">
-      <div class="profile-sidebar">
-        <ngx-gallery
-          [options]="galleryOptions"
-          [images]="galleryImages"
-        ></ngx-gallery>
-      </div>
-      
-      <!-- SIDEBAR MENU -->
-      <div class="profile-usermenu">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"
-              ><i class="fa fa-hashtag" aria-hidden="true"></i>Room type</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"
-              ><i class="fa fa-hashtag" aria-hidden="true"></i>Floor number, Room number</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#"
-              ><i class="fa fa-star" aria-hidden="true"></i> stars</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <i class="fa fa-hashtag" aria-hidden="true"></i>Number of people:
-              4
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">
-              <i class="fa fa-hashtag" aria-hidden="true"></i>
-              Cancelation days
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- END MENU -->
+  <!--prvi red - naslov-->
+  <div class="row py-2 p">
+    <div class="col-12">
+        <a routerLink="" style="color: #33cabb; font-size:25px;">< Back to hotel</a>
     </div>
   </div>
+
+
+  <!--drugi red - ostalo -->
+  <div class="row">
+    <!--levo - galerija -->
+    <div class="col-3">
+      <div class="row">
+        <div class="col-12">
+            <div class="profile-sidebar">
+                <ngx-gallery
+                  [options]="galleryOptions"
+                  [images]="galleryImages"
+                ></ngx-gallery>
+              </div>
+              
+              <!-- SIDEBAR MENU -->
+              <div class="profile-usermenu">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#"
+                      ><i class="fa fa-hashtag" aria-hidden="true"></i>Room type</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#"
+                      ><i class="fa fa-hashtag" aria-hidden="true"></i>Floor 4, Room 20</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#"
+                      ><i class="fa fa-star" aria-hidden="true"></i> stars</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#">
+                      <i class="fa fa-hashtag" aria-hidden="true"></i>Number of people:
+                      4
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="#">
+                      <i class="fa fa-hashtag" aria-hidden="true"></i>
+                      Cancelation days
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <!-- END MENU -->
+
+
+        </div>
+      </div>
+
+    </div>
+    <!-- kraj levog dela -->
+
+    <!--centar - opis i tab (cenovnik i dodatne usluge) -->
+    <div class="col-6">
+      <!--opis red-->
+      <div class="row">
+        <div class="col-12">
+
+        </div>
+      </div>
+      <!--kraj opis reda-->
+
+      <!--tab red-->
+      <div class="row">
+        <div class="col-12">
+
+        </div>
+      </div>
+      <!--kraj tab reda-->
+    </div>
+    <!--kraj centra -->
+
+    <!-- desno - rezervacija, mapa (adresa)-->
+    <div class="col-3">
+      <!--rezervisi deo-->
+      <div class="row">
+        <div class="col-12">
+            <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title"  style="color: #33cabb;">Book your room</h5>
+                  <hr/>
+                 
+                  <div class="input-group form-group py-1">
+                      <div class="input-group-prepend"> 
+                          <span class="input-group-text">
+                            <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                        <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
+                        bsDaterangepicker placeholder="Departure date from to">
+                  </div>
+
+                  <button type="button" class="btn btn-primary btn-block" > Book </button>
+
+                </div>
+              </div>
+        </div>
+      </div>
+      <!--kraj rezervisi deo -->
+
+      <!--adresa deo-->
+      <div class="row">
+          <div class="col-12">
+              <div class="profile-sidebar">
+                  <!-- SIDEBAR USERPIC -->
+                  <div>
+                    <app-map></app-map>
+                  </div>
+                  <!-- END SIDEBAR USERPIC -->          
+                 
+                  <!-- SIDEBAR MENU -->
+                  <div class="profile-usermenu">
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Street Number</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#">City, Postal code</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                          state
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#">
+                          country
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- END MENU -->
+                </div>
+          </div>
+        </div>
+        <!--kraj adresa deo-->
+
+    </div>
+  </div>
+
 </div>

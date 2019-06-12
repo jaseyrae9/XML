@@ -2,14 +2,19 @@
     <div class="card">
       <div class="card-header" id="headingOne">
         <h5 class="mb-0">
-          <!--Ovde kao data target obavezno staviti id porduzbine-->
-          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Date of reservation: 11.01.2011.
-          </button>
+          <div class="d-flex">
+            <div class="p-2">
+              <!--Ovde kao data target obavezno staviti id porduzbine-->     
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Hotel name
+              </button></div>    
+            <div class="ml-auto p-2"><button class="btn btn-link " disabled>status</button></div>
+          </div>
         </h5>
       </div>
   
       <!--Ovde obavezno kao id staviti id porduzbine-->
+      <!--<div [attr.id]="'r' + reservation.id" class="collapse m-2">-->
       <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
           <app-reservation-details></app-reservation-details>

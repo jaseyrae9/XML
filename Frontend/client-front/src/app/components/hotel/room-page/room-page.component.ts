@@ -1,18 +1,32 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { RoomFull } from 'src/app/model/room/roomFull';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-room-page',
   templateUrl: './room-page.component.html',
-  styleUrls: ['./room-page.component.css']
+  styleUrls: ['./room-page.component.css', '../../../shared/css/inputField.css']
 })
 export class RoomPageComponent implements OnInit {
+  // galerija
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
   @Input() room: RoomFull;
-  constructor() { }
+
+  // date picker - range
+  datePickerConfig: Partial<BsDatepickerConfig>;
+  bsRangeValue: Date[];
+
+  constructor(public datePipe: DatePipe) { 
+    this.datePickerConfig = Object.assign({},
+      {
+        containerClass: 'theme-default',
+        dateInputFormat: 'YYYY-MM-DD'
+      });
+  }
 
   ngOnInit() {
     this.galleryOptions = [
