@@ -35,7 +35,8 @@ public class GetRoomTypesResponse {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "id",
-        "name"
+        "name",
+        "active"
     })
     @NoArgsConstructor
     @Getter

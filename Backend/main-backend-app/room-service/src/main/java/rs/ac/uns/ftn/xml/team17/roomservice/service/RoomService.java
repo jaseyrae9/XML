@@ -66,20 +66,23 @@ public class RoomService {
 			// TODO: exception
 		}
 		
-		System.out.println("Soba postoji");
+		System.out.println("Soba postoji103");
 		
 		Room room = opt.get();
 		
+		System.out.println(setPriceRequest.getDateFrom());
 		LocalDate start = setPriceRequest.getDateFrom().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate end = setPriceRequest.getDateTo().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
-		for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1))
+		System.out.println("Ispisivanje datuma" + start);
+		for (LocalDate date = start; date.isBefore(end) || date.isEqual(end); date = date.plusDays(1))
 		{
 		    System.out.println(date);
+		    room.setPrice(date, setPriceRequest.getPrice());
 		}
 		
-		room.setPrice();
-		
+		System.out.println("Prosli kroz for");
+		roomRepository.save(room);
 	}
 
 }

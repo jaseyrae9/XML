@@ -24,4 +24,14 @@ public class ReservationEndpoint {
 		response.setSuccessfully(true);
         return response;
     }
+	
+	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/GetReservations", localPart = "getReservationsRequest")
+    @ResponsePayload
+    public ConfirmReservationResponse getReservations(@RequestPayload ConfirmReservationRequest confirmReservationRequest) {
+		ConfirmReservationResponse response = new ConfirmReservationResponse();
+		reservationService.confirmReservation(confirmReservationRequest.getId());
+		response.setSuccessfully(true);
+        return response;
+    }
+	
 }

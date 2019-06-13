@@ -1,6 +1,9 @@
 
 package rs.ac.uns.ftn.xml.team17.roomservice.model.room;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -111,7 +114,7 @@ public class Room {
 	protected Integer roomNumber;
 
 	@OrderBy("date ASC")
-	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	protected List<Price> prices;
 	
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
@@ -132,8 +135,34 @@ public class Room {
 		
 	}
 
-	public void setPrice() {
-		// TODO primace vrv datum i amount
+	public void setPrice(LocalDate date, double d) {
+		Date priceDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Datum za koji se postavlja cena dd
+		System.out.println("SetPrice1");
+		System.out.println("SetPrice2");
+		
+		boolean exists = false;
+		for(Price p : this.prices) {
+			System.out.println("U petlji " + p.getDate());
+			
+			
+			System.out.println("poredim" + priceDate);
+			System.out.println(" sa " + p.getDate());
+			if(priceDate.equals(p.getDate())) {
+				System.out.println("pronasli poklapanje");
+				p.setAmount(d);
+				exists = true;
+				break;
+			}
+		}
+		
+		if(!exists) {
+			System.out.println("Ne postoji");
+			Price p = new Price();
+			p.setDate(priceDate);
+			p.setAmount(new Double(d));
+			p.setRoom(this);
+			this.prices.add(p);
+		}
 		
 	}
 }
