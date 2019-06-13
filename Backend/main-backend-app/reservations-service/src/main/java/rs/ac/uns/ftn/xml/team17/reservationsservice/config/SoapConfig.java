@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.xml.team17.roomservice.config;
+package rs.ac.uns.ftn.xml.team17.reservationsservice.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +25,8 @@ import org.springframework.xml.xsd.XsdSchemaCollection;
 @EnableWs
 @Configuration
 public class SoapConfig extends WsConfigurerAdapter {
-
+	
+	
 	@Override
 	public void addInterceptors(List<EndpointInterceptor> interceptors) {
 
@@ -57,66 +58,31 @@ public class SoapConfig extends WsConfigurerAdapter {
 	
 	public Resource[] getSchemas() {
 	    List<Resource> schemaResources = new ArrayList<>();
-	    schemaResources.add(new ClassPathResource("soap/newRoom.xsd"));
-	    schemaResources.add(new ClassPathResource("soap/hotel.xsd"));
-	    schemaResources.add(new ClassPathResource("soap/setPrice.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/reservation.xsd"));
 	    return schemaResources.toArray(new Resource[schemaResources.size()]);
 	}
-
+	
 	@Bean
 	public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext context) {
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(context);
 		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/soap/*");
+		return new ServletRegistrationBean<MessageDispatcherServlet>(servlet, "/ws/*");
 	}
-
+	
 	@Bean
-	public XsdSchema roomSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("soap/newRoom.xsd"));
+	public XsdSchema reservationSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/reservation.xsd"));
 	}
 
-	@Bean(name = "newRoom")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema roomSchema) {
+	@Bean(name = "reservation")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema reservationSchema) {
 
 		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
-		definition.setSchema(roomSchema);
-		definition.setLocationUri("/soap/room");
-		definition.setPortTypeName("NewRoomPort");
-		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/NewRoom");
+		definition.setSchema(reservationSchema);
+		definition.setLocationUri("/ws/reservation");
+		definition.setPortTypeName("ReservationPort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/Reservation");
 		return definition;
 	}
-	
-	@Bean
-    public XsdSchema hotelSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("soap/hotel.xsd"));
-    }
-	
-	@Bean(name = "hotel")
-    public DefaultWsdl11Definition defaultWsdl11Definition2(XsdSchema hotelSchema) {
-
-        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
-        definition.setSchema(hotelSchema);
-        definition.setLocationUri("/soap/hotel");
-        definition.setPortTypeName("HotelPort");
-        definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/Hotel");
-        return definition;
-    }
-	
-	@Bean
-    public XsdSchema priceSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("soap/setPrice.xsd"));
-    }
-	
-	@Bean(name = "price")
-    public DefaultWsdl11Definition defaultWsdl11Definition3(XsdSchema priceSchema) {
-
-        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
-        definition.setSchema(priceSchema);
-        definition.setLocationUri("/soap/price");
-        definition.setPortTypeName("PricePort");
-        definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/SetPrice");
-        return definition;
-    }
-
 }

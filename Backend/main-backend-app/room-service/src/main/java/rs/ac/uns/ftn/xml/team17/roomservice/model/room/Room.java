@@ -114,14 +114,14 @@ public class Room {
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected List<Price> prices;
 	
-	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.Room r) {
+	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
 		this.address = new Address(r.getAddress());
 		this.type = new RoomType(r.getType());
 		this.category = new RoomCategory(r.getCategory());
 		this.defaultPrice = r.getDefaultPrice();
 		this.numberOfPeople = r.getNumberOfPeople();
 		this.cancelationDays = r.getCancelationDays();
-		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.AdditionalService a : r.getAdditionalServices()) {
+		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a : r.getAdditionalServices()) {
 			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(a);
 			this.additionalServices.add(as);
 		}
@@ -129,6 +129,11 @@ public class Room {
 		this.totalRating = r.getTotalRating();
 		this.numberOfRatings = r.getNumberOfRatings();
 		this.roomNumber = r.getRoomNumber();
+		
+	}
+
+	public void setPrice() {
+		// TODO primace vrv datum i amount
 		
 	}
 }

@@ -52,10 +52,9 @@ public class AdditionalService {
 		this.active = true; // when created it is active
 	}
 	
-	public AdditionalService(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.AdditionalService a) {
+	public AdditionalService(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a) {
 		super();
 		this.id = a.getId();
-		this.name = a.getName();
 		this.active = true;
 	}
 

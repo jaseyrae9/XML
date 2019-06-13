@@ -73,7 +73,7 @@ public class Address {
 	@XmlElement(namespace = "http://www.tim17.com/address")
 	protected Double lng;
 
-	public Address(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.Address a) {
+	public Address(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Address a) {
 		this.country = a.getCountry();
 		this.state = a.getState();
 		this.city = a.getCity();

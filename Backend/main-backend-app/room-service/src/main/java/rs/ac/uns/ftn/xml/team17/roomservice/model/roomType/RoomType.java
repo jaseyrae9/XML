@@ -54,10 +54,9 @@ public class RoomType {
 
 	}
 	
-	public RoomType(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.room.RoomType r) { 
+	public RoomType(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.RoomType r) { 
 		super();
 		this.id = r.getId();
-		this.name = r.getName();
 		this.active = true;
 	}
 }

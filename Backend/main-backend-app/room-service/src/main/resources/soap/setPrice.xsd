@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/SetPrice"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/SetPrice">
+
+    <xs:element name="setPriceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/> <!-- Id sobe za koju se cena dodaje -->
+				<xs:element name="dateTo" type="xs:date"/>
+				<xs:element name="dateFrom" type="xs:date"/>
+				<xs:element name="price" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="setPriceResponse">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element name="successfully" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	
+</xs:schema>

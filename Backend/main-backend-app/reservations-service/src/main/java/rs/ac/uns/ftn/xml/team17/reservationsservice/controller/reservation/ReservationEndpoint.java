@@ -16,7 +16,6 @@ public class ReservationEndpoint {
 	@Autowired
 	private ReservationService reservationService;
 	
-	// TODO: dodati u config
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Reservation", localPart = "confirmReservationRequest")
     @ResponsePayload
     public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest confirmReservationRequest) {

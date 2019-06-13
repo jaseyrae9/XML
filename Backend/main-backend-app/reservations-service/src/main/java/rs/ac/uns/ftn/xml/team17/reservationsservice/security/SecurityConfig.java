@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.authorizeRequests()
 				//TODO: Ako je nesto public dodati ovde
-				.antMatchers("/recension/**").permitAll().anyRequest().authenticated().and()
+				.antMatchers("/recension/**", "/ws/**").permitAll().anyRequest().authenticated().and()
 				.addFilterBefore(new AuthenticationFilter(), BasicAuthenticationFilter.class);
 	}
 
