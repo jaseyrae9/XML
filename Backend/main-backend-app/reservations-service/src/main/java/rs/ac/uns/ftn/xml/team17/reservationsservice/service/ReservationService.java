@@ -34,12 +34,12 @@ public class ReservationService {
 		System.out.println(date);
 		
 		// TODO: Ovde treba da se preuzme samo nakon datuma date
-		reservationRepository.findAll();
-		
-		
-		// TODO: ovde cu ih ja konvertovati u ove XML objekte
-		
-		
+		List<Reservation> reservations = reservationRepository.findAllByModificationDateAfter(date);
+		for(Reservation reservation: reservations) {
+			System.out.println(reservation.getId());
+		}
+				
+		// TODO: ovde cu ih ja konvertovati u ove XML objekte		
 		return null;
 	}
 

@@ -22,6 +22,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.room.Room;
@@ -54,23 +57,23 @@ public class Reservation {
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
 	protected Room room;
 
-	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
-	@XmlSchemaType(name = "date")
-	// TODO: Baza ne zna da cuva ovo
-	// protected XMLGregorianCalendar dateOfReservation;
-	protected Date dateOfReservation;
-
-	@Column(nullable = false)
+	@Column
 	@XmlElement(namespace = "http://www.tim17.com/reservation")
 	protected Integer customer;
 
 	@Column(nullable = false)
 	//TODO: Dodati XML anotaciju
-	//@XmlElement(namespace = "http://www.tim17.com/reservation", defaultValue = "false")
 	protected ReservationStatus status;
 	
 	@OrderBy("date ASC")
 	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected List<DayReservation> dayReservations;
+
+	@CreationTimestamp
+	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
+	@XmlSchemaType(name = "date")
+	protected Date creationDate;
+	
+	@UpdateTimestamp
+	protected Date modificationDate;
 }
