@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/GetRecensions"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/GetRecensions">
+
+    <xs:element name="getRecensionsRequest">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element name="date" type="xs:date"/> <!-- Datum poslednjeg preuzimanja -->
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getRecensionsResponse">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="recension" type="Recension"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:complexType name="Recension">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/> <!-- ID recenzije-->
+			<xs:element name="rating" type="xs:double"/>
+			<xs:element name="comment" type="xs:string"/>
+			<xs:element name="date" type="xs:date"/>
+			<xs:element name="isApproved" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+</xs:schema>

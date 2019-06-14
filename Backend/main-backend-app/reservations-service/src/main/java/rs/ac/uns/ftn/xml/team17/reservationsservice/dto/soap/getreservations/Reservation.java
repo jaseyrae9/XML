@@ -5,8 +5,9 @@
 // Generated on: 2019.06.14 at 10:24:05 AM CEST 
 //
 
-
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations;
+
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,11 +16,15 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import lombok.NoArgsConstructor;
 
 /**
- * <p>Java class for Reservation complex type.
+ * <p>
+ * Java class for Reservation complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Reservation">
@@ -41,155 +46,151 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Reservation", propOrder = {
-    "id",
-    "dateFrom",
-    "dateTo",
-    "totalPrice",
-    "status",
-    "user"
-})
+@XmlType(name = "Reservation", propOrder = { "id", "dateFrom", "dateTo", "totalPrice", "status", "user" })
+@NoArgsConstructor
 public class Reservation {
 
-    protected int id;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateFrom;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dateTo;
-    protected double totalPrice;
-    @XmlElement(required = true)
-    protected ReservationStatus status;
-    @XmlElement(required = true)
-    protected User user;
+	protected int id;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "date")
+	protected Date dateFrom;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "date")
+	protected Date dateTo;
+	protected double totalPrice;
+	@XmlElement(required = true)
+	protected ReservationStatus status;
+	@XmlElement(required = true)
+	protected User user;
 
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public int getId() {
-        return id;
-    }
+	public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation r) {
+		this.id = r.getId();
+		// TODO: videti sta za datTo i dateFrom
+		// TODO: totalPrice ce racunati neki Milicin servis
+		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.RESERVED) {
+			this.status = ReservationStatus.RESERVED;
+		}
+		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.CANCELED) {
+			this.status = ReservationStatus.CANCELED;
+		}
+		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.HAPPENED) {
+			this.status = ReservationStatus.HAPPENED;
+		}
+		if(r.getCustomer() != null) {
+			this.user = new User(r.getCustomer());
+		}
+	}
 
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(int value) {
-        this.id = value;
-    }
+	/**
+	 * Gets the value of the id property.
+	 * 
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * Gets the value of the dateFrom property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getDateFrom() {
-        return dateFrom;
-    }
+	/**
+	 * Sets the value of the id property.
+	 * 
+	 */
+	public void setId(int value) {
+		this.id = value;
+	}
 
-    /**
-     * Sets the value of the dateFrom property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setDateFrom(XMLGregorianCalendar value) {
-        this.dateFrom = value;
-    }
+	/**
+	 * Gets the value of the dateFrom property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public Date getDateFrom() {
+		return dateFrom;
+	}
 
-    /**
-     * Gets the value of the dateTo property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getDateTo() {
-        return dateTo;
-    }
+	/**
+	 * Sets the value of the dateFrom property.
+	 * 
+	 * @param value allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setDateFrom(Date value) {
+		this.dateFrom = value;
+	}
 
-    /**
-     * Sets the value of the dateTo property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setDateTo(XMLGregorianCalendar value) {
-        this.dateTo = value;
-    }
+	/**
+	 * Gets the value of the dateTo property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public Date getDateTo() {
+		return dateTo;
+	}
 
-    /**
-     * Gets the value of the totalPrice property.
-     * 
-     */
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+	/**
+	 * Sets the value of the dateTo property.
+	 * 
+	 * @param value allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setDateTo(Date value) {
+		this.dateTo = value;
+	}
 
-    /**
-     * Sets the value of the totalPrice property.
-     * 
-     */
-    public void setTotalPrice(double value) {
-        this.totalPrice = value;
-    }
+	/**
+	 * Gets the value of the totalPrice property.
+	 * 
+	 */
+	public double getTotalPrice() {
+		return totalPrice;
+	}
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ReservationStatus }
-     *     
-     */
-    public ReservationStatus getStatus() {
-        return status;
-    }
+	/**
+	 * Sets the value of the totalPrice property.
+	 * 
+	 */
+	public void setTotalPrice(double value) {
+		this.totalPrice = value;
+	}
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ReservationStatus }
-     *     
-     */
-    public void setStatus(ReservationStatus value) {
-        this.status = value;
-    }
+	/**
+	 * Gets the value of the status property.
+	 * 
+	 * @return possible object is {@link ReservationStatus }
+	 * 
+	 */
+	public ReservationStatus getStatus() {
+		return status;
+	}
 
-    /**
-     * Gets the value of the user property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link User }
-     *     
-     */
-    public User getUser() {
-        return user;
-    }
+	/**
+	 * Sets the value of the status property.
+	 * 
+	 * @param value allowed object is {@link ReservationStatus }
+	 * 
+	 */
+	public void setStatus(ReservationStatus value) {
+		this.status = value;
+	}
 
-    /**
-     * Sets the value of the user property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link User }
-     *     
-     */
-    public void setUser(User value) {
-        this.user = value;
-    }
+	/**
+	 * Gets the value of the user property.
+	 * 
+	 * @return possible object is {@link User }
+	 * 
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * Sets the value of the user property.
+	 * 
+	 * @param value allowed object is {@link User }
+	 * 
+	 */
+	public void setUser(User value) {
+		this.user = value;
+	}
 
 }

@@ -27,7 +27,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.Message;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.room.Room;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.model.user.Customer;
 
 /**
  * <p>
@@ -57,13 +59,17 @@ public class Reservation {
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
 	protected Room room;
 
-	@Column
+	@ManyToOne(fetch = FetchType.EAGER)	
+	@JoinColumn(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation")
-	protected Integer customer;
+	protected Customer customer;
 
 	@Column(nullable = false)
 	//TODO: Dodati XML anotaciju
 	protected ReservationStatus status;
+	
+	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	protected List<Message> messages;
 	
 	@OrderBy("date ASC")
 	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -76,4 +82,8 @@ public class Reservation {
 	
 	@UpdateTimestamp
 	protected Date modificationDate;
+	
+	public void addDayReservation(DayReservation dr) {
+		this.dayReservations.add(dr);
+	}
 }

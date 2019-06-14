@@ -60,6 +60,7 @@ public class SoapConfig extends WsConfigurerAdapter {
 	    List<Resource> schemaResources = new ArrayList<>();
 	    schemaResources.add(new ClassPathResource("soap/reservation.xsd"));
 	    schemaResources.add(new ClassPathResource("soap/getReservations.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/getMessages.xsd"));
 	    return schemaResources.toArray(new Resource[schemaResources.size()]);
 	}
 	
@@ -100,6 +101,54 @@ public class SoapConfig extends WsConfigurerAdapter {
 		definition.setLocationUri("/ws/getReservations");
 		definition.setPortTypeName("GetReservationsPort");
 		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/GetReservations");
+		return definition;
+	}
+	
+	@Bean
+	public XsdSchema getMessagesSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/getMessages.xsd"));
+	}
+
+	@Bean(name = "getMessages")
+	public DefaultWsdl11Definition defaultWsdl11Definition3(XsdSchema getMessagesSchema) {
+
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setSchema(getMessagesSchema);
+		definition.setLocationUri("/ws/getMessages");
+		definition.setPortTypeName("GetMessagesPort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/GetMessages");
+		return definition;
+	}
+	
+	@Bean
+	public XsdSchema getRecensionsSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/getRecensions.xsd"));
+	}
+
+	@Bean(name = "getRecensions")
+	public DefaultWsdl11Definition defaultWsdl11Definition4(XsdSchema getRecensionsSchema) {
+
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setSchema(getRecensionsSchema);
+		definition.setLocationUri("/ws/getRecensions");
+		definition.setPortTypeName("GetRecensionsPort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/GetRecensions");
+		return definition;
+	}
+	
+	@Bean
+	public XsdSchema newReservationSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/newReservation.xsd"));
+	}
+
+	@Bean(name = "newReservation")
+	public DefaultWsdl11Definition defaultWsdl11Definition5(XsdSchema newReservationSchema) {
+
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setSchema(newReservationSchema);
+		definition.setLocationUri("/ws/newReservation");
+		definition.setPortTypeName("NewReservationPort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/NewReservation");
 		return definition;
 	}
 }

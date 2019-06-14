@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.NoArgsConstructor;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.model.user.Customer;
+
 
 /**
  * <p>Java class for User complex type.
@@ -43,6 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     "lastName",
     "username"
 })
+@NoArgsConstructor
 public class User {
 
     protected int id;
@@ -53,7 +57,14 @@ public class User {
     @XmlElement(required = true)
     protected String username;
 
-    /**
+    public User(Customer customer) {
+		this.id = customer.getId();
+		this.firstName = customer.getFirstName();
+		this.lastName = customer.getLastName();
+		this.username = customer.getUsername();
+    }
+
+	/**
      * Gets the value of the id property.
      * 
      */

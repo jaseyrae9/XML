@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.team17.xml.ftn.uns.ac.rs/GetMessages"
+    xmlns="http://www.team17.xml.ftn.uns.ac.rs/GetMessages">
+
+    <xs:element name="getMessagesRequest">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element name="date" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMessagesResponse">
+        <xs:complexType>
+            <xs:sequence>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="message" type="Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	
+	<xs:complexType name="Message">
+        <xs:sequence>
+            <xs:element name="reservationId" type="xs:int"/>
+			<xs:element name="id" type="xs:int"/>
+			<xs:element name="dateSent" type="xs:dateTime"/>
+			<xs:element name="status" type="MessageDirection"/>
+			<xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	<xs:simpleType name="MessageDirection">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TO_AGENT" />
+			<xs:enumeration value="TO_CUSOTOMER" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

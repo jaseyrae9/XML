@@ -11,6 +11,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.GetReservationsRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.GetReservationsResponse;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.NewReservationRequest;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.NewReservationResponse;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.reservation.ConfirmReservationRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.reservation.ConfirmReservationResponse;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.service.ReservationService;
@@ -38,6 +40,16 @@ public class ReservationEndpoint {
 		List<Reservation> ret = reservationService.getReservations(getReservationsRequest.getDate());
 		response.setReservation(ret);
         return response;
+    }
+	
+	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/NewReservation", localPart = "newReservationRequest")
+    @ResponsePayload
+    public NewReservationResponse newReservation(@RequestPayload NewReservationRequest newReservationRequest) {
+		System.out.println("New reservation controller");
+		NewReservationResponse response = new NewReservationResponse();
+		rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation(reservationService.newReservation(newReservationRequest));
+        response.setReservation(r);
+		return response;
     }
 	
 }

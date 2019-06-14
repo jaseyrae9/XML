@@ -25,6 +25,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,11 +62,6 @@ public class Recension {
     @XmlElement(namespace = "http://www.tim17.com/recension", defaultValue = "false")
     protected Boolean isApproved;
     
-    @Column(nullable = false)
-    @XmlElement(namespace = "http://www.tim17.com/recension", required = true)
-    @XmlSchemaType(name = "date")
-    protected Date dateOfRecension;
-    
     @Column
     @XmlElement(namespace = "http://www.tim17.com/recension")
     protected Double rating;
@@ -76,5 +74,13 @@ public class Recension {
 	@JoinColumn(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/recension", required = true)
 	protected Reservation reservation;
+    
+    @CreationTimestamp
+	@XmlElement(namespace = "http://www.tim17.com/recension", required = true)
+	@XmlSchemaType(name = "dateTime")
+	protected Date creationDate;
+	
+	@UpdateTimestamp
+	protected Date modificationDate;
 
 }
