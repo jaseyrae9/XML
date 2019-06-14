@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.xml.team17.reservationsservice.service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,20 @@ public class ReservationService {
 		Reservation r = opt.get();
 		r.setStatus(ReservationStatus.HAPPENED);
 		reservationRepository.save(r);
+	}
+
+	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation> getReservations(Date date) {
+		System.out.println("U reservation servisu");
+		System.out.println(date);
+		
+		// TODO: Ovde treba da se preuzme samo nakon datuma date
+		reservationRepository.findAll();
+		
+		
+		// TODO: ovde cu ih ja konvertovati u ove XML objekte
+		
+		
+		return null;
 	}
 
 }

@@ -59,6 +59,7 @@ public class SoapConfig extends WsConfigurerAdapter {
 	public Resource[] getSchemas() {
 	    List<Resource> schemaResources = new ArrayList<>();
 	    schemaResources.add(new ClassPathResource("soap/reservation.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/getReservations.xsd"));
 	    return schemaResources.toArray(new Resource[schemaResources.size()]);
 	}
 	
@@ -83,6 +84,22 @@ public class SoapConfig extends WsConfigurerAdapter {
 		definition.setLocationUri("/ws/reservation");
 		definition.setPortTypeName("ReservationPort");
 		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/Reservation");
+		return definition;
+	}
+	
+	@Bean
+	public XsdSchema getReservationsSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/getReservations.xsd"));
+	}
+
+	@Bean(name = "getReservations")
+	public DefaultWsdl11Definition defaultWsdl11Definition2(XsdSchema getReservationsSchema) {
+
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setSchema(getReservationsSchema);
+		definition.setLocationUri("/ws/getReservations");
+		definition.setPortTypeName("GetReservationsPort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/GetReservations");
 		return definition;
 	}
 }
