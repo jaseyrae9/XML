@@ -1,6 +1,6 @@
 <section class="container">
   <section class="formContainer">
-    <form class="form-inlin justify-content-center">
+    <form class="form-inlin justify-content-center" (validSubmit) = "onLogin()" [formGroup]="loginForm">
       <div class="form-row text-center mb-2">
         <div class="col-12">
             <h4>Login form</h4>
@@ -14,7 +14,7 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
               </span>
             </div>
-            <input type="text" class="form-control" id="username" placeholder="Username">
+            <input formControlName="username" type="text" class="form-control" id="username" placeholder="Username">
         </div>
       </div>
 
@@ -25,7 +25,7 @@
                   <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
               </div>
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
           </div>
       </div>
       <div class="form-row text-center">

@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+          <!-- SIDEBAR USERPIC -->
+          <app-map-display></app-map-display>
+          <!-- END SIDEBAR USERPIC -->
+          <!-- SIDEBAR HOTEL TITLE -->
+          <div class="hotel-name">
+                  <h4>{{hotel.name}}</h4>
+          </div>
+          <!-- END SIDEBAR HOTEL TITLE -->
+          <!-- SIDEBAR ADDRESS -->
+          <app-address-display [address]="hotel.address"></app-address-display>
+          <!-- END SIDEBAR ADDRESS-->
+        </div>
+        <div class="col-md-9 rooms-display">
+            <p *ngIf="rooms.length == 0" style="color:  #33cabb;" align="center" >
+              There are no rooms.
+            </p>
+            <div *ngFor="let room of rooms" class="container">
+                <app-room-preview [room]="room"></app-room-preview>
+            </div>
+        </div>
+    </div>
+</div>
