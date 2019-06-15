@@ -40,6 +40,16 @@ class HotelSerializer(serializers.HyperlinkedModelSerializer):
         
 
 class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('url', 'id', 'hotel', 'address', 'roomType',
+                  'roomCategory', 'additionalService',
+                  'roomNumber', 'defaultPrice', 'numberOfPeople', 'cancelationDays',
+                  'description', 'totalRating' ,'numberOfRaitings')
+        depth = 1
+
+
+class RoomSerializerInput(serializers.ModelSerializer):
     address = AddressSerializer()
     roomType_details = RoomTypeSerializer(source='roomType', read_only=True)
     roomType = serializers.PrimaryKeyRelatedField( queryset=RoomType.objects.all(), write_only=True)

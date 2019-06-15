@@ -120,8 +120,12 @@ class HotelView(viewsets.ReadOnlyModelViewSet):
 
 class RoomView(viewsets.ModelViewSet):
     queryset = Room.objects.all()
-    serializer_class = RoomSerializer
     http_method_names = ['get', 'post', 'delete', 'head', 'options']
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return RoomSerializerInput
+        return RoomSerializer
     
     def create(self, request, *args, **kwargs):
 
@@ -148,7 +152,7 @@ class RoomView(viewsets.ModelViewSet):
         input_dict = zeep.helpers.serialize_object(result)
         output_dict = json.loads(json.dumps(input_dict))
 
-        serializer = RoomSerializer(data=request.data, context={'request': request, 'address_id': output_dict.pop('addressId', None), 'id':output_dict.pop('roomId', None)})
+        serializer = RoomSerializerInput(data=request.data, context={'request': request, 'address_id': output_dict.pop('addressId', None), 'id':output_dict.pop('roomId', None)})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
