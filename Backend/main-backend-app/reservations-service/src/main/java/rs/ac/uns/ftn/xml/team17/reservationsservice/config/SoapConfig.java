@@ -61,6 +61,9 @@ public class SoapConfig extends WsConfigurerAdapter {
 	    schemaResources.add(new ClassPathResource("soap/reservation.xsd"));
 	    schemaResources.add(new ClassPathResource("soap/getReservations.xsd"));
 	    schemaResources.add(new ClassPathResource("soap/getMessages.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/getRecensions.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/newMessage.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/newReservation.xsd"));
 	    return schemaResources.toArray(new Resource[schemaResources.size()]);
 	}
 	
@@ -149,6 +152,22 @@ public class SoapConfig extends WsConfigurerAdapter {
 		definition.setLocationUri("/ws/newReservation");
 		definition.setPortTypeName("NewReservationPort");
 		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/NewReservation");
+		return definition;
+	}
+	
+	@Bean
+	public XsdSchema newMessageSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("soap/newMessage.xsd"));
+	}
+
+	@Bean(name = "newMessage")
+	public DefaultWsdl11Definition defaultWsdl11Definition6(XsdSchema newMessageSchema) {
+
+		DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+		definition.setSchema(newMessageSchema);
+		definition.setLocationUri("/ws/newMessage");
+		definition.setPortTypeName("NewMessagePort");
+		definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/NewMessage");
 		return definition;
 	}
 }

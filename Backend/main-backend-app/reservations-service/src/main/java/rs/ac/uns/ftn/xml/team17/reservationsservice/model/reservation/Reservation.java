@@ -86,4 +86,8 @@ public class Reservation {
 	public void addDayReservation(DayReservation dr) {
 		this.dayReservations.add(dr);
 	}
+
+	public void addMessage(Message m) {
+		this.messages.add(m);
+	}
 }

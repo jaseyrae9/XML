@@ -28,6 +28,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
 
@@ -41,6 +42,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Message {
 
 	@Id
@@ -64,5 +66,9 @@ public class Message {
 	
 	@UpdateTimestamp
 	protected Date modificationDate;
-
+	
+	public Message(String message, Reservation r) {
+		this.message = message;
+		this.reservation = r;
+	}
 }
