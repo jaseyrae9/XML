@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from datetime import timedelta
 
 
 class RoomCategorySerializer(serializers.ModelSerializer):
@@ -24,13 +25,18 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = '__all__'
+        extra_kwargs = {'id': {'validators': []}}
+        read_only_fields = ('id',)
+
+    def create(self, validated_data):
+        return Address.objects.create(id=self.context['id'], **validated_data)
 
 
 class HotelSerializer(serializers.HyperlinkedModelSerializer):
-    address = AddressSerializer(read_only=True)
+    address = AddressSerializer()
     class Meta:
         model = Hotel
-        fields = ('url', 'id', 'pib', 'address')
+        fields = '__all__'
         
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -47,20 +53,20 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = ('url', 'id', 'hotel', 'address', 'roomType', 'roomType_details',
                   'roomCategory', 'roomCategory_details', 'additionalService', 'additionalService_details', 
                   'roomNumber', 'defaultPrice', 'numberOfPeople', 'cancelationDays',
-                  'description', 'numberOfRaitings')
+                  'description', 'totalRating' ,'numberOfRaitings')
+        read_only_fields = ('id',)
         
 
     def create(self, validated_data):
         address_data = validated_data.pop('address')
-        address_data = Address.objects.create(**address_data)
+        address_data = Address.objects.create(id = self.context['address_id'], **address_data)
         additional_services = validated_data.pop('additionalService')
 
-        room = Room.objects.create(address = address_data, **validated_data)
+        room = Room.objects.create(id=self.context['id'], address = address_data, **validated_data)
         room.additionalService.set(additional_services)
         room.save()
 
         return room
-
 
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -69,10 +75,25 @@ class PriceSerializer(serializers.ModelSerializer):
         fields = ('url', 'id', 'room', 'amount', 'date')
 
 
+class PriceSerializerInput(serializers.Serializer):
+    room = serializers.PrimaryKeyRelatedField(queryset = Room.objects.all())
+    amount = serializers.FloatField()
+    dateFrom = serializers.DateField()
+    dateTo = serializers.DateField()
+
+
 class ResrvationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resrvation
-        fields = ('url', 'id', 'room', 'date_of_reservation', 'has_happend', 'customer_id')
+        fields = ('url', 'id', 'room', 'customer', 'dateOfReservation', 'status', 'dateFrom', 'dateTo')
+        read_only_fields = ('customer', 'dateOfReservation', 'status', 'id')
+
+
+class ResrvationSerializerPut(serializers.ModelSerializer):
+    class Meta:
+        model = Resrvation
+        fields = ('status',)
+
 
 
 
