@@ -54,8 +54,10 @@ public class AdditionalService {
 	
 	public AdditionalService(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a) {
 		super();
+		System.out.println("Konstruktor dodatne usluge");
 		this.id = a.getId();
 		this.active = true;
+		System.out.println("Konstruisana");
 	}
 
 }

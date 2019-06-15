@@ -36,11 +36,9 @@ public class RoomService {
 		Hotel hotel = opt.get();
 		System.out.println("Hotel ucitan2");
 		
-		System.out.println(newRoomRequest);
-		if(newRoomRequest.getRoom() == null) {
-			System.out.println("Izgleda se nije parsirala soba kako trreba");
-		}
-		
+		System.out.println(newRoomRequest.toString());
+
+		System.out.println("Dal ce raditi getRoom");
 		Room r = new Room(newRoomRequest.getRoom());
 		System.out.println("Naparvljena soba");
 		

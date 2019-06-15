@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.xml.team17.roomservice.model.room;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -118,14 +119,17 @@ public class Room {
 	protected List<Price> prices;
 	
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
+		System.out.println("Konstruktor Room model");
 		this.address = new Address(r.getAddress());
 		this.type = new RoomType(r.getType());
 		this.category = new RoomCategory(r.getCategory());
 		this.defaultPrice = r.getDefaultPrice();
 		this.numberOfPeople = r.getNumberOfPeople();
 		this.cancelationDays = r.getCancelationDays();
+		this.additionalServices = new ArrayList<AdditionalService>();
 		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a : r.getAdditionalServices()) {
 			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(a);
+			System.out.println("Sad cu da dodam dodatnu uslugu");
 			this.additionalServices.add(as);
 		}
 		this.description = r.getDescription();
