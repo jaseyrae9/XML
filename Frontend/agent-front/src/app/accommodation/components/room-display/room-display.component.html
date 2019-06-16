@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 flenpx-column">
+            <app-galery></app-galery>
+            <div>
+                <ul class="details-display">
+                    <li>
+                        <i class="fa fa-building"></i> Type: {{room.roomType.name}}
+                    </li>
+                    <li>
+                        <i class="fa fa-hashtag"></i>Floor number: {{room.floorNumber}}, Room number: {{room.roomNumber}}
+                    </li>
+                    <li>
+                        <i class="fa fa-star" aria-hidden="true"></i> Category: {{room.roomCategory.numberOfStars}} stars
+                    </li>
+                    <li>
+                        <i class="fa fa-user" aria-hidden="true"></i>Number of people: {{room.numberOfPeople}}
+                    </li>
+                    <li>
+                        <i class="fa fa-ban" aria-hidden="true"></i>Cancelation: {{room.cancelationDays}} days
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column">
+            <div>
+                <p class="lead">
+                  Description
+                </p>
+                <p align="justify" class="text-muted">{{room.description}}
+                </p>
+            </div>
+            <div class="mt-2 mb-4">
+              <p class="lead">
+                Additional Services
+              </p>
+              <p *ngIf="!room.additionalService" class="text-muted">
+                There are no additional services available for this room.
+              </p>
+              <div *ngFor="let additionalService of room.additionalService" class="d-inline-flex pr-1">
+                <span class="badge badge-pill badge-primary">{{additionalService.name}}</span>
+              </div>
+            </div>
+            <div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#priceTable" role="tab">Price Table</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a>
+                    </li>
+                </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="priceTable" role="tabpanel">...</div>
+                    <div class="tab-pane fade" id="reviewes" role="tabpanel">...</div>
+                  </div>
+            </div>
+          <!--END DESCRIPTION-->
+        </div>
+        <div class="col-md-3">
+          <!-- SIDEBAR MAP -->
+          <app-map-display></app-map-display>
+          <!-- END SIDEBAR MAP -->
+          <!-- SIDEBAR ADDRESS -->
+          <app-address-display [address]="room.address"></app-address-display>
+          <!-- END SIDEBAR ADDRESS-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="row border rounded align-items-center py-2 mt-2">
+    <div class="col-auto pt-1 px-2" align="center">
+        <img src="//placehold.it/250x200" width="200px" class="rounded">
+    </div>
+
+    <div class="col pt-2 border-left border-right p-3" align="center">
+        <p style="font-size: 22px;"> Room type: {{room.roomType.name}}
+            <br><small class="text-muted"> Number of stars: {{room.roomCategory.numberOfStars}}</small>
+        </p>
+        <hr>
+        <div>
+            <i class="fa fa-hashtag"></i> No. {{room.roomNumber}}
+            <br> <i class="fa fa-bed" style="margin-right: 9px;"></i>{{room.numberOfPeople}} People
+        </div>
+    </div>
+
+    <div class="col-auto p-3" align="center">
+        <button class="btn btn-primary px-4 m-2" routerLink="/room/{{room.id}}">
+            Details...
+        </button>
+    </div>
+</div>

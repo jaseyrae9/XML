@@ -1,0 +1,16 @@
+ul.address-display{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.address-display li:last-child {
+  border-bottom: none;
+}
+
+ul.address-display li {
+  border-bottom: 1px solid #f0f4f7;
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 1.5%;
+}

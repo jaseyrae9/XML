@@ -1,0 +1,21 @@
+ul.details-display{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.details-display li:last-child {
+  border-bottom: none;
+}
+
+ul.details-display li {
+  border-bottom: 1px solid #f0f4f7;
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
+.badge-primary{
+  background-color: #33cabb;
+}

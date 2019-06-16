@@ -1,0 +1,14 @@
+<ul class="address-display">
+    <li>
+      {{address.street}} {{address.streetNumber}}
+    </li>
+    <li>
+      {{address.city}}, {{address.postalCode}}
+    </li>
+    <li *ngIf="address.state" >
+      {{address.state}}
+    </li>
+    <li>
+        {{address.country}}
+    </li>
+</ul>
