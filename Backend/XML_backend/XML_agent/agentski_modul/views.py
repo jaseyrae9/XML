@@ -41,13 +41,13 @@ class Login(APIView):
         password = data.get('password', None)
 
         # deo sa autentifikacijom sa glavnim backom
-        client = zeep.Client('http://localhost:8762/auth-service/auth/soap/authentication.wsdl')
+        # client = zeep.Client('http://localhost:8762/auth-service/auth/soap/authentication.wsdl')
 
         try:
-            result_token = client.service.authentication(username, password)
+            # result_token = client.service.authentication(username, password)
             user = authenticate(username=username, password=password)
 
-            # TESTIRATI DA LI RADI
+            # TESTIRATI DA LI RADI  mozes i prebaciti u get or create
             if user is None:
                 user = User(username=username,
                             password=password,
@@ -58,9 +58,9 @@ class Login(APIView):
             # OVAJ DEO
 
             # updejtuje podatke sa glavnim backom
-            client = zeep.Client('http://localhost:8762/admin-service/ws/additionalService/AdditionalServices.wsdl')
-            result = client.service.getAdditionalServices('')
-            read_and_save_zeep_result(result, AdditionalService)
+            # client = zeep.Client('http://localhost:8762/admin-service/ws/additionalService/AdditionalServices.wsdl')
+            # result = client.service.getAdditionalServices('')
+            # read_and_save_zeep_result(result, AdditionalService)
 
             # client = zeep.Client('http://localhost:8762/admin-service/ws/roomCategory/roomCategory.wsdl')
             # result = client.service.getRoomCategories('')
@@ -70,16 +70,41 @@ class Login(APIView):
             # result = client.service.getRoomTypes('')
             # read_and_save_zeep_result(result, RoomType)
 
-            client = zeep.Client('http://localhost:8762/room-service/soap/hotel/hotel.wsdl')
-            result = client.service.getHotel('')
+            # client = zeep.Client('http://localhost:8762/room-service/soap/hotel/hotel.wsdl')
+            # result = client.service.getHotel('')
+            # input_dict = zeep.helpers.serialize_object(result)
+            # output_dict = json.loads(json.dumps(input_dict))
+            # address_dict = output_dict.pop('address', None)
+            # address, created = Address.objects.update_or_create(id=address_dict.pop('id', None), defaults = {**address_dict})
+            # hotel , created = Hotel.objects.update_or_create(id=output_dict.pop('id', None), defaults = {**output_dict})
+            # hotel.address = address
+            # hotel.save()
+
+
+
+
+            # client = zeep.Client('http://localhost:8762/reservations-service/ws/getReservations.wsdl')
+            # result = client.service.getReservations(Update.objects.order_by('-pk')[0].last_updated)
+            # print(result)
+            # input_dict = zeep.helpers.serialize_object(result)
+            # output_dict = json.loads(json.dumps(input_dict))
+            # print(output_dict)
+
+
+            client = zeep.Client('http://localhost:8762/reservations-service/ws/getMessages.wsdl')
+
+            node = client.create_message(client.service, 'getMessages', date=Update.objects.order_by('-pk')[0].last_updated)
+            tree = ET.ElementTree(node)
+            tree.write('test1.xml',pretty_print=True)
+
+            result = client.service.getMessages(Update.objects.order_by('-pk')[0].last_updated)
+            print(result)
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
-            address_dict = output_dict.pop('address', None)
-            address, created = Address.objects.update_or_create(id=address_dict.pop('id', None), defaults = {**address_dict})
-            hotel , created = Hotel.objects.update_or_create(id=output_dict.pop('id', None), defaults = {**output_dict})
-            hotel.address = address
-            hotel.save()
+            print(output_dict)
 
+            
+            
 
 
 
@@ -89,7 +114,7 @@ class Login(APIView):
             content = {
                 'active_token': str(token.access_token),
                 'refresh_token': str(token),
-                'main_backend_token': str(result_token),
+                # 'main_backend_token': str(result_token),
             }
 
             return Response(content, status=status.HTTP_200_OK)
@@ -142,7 +167,8 @@ class RoomView(viewsets.ModelViewSet):
         room_address = factory.Address(country=d['address.country'], state=d['address.state'], city=d['address.city'], postalCode=d['address.postalCode'], street=d['address.street'], streetNumber=d['address.streetNumber'], lng=d['address.lng'], lat=d['address.lat'])
         
         room = factory.Room(hotelId=d['hotel'], address=room_address, additionalServices=lineitem, category=room_category, type=room_type, roomNumber=d['roomNumber'], defaultPrice=d['defaultPrice'], numberOfPeople=d['numberOfPeople'], cancelationDays=d['cancelationDays'], description=d['description'], totalRating=d['totalRating'], numberOfRatings=d['numberOfRaitings'])
-        hotel_id = Hotel.objects.all()[:1][0].id
+        # pazi ovde uzimas prvi hotel po pretpostavkom u dogovoru sa timom da ce biti samo 1/ svakako si spreman za promenu jer se salje i hotel id
+        hotel_id = Hotel.objects.all()[:1][0].id  
 
         node = client.create_message(client.service, 'newRoom', id=hotel_id, room=room)
         tree = ET.ElementTree(node)
@@ -185,27 +211,53 @@ class PriceView(viewsets.ModelViewSet):
             date_to = validated_data.pop('dateTo')
             delta = date_to - date_from
 
-            ret = []
-            for i in range(delta.days + 1):
-                date = date_from + timedelta(days=i)
-                obj, created = Price.objects.update_or_create(date=date, defaults = {**validated_data})
-                ret.append(obj)
+            client = zeep.Client('http://localhost:8762/room-service/soap/price/price.wsdl')
+            result = client.service.setPrice(id=validated_data['room'].id, dateTo=date_to, dateFrom=date_from, price=validated_data['amount'])
 
-            serializer = PriceSerializer(ret, many=True, context={'request': request})
- 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            if result:
+                ret = []
+                for i in range(delta.days + 1):
+                    date = date_from + timedelta(days=i)
+                    obj, created = Price.objects.update_or_create(date=date, defaults = {**validated_data})
+                    ret.append(obj)
+
+                serializer = PriceSerializer(ret, many=True, context={'request': request})
+    
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else: 
+                return Response(zeep.exceptions.Fault.message, status=status.HTTP_400_BAD_REQUEST)
+
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RoomReservationFilter(filters.FilterSet):
+    date = DateFromToRangeFilter()
+    class Meta:
+        model = Resrvation
+        fields = ['dateOfReservation', 'room', 'status']
+
+
 class ResrvationView(viewsets.ModelViewSet):
     queryset = Resrvation.objects.all()
+    filterset_class = RoomReservationFilter
     
     def get_serializer_class(self):
         if self.action == 'update':
             return ResrvationSerializerPut
         return ResrvationSerializer
 
+
+class RoomFilter(filters.FilterSet):
+    class Meta:
+        model = RoomFotos
+        fields = ['room']
+
+
+class ImageView(viewsets.ModelViewSet):
+    queryset = RoomFotos.objects.all()
+    serializer_class = ImageSerializer
+    filterset_class = RoomFilter
 
 
 

@@ -42,28 +42,23 @@ class HotelSerializer(serializers.HyperlinkedModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
-        fields = ('url', 'id', 'hotel', 'address', 'roomType',
-                  'roomCategory', 'additionalService',
-                  'roomNumber', 'defaultPrice', 'numberOfPeople', 'cancelationDays',
-                  'description', 'totalRating' ,'numberOfRaitings')
+        fields = '__all__'
         depth = 1
 
 
 class RoomSerializerInput(serializers.ModelSerializer):
     address = AddressSerializer()
-    roomType_details = RoomTypeSerializer(source='roomType', read_only=True)
-    roomType = serializers.PrimaryKeyRelatedField( queryset=RoomType.objects.all(), write_only=True)
-    roomCategory_details = RoomCategorySerializer(source='roomCategory', read_only=True)
-    roomCategory = serializers.PrimaryKeyRelatedField(queryset=RoomCategory.objects.all(), write_only=True)
-    additionalService_details = AdditionalServiceSerializer(source='additionalService', read_only=True, many=True)
-    additionalService = serializers.PrimaryKeyRelatedField(queryset=AdditionalService.objects.all(), write_only=True, many=True)
+    # roomType = serializers.PrimaryKeyRelatedField( queryset=RoomType.objects.all(), write_only=True)
+    # roomCategory = serializers.PrimaryKeyRelatedField(queryset=RoomCategory.objects.all(), write_only=True)
+    # additionalService = serializers.PrimaryKeyRelatedField(queryset=AdditionalService.objects.all(), write_only=True, many=True)
 
     class Meta:
         model = Room
-        fields = ('url', 'id', 'hotel', 'address', 'roomType', 'roomType_details',
-                  'roomCategory', 'roomCategory_details', 'additionalService', 'additionalService_details', 
-                  'roomNumber', 'defaultPrice', 'numberOfPeople', 'cancelationDays',
-                  'description', 'totalRating' ,'numberOfRaitings')
+        # fields = ('url', 'id', 'hotel', 'address', 'roomType',
+        #           'roomCategory', 'additionalService', 
+        #           'roomNumber', 'defaultPrice', 'numberOfPeople', 'cancelationDays',
+        #           'description', 'totalRating' ,'numberOfRaitings')
+        fields = '__all__'
         read_only_fields = ('id',)
         
 
@@ -77,6 +72,12 @@ class RoomSerializerInput(serializers.ModelSerializer):
         room.save()
 
         return room
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoomFotos
+        fields = '__all__'
 
 
 class PriceSerializer(serializers.ModelSerializer):

@@ -57,12 +57,19 @@ class Room(models.Model):
     roomCategory = models.ForeignKey(RoomCategory, blank=False, on_delete=models.PROTECT)
     additionalService = models.ManyToManyField(AdditionalService)
     roomNumber = models.IntegerField()
+    roomFloor = models.IntegerField()
     defaultPrice = models.FloatField()
     numberOfPeople = models.IntegerField(validators=[MinValueValidator(1)])
     cancelationDays = models.IntegerField(validators=[MinValueValidator(0)], null=True)
     description = models.CharField(max_length=256, default='')
     totalRating = models.FloatField(null=True)
     numberOfRaitings = models.IntegerField(default=0)
+
+
+class RoomFotos(models.Model):
+    room = models.ForeignKey(Room,on_delete=models.CASCADE)
+    is_cover = models.BooleanField()
+    photo = models.FileField(upload_to='images/')
 
 
 class Price(models.Model):
@@ -92,6 +99,7 @@ class Message(models.Model):
     id = models.IntegerField(primary_key=True)
     date = models.DateTimeField()
     text = models.CharField(max_length=512)
+
 
 class Update(models.Model):
     last_updated = models.DateTimeField()
