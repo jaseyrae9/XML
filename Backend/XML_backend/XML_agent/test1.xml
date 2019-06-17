@@ -1,0 +1,7 @@
+<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap-env:Body>
+    <ns0:getMessagesRequest xmlns:ns0="http://www.team17.xml.ftn.uns.ac.rs/GetMessages">
+      <ns0:date>2019-01-01T00:00:00Z</ns0:date>
+    </ns0:getMessagesRequest>
+  </soap-env:Body>
+</soap-env:Envelope>
