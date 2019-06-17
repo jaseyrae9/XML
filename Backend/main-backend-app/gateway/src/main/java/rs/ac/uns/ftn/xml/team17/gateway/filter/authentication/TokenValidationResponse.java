@@ -12,4 +12,5 @@ public class TokenValidationResponse {
 	private Integer userId;
 	private String username;
 	private String authorities;
+	private Integer hotelId;
 }

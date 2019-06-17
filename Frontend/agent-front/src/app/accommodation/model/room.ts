@@ -5,7 +5,7 @@ interface Room{
   roomType: RoomType;
   roomCategory: RoomCategory;
   additionalService: AdditionalService[];
-  floorNumber: number;
+  roomFloor: number;
   roomNumber: number;
   defaultPrice: number;
   numberOfPeople: number;

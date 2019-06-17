@@ -14,6 +14,7 @@ import rs.ac.uns.ftn.xml.team17.authservice.dto.authentication.TokenValidationRe
 import rs.ac.uns.ftn.xml.team17.authservice.model.temporary.CustomUserDetails;
 import rs.ac.uns.ftn.xml.team17.authservice.security.DeviceProvider;
 import rs.ac.uns.ftn.xml.team17.authservice.security.TokenUtils;
+import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
 @Service
 public class AuthenticationService {
@@ -26,6 +27,8 @@ public class AuthenticationService {
 	private TokenUtils tokenUtils;
 	@Autowired
 	private DeviceProvider deviceProvider;
+	@Autowired
+	private UserService userService;
 
 	public String login(String username, String password, HttpServletRequest request) {
 		// check if user exists
@@ -55,11 +58,17 @@ public class AuthenticationService {
 				// load user and check if token is valid
 				UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 				if (tokenUtils.validateToken(token, userDetails)) {
+					CustomUserDetails customUserDetails = (CustomUserDetails)userDetails;
 					// set information
 					response.setIsValid(true);
-					response.setUserId(((CustomUserDetails)userDetails).getId());
+					response.setUserId(customUserDetails.getId());
 					response.setUsername(username);
 					response.setAuthorities(StringUtils.join(userDetails.getAuthorities(), ','));
+					//set hotel if it's hotel agent
+					Integer hotelId = userService.getHotelId(username);
+					if(hotelId != null) {
+						response.setHotelId(hotelId);
+					}
 				}
 			}
 		}

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Agent;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
 import rs.ac.uns.ftn.xml.team17.authservice.repository.UserRepository;
@@ -42,6 +43,24 @@ public class UserService {
 	 */
 	public User saveUser(User user) {
 		return userRepository.save(user);
+	}
+	
+	/**
+	 * For given username tries to find user and checks if user is hotel agent. If user is
+	 * hotel agent returns hotel id, otherwise returns null.
+	 * @param username
+	 * @return
+	 */
+	public Integer getHotelId(String username) {
+		Integer ret = null;
+		Optional<User> userOpt = userRepository.findByUsername(username);
+		if(userOpt.isPresent()) {
+			User user = userOpt.get();
+			if(user instanceof Agent) {
+				ret = ((Agent)user).getHotel().getId();
+			}
+		}
+		return ret;
 	}
 	
 	/**

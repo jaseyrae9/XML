@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.xml.team17.authservice.service.agentservice;
+package rs.ac.uns.ftn.xml.team17.authservice.service.entityservice;
 
 import java.util.Optional;
 

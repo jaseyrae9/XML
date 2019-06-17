@@ -32,7 +32,7 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = "/validate-token")
-	public ResponseEntity<TokenValidationResponse> checkToken(@RequestHeader(value="Authorization") String token){
+	public ResponseEntity<TokenValidationResponse> validateToken(@RequestHeader(value="Authorization") String token){
 		return ResponseEntity.ok(authenticationService.validateToken(token));
 	}
 

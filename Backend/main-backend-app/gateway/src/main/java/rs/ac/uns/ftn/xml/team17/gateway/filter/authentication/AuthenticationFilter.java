@@ -45,6 +45,9 @@ public class AuthenticationFilter extends ZuulFilter {
 				ctx.addZuulRequestHeader("UserId", response.getUserId().toString());
 				ctx.addZuulRequestHeader("Username", response.getUsername());
 				ctx.addZuulRequestHeader("Authorities", response.getAuthorities());
+				if(response.getHotelId() != null) {
+					ctx.addZuulRequestHeader("Hotel", response.getHotelId().toString());
+				}
 			}
 
 		}

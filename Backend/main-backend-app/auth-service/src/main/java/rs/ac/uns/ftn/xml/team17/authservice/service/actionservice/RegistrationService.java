@@ -9,8 +9,8 @@ import rs.ac.uns.ftn.xml.team17.authservice.dto.registration.CustomerRegistratio
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Agent;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Authority;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
-import rs.ac.uns.ftn.xml.team17.authservice.service.agentservice.HotelService;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.AuthorityService;
+import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.HotelService;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
 @Service

@@ -23,7 +23,7 @@ export class RoomFormComponent implements OnInit {
       roomType: ['', [Validators.required]],
       roomCategory: ['', [Validators.required]],
       roomNumber: ['', [Validators.required, Validators.min(0)]],
-      floorNumber: ['', [Validators.required]],
+      roomFloor: ['', [Validators.required]],
       defaultPrice: ['', [Validators.required, Validators.min(0)]],
       numberOfPeople: ['', [Validators.required, Validators.min(0)]],
       cancelationDays: ['', [Validators.required, Validators.min(0)]],
