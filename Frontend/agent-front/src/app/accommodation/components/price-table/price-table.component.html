@@ -1,0 +1,23 @@
+<div class="container">
+      <form class="p-1" [formGroup]="priceChangeForm" (validSubmit)="submitPrice()">
+        <div class="form-row">
+          <div class="form-group col-md-5 input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-calendar-alt blue-fa"></i></span>
+            </div>
+            <input formControlName="date" type="text" placeholder="Select period" class="form-control" bsDaterangepicker [bsConfig]="datePickerConfig">
+          </div>
+          <div class="form-group col-md-5 input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-euro-sign blue-fa"></i></span>
+            </div>
+            <input formControlName="price" type="text" class="form-control" placeholder="Price">
+          </div>
+          <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-primary">Apply</button>
+          </div>
+        </div>
+      </form>
+
+      <full-calendar class="col-12" defaultView="dayGridMonth" [plugins]="calendarPlugins" [events]="calendarPrices" (datesRender)="onRender($event)" deepChangeDetection="true"></full-calendar>
+</div>

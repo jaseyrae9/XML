@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-@import url(../node_modules/font-awesome/css/font-awesome.css);
+@import url(../node_modules/@fortawesome/fontawesome-free/css/all.css);
+@import url(../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css);
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 html, body, app-root {
   height: 100%;
@@ -13,7 +17,7 @@ html, body, app-root {
 }
 
 /* Change icons*/
-.fa{
+.blue-fa{
 	color: #33cabb;
 	width: 15px;
 }
@@ -40,3 +44,33 @@ a:hover{
 	outline: none;
 	background: #31bfb1;
 }
+
+rating{
+  color: #fbdc04;
+  font-size: 25px;
+}
+
+.text-detail {
+  font-size: 12px;
+  color: #93a3b5;
+}
+
+.fc-right .fc-prev-button, .fc-right .fc-next-button, .fc-right .fc-today-button{
+  color: #fff;
+	background: #33cabb;
+	vertical-align: middle;
+	border: none;
+}
+
+.fc-right .fc-prev-button:hover, .fc-right .fc-next-button:hover, .fc-right .fc-today-button:hover{
+  color: #fff;
+	outline: none;
+	background: #31bfb1;
+}
+
+.fc-right .fc-prev-button:focus, .fc-right .fc-next-button:focus, .fc-right .fc-today-button:focus{
+  color: #fff;
+	outline: none;
+	background: #31bfb1;
+}
+
