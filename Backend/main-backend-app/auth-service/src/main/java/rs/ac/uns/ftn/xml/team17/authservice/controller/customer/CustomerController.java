@@ -41,7 +41,7 @@ public class CustomerController {
 		else {
 			userService.blockCustomer(id);	
 		}
-		return  new ResponseEntity<>("Customer is successfully activated.", HttpStatus.OK);
+		return  new ResponseEntity<>("The customer status is successfully changed.", HttpStatus.OK);
 	}
 	
 	/**

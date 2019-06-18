@@ -6,6 +6,7 @@ import { RoutingModule } from './app-routing.module';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 // datepicker
 import { BsDatepickerModule} from 'ngx-bootstrap';
+import {RatingModule} from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
@@ -32,7 +33,9 @@ import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.com
 import { RoomBasicInfoComponent } from './components/hotel/room-basic-info/room-basic-info.component';
 import { RoomPageComponent } from './components/hotel/room-page/room-page.component';
 import { NgxGalleryModule } from 'ngx-gallery';
-import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AddressDetailsComponent } from './components/address-details/address-details.component';
+import { GalleryComponent } from './components/hotel/gallery/gallery.component'; // for FullCalendar!
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
     ReservationDetailsComponent,
     HotelPageComponent,
     RoomBasicInfoComponent,
-    RoomPageComponent
+    RoomPageComponent,
+    AddressDetailsComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
     NgBootstrapFormValidationModule,
     BsDatepickerModule.forRoot(),
     NgxGalleryModule,
+    RatingModule,
     FullCalendarModule // for FullCalendar!
   ],
   providers: [RoleGuardService, DatePipe],

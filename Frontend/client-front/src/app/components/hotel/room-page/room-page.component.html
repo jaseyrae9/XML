@@ -6,51 +6,42 @@
     </div>
   </div>
 
-
   <!--drugi red - ostalo -->
   <div class="row">
     <!--levo - galerija -->
     <div class="col-3">
       <div class="row">
-        <div class="col-12">
-            <div class="profile-sidebar1">
-                <ngx-gallery
-                  [options]="galleryOptions"
-                  [images]="galleryImages"
-                ></ngx-gallery>
-              </div>
-              
+        <div class="col-12 text-center">
+            <div class="gallery-sidebar">
+                <app-gallery></app-gallery>
+            </div>
+            
+            <div class="rating-block bg-light rounded p-1">
+              <!--[(ngModel)]="room.totalRating"-->
+                <rating [max]="5" [readonly]="true" ></rating>
+                <p class="text-detail">
+                    Rated 5 times
+                </p>
+            </div>
               <!-- SIDEBAR MENU -->
-              <div class="profile-usermenu">
-                <ul class="nav flex-column">
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#"
-                      ><i class="fa fa-hashtag" aria-hidden="true"></i>Room type</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#"
-                      ><i class="fa fa-hashtag" aria-hidden="true"></i>Floor 4, Room 20</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#"
-                      ><i class="fa fa-star" aria-hidden="true"></i> stars</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#">
-                      <i class="fa fa-hashtag" aria-hidden="true"></i>Number of people:
-                      4
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" href="#">
-                      <i class="fa fa-hashtag" aria-hidden="true"></i>
-                      Cancelation days
-                    </a>
-                  </li>
-                </ul>
+              <div class="text-left">
+                  <ul class="details-display">
+                      <li>
+                          <i class="fa fa-building"></i> Type: bed&breakfast
+                      </li>
+                      <li>
+                          <i class="fa fa-hashtag"></i> Floor number: 4, Room number: 4
+                      </li>
+                      <li>
+                          <i class="fa fa-star" aria-hidden="true"></i> Category: 5 stars
+                      </li>
+                      <li>
+                          <i class="fa fa-user" aria-hidden="true"></i> Number of people: 4
+                      </li>
+                      <li>
+                          <i class="fa fa-ban" aria-hidden="true"></i> Cancelation: 2 days
+                      </li>
+                  </ul>
               </div>
               <!-- END MENU -->
         </div>
@@ -64,10 +55,28 @@
       <!--opis red-->
       <div class="row">
         <div class="col-12 pb-2">
-            <p align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-               It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+            <div><p class="lead">
+                Description
               </p>
+              <p class="text-muted text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                   It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+              </p>
+            </div>
+            <hr/>
+            <div class="mt-2 mb-4">
+                <p class="lead">
+                  Additional Services
+                </p>
+                <!--p *ngIf="!room.additionalService" class="text-muted">
+                  There are no additional services available for this room.
+                </p-->
+                <!--*ngFor="let additionalService of room.additionalService"-->
+                <div  class="d-inline-flex pr-1">
+                  <span class="badge badge-pill badge-primary">additionalService.name</span>
+                </div>
+                
+              </div>
         </div>
       </div>
       <!--kraj opis reda-->
@@ -75,25 +84,19 @@
 
       <!--tab red-->
       <div class="row">
-        <div class="col-12">
-      
+        <div class="col-12">      
               <ul class="nav nav-tabs">
                   <!--CENOVNIK-->
                   <li class="nav-item active">
                     <a href="#pricelist" role="tab" data-toggle="tab" class="nav-link active">
-                      <i class="fa fa-euro-sign" aria-hidden="true"></i>Pricelist
+                      <i class="fa fa-tags mr-1" aria-hidden="true"></i> Price Table
                     </a>
                   </li>
-                  <!--ADDITIONAL SERVICES-->
-                  <li class="nav-item">
-                    <a href="#services" role="tab" data-toggle="tab" class="nav-link">
-                      <i class="fa fa-tag" aria-hidden="true"></i> Additional services
-                    </a>
-                  </li>
+                 
                   <!--REVIEWS-->
                   <li class="nav-item">
                     <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
-                      <i class="fa fa-star" aria-hidden="true"></i> Reviews
+                      <i class="fa fa-star mr-1" aria-hidden="true"></i> Reviews
                     </a>
                   </li>
               </ul>
@@ -101,17 +104,12 @@
               <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="pricelist" aria-labelledby="pricelist-tab">
                       <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"
-                      [plugins]="calendarPlugins"
-                      [events]="calendarEvents">
+                      
+                       >
                     </full-calendar>
                     </div>
                 
-                    <div class="tab-pane fade" id="services" aria-labelledby="services-tab">
-                        <p>dadada</p>
-                         <!--<app-additional-services-table [companyId]="hotelId" [isAdditionalServicesTab]='true' [additionalServices]="hotel.additionalServices"
-                           (editEmitter)='editClicked($event)' (deleteEmitter)='deleteClicked($event)' (fastEmitter)="fastAdd($event)"
-                           (fastRemoveEmitter)="fastRemove($event)"></app-additional-services-table>-->
-                    </div>
+                   
                     <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
                       <p>komentari</p>
                        
@@ -142,7 +140,7 @@
                           </span>
                         </div>
                         <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
-                        bsDaterangepicker placeholder="Departure date from to">
+                        bsDaterangepicker placeholder="Book room from to">
                   </div>
 
                   <button type="button" class="btn btn-primary btn-block" > Book </button>

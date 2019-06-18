@@ -1,53 +1,25 @@
 <div class="container">
-  <div class="row profile">
+  <div class="row">
     <div class="col-md-3">
-      <div class="profile-sidebar">
-        <!-- SIDEBAR USERPIC -->
-        <div>
-          <app-map ></app-map>
+            
+        <!-- SIDEBAR MAP -->
+        <div class="map-holder">
+          <app-map ></app-map>     
         </div>
-        <!-- END SIDEBAR USERPIC -->
+        <!-- END SIDEBAR MAP -->
 
-        <!-- SIDEBAR USER TITLE -->
-        <div class="profile-usertitle">
-          <div class="profile-usertitle-name">
-            {{ hotelFull.name }}
-          </div>
+        <!-- SIDEBAR HOTEL TITLE -->
+        <div class="hotel-name">
+            <h4>{{ hotelFull.name }}</h4>         
         </div>
-        <!-- END SIDEBAR USER TITLE -->
+        <!-- END SIDEBAR HOTEL TITLE -->
 
-        <!-- SIDEBAR MENU -->
-        <div class="profile-usermenu">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"
-                >{{ hotelFull.address.street }}
-                {{ hotelFull.address.streetNumber }}</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"
-                >{{ hotelFull.address.city }},
-                {{ hotelFull.address.postalCode }}</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">{{
-                hotelFull.address.state
-              }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">{{
-                hotelFull.address.country
-              }}</a>
-            </li>
-          </ul>
-        </div>
-        <!-- END MENU -->
+        <!-- SIDEBAR ADDRESS -->
+        <app-address-details [address]="hotelFull.address"></app-address-details>
+        <!-- END SIDEBAR ADDRESS -->
       </div>
-    </div>
-    <div class="col-md-9">
-      <div class="profile-content">
+
+    <div class="col-md-9 rooms-display">    
         <p
           *ngIf="hotelFull.rooms.length == 0"
           style="color:  #33cabb;"
@@ -58,8 +30,8 @@
         <!--p *ngIf='hotelFull.rooms.length != 0' style="font-size: 25px; color:  #33cabb;" align="center">Rooms</p-->
         <div *ngFor="let room of hotelFull.rooms">
           <app-room-basic-info [room]="room"></app-room-basic-info>
-        </div>
-      </div>
+        </div>     
     </div>
+
   </div>
 </div>
