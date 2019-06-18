@@ -60,6 +60,7 @@ public class SoapConfig extends WsConfigurerAdapter {
 	    schemaResources.add(new ClassPathResource("soap/newRoom.xsd"));
 	    schemaResources.add(new ClassPathResource("soap/hotel.xsd"));
 	    schemaResources.add(new ClassPathResource("soap/setPrice.xsd"));
+	    schemaResources.add(new ClassPathResource("soap/addImage.xsd"));
 	    return schemaResources.toArray(new Resource[schemaResources.size()]);
 	}
 
@@ -119,4 +120,20 @@ public class SoapConfig extends WsConfigurerAdapter {
         return definition;
     }
 
+	@Bean
+    public XsdSchema addImageSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("soap/addImage.xsd"));
+    }
+	
+	@Bean(name = "addImage")
+    public DefaultWsdl11Definition defaultWsdl11Definition4(XsdSchema addImageSchema) {
+
+        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+        definition.setSchema(addImageSchema);
+        definition.setLocationUri("/soap/addImage");
+        definition.setPortTypeName("AddImagePort");
+        definition.setTargetNamespace("http://www.team17.xml.ftn.uns.ac.rs/AddImage");
+        return definition;
+    }
+	
 }

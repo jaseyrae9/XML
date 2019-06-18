@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.addimage.AddImageRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.NewRoomRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.price.SetPriceRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.roomservice.repository.HotelRepository;
 import rs.ac.uns.ftn.xml.team17.roomservice.repository.RoomRepository;
@@ -81,6 +83,30 @@ public class RoomService {
 		
 		System.out.println("Prosli kroz for");
 		roomRepository.save(room);
+	}
+
+	public void addImage(AddImageRequest addImageRequest) {
+		
+		Optional<Room> opt = roomRepository.findById(addImageRequest.getId());
+		
+		if(!opt.isPresent()) {
+			// TODO: Exception
+		}
+		
+		Room r = opt.get();
+		
+		if(addImageRequest.isMainImage()) {
+			for(Image i : r.getImages()) {
+				if(i.getMainImage()) {
+					i.setMainImage(false);
+				}
+			}
+		}
+		
+		Image newImage = new Image(addImageRequest, r);
+		
+		r.addImage(newImage);
+		roomRepository.save(r);
 	}
 
 }

@@ -39,13 +39,13 @@ public class ReservationService {
 		reservationRepository.save(r);
 	}
 
-	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation> getReservations(Date date) {
+	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation> getReservations(Date date, Integer hotelId) {
 		System.out.println("U reservation servisu");
 		System.out.println(date);
 		
 		List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation> ret = new ArrayList<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation>();
 		
-		List<Reservation> reservations = reservationRepository.findAllByModificationDateAfter(date);
+		List<Reservation> reservations = reservationRepository.findAll(date, hotelId);
 		for(Reservation reservation: reservations) { 
 			rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.Reservation(reservation);
 			ret.add(r);

@@ -2,6 +2,8 @@ package rs.ac.uns.ftn.xml.team17.reservationsservice.controller.reservation;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -23,6 +25,9 @@ public class ReservationEndpoint {
 	@Autowired
 	private ReservationService reservationService;
 	
+	@Autowired
+	private HttpServletRequest request;
+	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Reservation", localPart = "confirmReservationRequest")
     @ResponsePayload
     public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest confirmReservationRequest) {
@@ -37,7 +42,8 @@ public class ReservationEndpoint {
     public GetReservationsResponse getReservations(@RequestPayload GetReservationsRequest getReservationsRequest) {
 		System.out.println("Get reservations controller");
 		GetReservationsResponse response = new GetReservationsResponse();
-		List<Reservation> ret = reservationService.getReservations(getReservationsRequest.getDate());
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
+		List<Reservation> ret = reservationService.getReservations(getReservationsRequest.getDate(), hotelId);
 		response.setReservation(ret);
         return response;
     }

@@ -1,5 +1,7 @@
 package rs.ac.uns.ftn.xml.team17.roomservice.controller.hotel;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -17,12 +19,16 @@ public class HotelEndpoint {
 	@Autowired
 	private HotelService hotelService;
 	
+	@Autowired
+	private HttpServletRequest request;
+	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Hotel", localPart = "getHotelRequest")
 	@ResponsePayload
 	public GetHotelResponse getHotel(@RequestPayload GetHotelRequest getHotelRequest){	
 		GetHotelResponse response = new GetHotelResponse();
-		// TODO: Izvuci id iz requesta (Milica)
-		Hotel hotel = hotelService.getHotel(new Integer(1));
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
+		System.out.println("Id hotela: " + hotelId);
+		Hotel hotel = hotelService.getHotel(hotelId);
 		response.setHotel(hotel);
         return response;
 	}

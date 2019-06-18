@@ -16,13 +16,13 @@ public class RecensionService {
 	@Autowired
 	private RecensionRepository recensionRepository;
 	
-	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension> getRecensions(Date date) {
+	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension> getRecensions(Date date, Integer hotelId) {
 		System.out.println("RecensionService getRecensions");
 		System.out.println(date);
 		
 		List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension> ret = new ArrayList<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension>();
 		
-		List<Recension> recensions = recensionRepository.findAllByModificationDateAfter(date);
+		List<Recension> recensions = recensionRepository.findAll(date, hotelId);
 		
 		for(Recension recension : recensions) {
 			rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension(recension);

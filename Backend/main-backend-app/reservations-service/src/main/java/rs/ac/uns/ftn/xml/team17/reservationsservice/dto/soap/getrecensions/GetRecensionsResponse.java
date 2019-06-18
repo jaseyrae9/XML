@@ -10,10 +10,13 @@ package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import lombok.Setter;
 
 
 /**
@@ -40,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
     "recension"
 })
 @XmlRootElement(name = "getRecensionsResponse")
+@Setter
 public class GetRecensionsResponse {
 
     protected List<Recension> recension;

@@ -24,13 +24,13 @@ public class MessageService {
 	@Autowired
 	private ReservationRepository reservationRepository;
 
-	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message> getMessages(Date date) {
+	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message> getMessages(Date date, Integer hotelId) {
 		System.out.println("MessageService getMessages");
 		System.out.println(date);
 
 		List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message> ret = new ArrayList<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message>();
 
-		List<Message> messages = messageRepostitory.findAllByModificationDateAfter(date);
+		List<Message> messages = messageRepostitory.findAll(date, hotelId);
 
 		for (Message message : messages) {
 			rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message m = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message(

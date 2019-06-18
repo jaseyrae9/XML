@@ -2,6 +2,8 @@ package rs.ac.uns.ftn.xml.team17.reservationsservice.controller.message;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -21,12 +23,16 @@ public class MessageEndpoint {
 	@Autowired
 	private MessageService messageService;
 	
+	@Autowired
+	private HttpServletRequest request;
+	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/GetMessages", localPart = "getMessagesRequest")
     @ResponsePayload
     public GetMessagesResponse getMessages(@RequestPayload GetMessagesRequest getMessagesRequest) {
 		System.out.println("MessageEndpoint getMessages");
 		GetMessagesResponse response = new GetMessagesResponse();
-		List<Message> ret = messageService.getMessages(getMessagesRequest.getDate());
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
+		List<Message> ret = messageService.getMessages(getMessagesRequest.getDate(), hotelId);
 		response.setMessage(ret);
         return response;
     }

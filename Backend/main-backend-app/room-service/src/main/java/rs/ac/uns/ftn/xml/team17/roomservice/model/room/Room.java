@@ -33,6 +33,7 @@ import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.address.Address;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.price.Price;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
@@ -118,8 +119,10 @@ public class Room {
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	protected List<Price> prices;
 	
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	protected List<Image> images;
+	
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
-		System.out.println("Konstruktor Room model");
 		this.address = new Address(r.getAddress());
 		this.type = new RoomType(r.getType());
 		this.category = new RoomCategory(r.getCategory());
@@ -129,30 +132,19 @@ public class Room {
 		this.additionalServices = new ArrayList<AdditionalService>();
 		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a : r.getAdditionalServices()) {
 			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(a);
-			System.out.println("Sad cu da dodam dodatnu uslugu");
 			this.additionalServices.add(as);
 		}
 		this.description = r.getDescription();
 		this.totalRating = r.getTotalRating();
 		this.numberOfRatings = r.getNumberOfRatings();
 		this.roomNumber = r.getRoomNumber();
-		
 	}
 
 	public void setPrice(LocalDate date, double d) {
 		Date priceDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Datum za koji se postavlja cena dd
-		System.out.println("SetPrice1");
-		System.out.println("SetPrice2");
-		
 		boolean exists = false;
 		for(Price p : this.prices) {
-			System.out.println("U petlji " + p.getDate());
-			
-			
-			System.out.println("poredim" + priceDate);
-			System.out.println(" sa " + p.getDate());
 			if(priceDate.equals(p.getDate())) {
-				System.out.println("pronasli poklapanje");
 				p.setAmount(d);
 				exists = true;
 				break;
@@ -160,7 +152,6 @@ public class Room {
 		}
 		
 		if(!exists) {
-			System.out.println("Ne postoji");
 			Price p = new Price();
 			p.setDate(priceDate);
 			p.setAmount(new Double(d));
@@ -168,5 +159,9 @@ public class Room {
 			this.prices.add(p);
 		}
 		
+	}
+
+	public void addImage(Image newImage) {
+		this.images.add(newImage);
 	}
 }
