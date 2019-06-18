@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomTypeDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomType.RoomType;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.RoomTypeService;
 
@@ -25,13 +22,13 @@ public class RoomTypeController {
 	private RoomTypeService roomTypeService;
 	
 	/**
-	 * Returns DTO objects for room types. Objects contain id and name.
+	 * Returns active objects for room types. Objects contain id and name.
 	 * 
 	 * @return information about all room types.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomTypes(){		
-		List<RoomTypeDTO> ret = roomTypeService.getRoomTypes();
+		Iterable<RoomType> ret = roomTypeService.getRoomTypes();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 
@@ -44,8 +41,7 @@ public class RoomTypeController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
 		RoomType roomType = roomTypeService.getRoomType(id);
-		RoomTypeDTO ret = new RoomTypeDTO(roomType);
-		return new ResponseEntity<>(ret, HttpStatus.OK);
+		return new ResponseEntity<>(roomType, HttpStatus.OK);
 	} 	
 	
 	/**
@@ -55,9 +51,9 @@ public class RoomTypeController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<RoomTypeDTO> addRoomType(@Valid @RequestBody RoomTypeDTO roomTypeDTO) {
+	public ResponseEntity<RoomType> addRoomType(@Valid @RequestBody RoomType roomTypeDTO) {
 		RoomType roomType = new RoomType(roomTypeDTO.getName());
-		return new ResponseEntity<>(new RoomTypeDTO(roomTypeService.save(roomType)), HttpStatus.CREATED);
+		return new ResponseEntity<>(roomTypeService.save(roomType), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -68,8 +64,8 @@ public class RoomTypeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<RoomTypeDTO> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomTypeDTO roomTypeDTO) {
-		RoomTypeDTO ret = new RoomTypeDTO(roomTypeService.editRoomType(roomTypeDTO));
+	public ResponseEntity<RoomType> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomType roomTypeDTO) {
+		RoomType ret = roomTypeService.editRoomType(roomTypeDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -81,7 +77,7 @@ public class RoomTypeController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRoomType(@PathVariable Integer id) {
-		roomTypeService.deleteRoomType(id);
-		return new ResponseEntity<>(HttpStatus.OK);	
+		RoomType ret = roomTypeService.deleteRoomType(id);
+		return new ResponseEntity<>(ret, HttpStatus.OK);	
 	}
 }

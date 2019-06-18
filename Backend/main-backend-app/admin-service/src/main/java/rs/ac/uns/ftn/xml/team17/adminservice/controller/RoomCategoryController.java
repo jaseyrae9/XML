@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomCategoryDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.RoomCategoryService;
 
@@ -25,13 +22,13 @@ public class RoomCategoryController {
 	private RoomCategoryService roomCategoryService;
 
 	/**
-	 * Returns DTO objects for room categories. Objects contain id, number of stars and description.
+	 *  Returns active objects for room categories. Objects contain id, number of stars and description.
 	 * 
 	 * @return information about all room categories.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomCategories() {		
-		List<RoomCategoryDTO> ret = roomCategoryService.getRoomCategories();
+		Iterable<RoomCategory> ret = roomCategoryService.getRoomCategories();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -44,8 +41,7 @@ public class RoomCategoryController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomCategory(@PathVariable Integer id){
 		RoomCategory roomCategory = roomCategoryService.getRoomCategory(id);
-		RoomCategoryDTO ret = new RoomCategoryDTO(roomCategory);
-		return new ResponseEntity<>(ret, HttpStatus.OK);
+		return new ResponseEntity<>(roomCategory, HttpStatus.OK);
 	} 
 	
 	/**
@@ -55,9 +51,9 @@ public class RoomCategoryController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<RoomCategoryDTO> addRoomCategory(@Valid @RequestBody RoomCategoryDTO roomCategoryDTO) {
+	public ResponseEntity<RoomCategory> addRoomCategory(@Valid @RequestBody RoomCategory roomCategoryDTO) {
 		RoomCategory roomCategory = new RoomCategory(roomCategoryDTO.getNumberOfStars(), roomCategoryDTO.getDescription());
-		return new ResponseEntity<>(new RoomCategoryDTO(roomCategoryService.save(roomCategory)), HttpStatus.CREATED);
+		return new ResponseEntity<>(roomCategoryService.save(roomCategory), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -68,10 +64,9 @@ public class RoomCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<RoomCategoryDTO> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategoryDTO roomCategoryDTO) {
-		RoomCategoryDTO ret = new RoomCategoryDTO(roomCategoryService.editRoomCategory(roomCategoryDTO));
+	public ResponseEntity<RoomCategory> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategory roomCategoryDTO) {
+		RoomCategory ret = roomCategoryService.editRoomCategory(roomCategoryDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
-
 	}
 	
 	/**
@@ -82,7 +77,7 @@ public class RoomCategoryController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRoomCategory(@PathVariable Integer id) {
-		roomCategoryService.deleteRoomCategory(id);
-		return new ResponseEntity<>(HttpStatus.OK);	
+		RoomCategory ret = roomCategoryService.deleteRoomCategory(id);
+		return new ResponseEntity<>(ret,HttpStatus.OK);	
 	}
 }

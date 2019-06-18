@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
 @RestController
@@ -35,13 +36,14 @@ public class CustomerController {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> activateCustomer(@PathVariable Integer id, @Valid @RequestBody CustomerDTO customerDTO) {
+		Customer ret;
 		if(customerDTO.getBlocked()) {
-			userService.activateCustomer(id);
+			ret = (Customer) userService.activateCustomer(id);
 		}
 		else {
-			userService.blockCustomer(id);	
+			ret = (Customer) userService.blockCustomer(id);	
 		}
-		return  new ResponseEntity<>("The customer status is successfully changed.", HttpStatus.OK);
+		return  new ResponseEntity<>(new CustomerDTO(ret), HttpStatus.OK);
 	}
 	
 	/**
@@ -53,8 +55,8 @@ public class CustomerController {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> removeCustomer(@PathVariable Integer id) {
-		userService.removeCustomer(id);
-		return  new ResponseEntity<>("Customer is successfully removed.", HttpStatus.OK);
+		Customer customer = (Customer) userService.removeCustomer(id);
+		return  new ResponseEntity<>(new CustomerDTO(customer), HttpStatus.OK);
 	}
 
 	/**

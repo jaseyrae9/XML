@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.adminservice.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.AdditionalServiceDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.AdditionalServiceService;
 
@@ -24,13 +21,13 @@ public class AdditionalServiceController {
 	private AdditionalServiceService additionalServiceService;
 
 	/**
-	 *  Returns DTO objects for additional services. Objects contain id and name.
+	 *  Returns active objects for additional services. Objects contain id and name.
 	 *  
-	 * @return information about all additional services.
+	 * @return information about active additional services.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalServices(){		
-		List<AdditionalServiceDTO> ret = additionalServiceService.getServices();
+		Iterable<AdditionalService> ret = additionalServiceService.getServices();
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -43,20 +40,19 @@ public class AdditionalServiceController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
 		AdditionalService additionalService = additionalServiceService.getAdditionalService(id);		
-		AdditionalServiceDTO ret = new AdditionalServiceDTO(additionalService);
-		return new ResponseEntity<>(ret, HttpStatus.OK);
+		return new ResponseEntity<>(additionalService, HttpStatus.OK);
 	}
 	
 	/**
 	 * Adds a new additional service.
 	 * 
-	 * @param additionalServiceDTO  - informations of the additional service
+	 * @param additionalService  - informations of the additional service
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<AdditionalServiceDTO> addAdditionalService(@Valid @RequestBody AdditionalServiceDTO additionalServiceDTO) {
-		AdditionalService additionalService = new AdditionalService(additionalServiceDTO.getName());
-		return new ResponseEntity<>(new AdditionalServiceDTO(additionalServiceService.save(additionalService)), HttpStatus.CREATED);
+	public ResponseEntity<AdditionalService> addAdditionalService(@Valid @RequestBody AdditionalService ad) {
+		AdditionalService additionalService = new AdditionalService(ad.getName());
+		return new ResponseEntity<>(additionalServiceService.save(additionalService), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -67,8 +63,8 @@ public class AdditionalServiceController {
 	 * @return updated additional service
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<AdditionalServiceDTO> editAdditionalService(@PathVariable Integer id, @Valid @RequestBody AdditionalServiceDTO additionalServiceDTO) {
-		AdditionalServiceDTO ret = new AdditionalServiceDTO(additionalServiceService.editAddtionalService(additionalServiceDTO));
+	public ResponseEntity<AdditionalService> editAdditionalService(@PathVariable Integer id, @RequestBody AdditionalService additionalServiceDTO) {
+		AdditionalService ret = additionalServiceService.editAddtionalService(additionalServiceDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -80,8 +76,8 @@ public class AdditionalServiceController {
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteAdditionalService(@PathVariable Integer id) {
-		additionalServiceService.deleteAdditionalService(id);
-		return new ResponseEntity<>(HttpStatus.OK);	
+		AdditionalService ret = additionalServiceService.deleteAdditionalService(id);
+		return new ResponseEntity<>(ret, HttpStatus.OK);	
 	}
 
 

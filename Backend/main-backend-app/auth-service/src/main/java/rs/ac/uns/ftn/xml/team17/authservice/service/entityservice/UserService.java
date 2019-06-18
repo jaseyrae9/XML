@@ -69,7 +69,7 @@ public class UserService {
 	 * 
 	 * @param id - id of the customer
 	 */
-	public void blockCustomer(Integer id) {
+	public User blockCustomer(Integer id) {
 		Optional <User> user = userRepository.findById(id);
 		if(!user.isPresent()) { 
 			// TODO: exception
@@ -86,6 +86,7 @@ public class UserService {
 		user.get().setBlocked(true);	
 		
 		userRepository.save(user.get());
+		return user.get();
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class UserService {
 	 * 
 	 * @param id - id of the customer
 	 */
-	public void activateCustomer(Integer id) {
+	public User activateCustomer(Integer id) {
 		Optional <User> user = userRepository.findById(id);
 		if(!user.isPresent()) { 
 			// TODO: exception
@@ -110,6 +111,7 @@ public class UserService {
 		}
 		user.get().setBlocked(false);
 		userRepository.save(user.get());
+		return user.get();
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class UserService {
 	 * 
 	 * @param id - id of the customer
 	 */
-	public void removeCustomer(Integer id) {
+	public User removeCustomer(Integer id) {
 		// TODO Auto-generated method stub
 		Optional <User> user = userRepository.findById(id);
 		if(!user.isPresent()) { 
@@ -133,6 +135,7 @@ public class UserService {
 		customer.setEmail(null);
 		
 		userRepository.save(user.get());
+		return user.get();
 	}
 	
 	/**

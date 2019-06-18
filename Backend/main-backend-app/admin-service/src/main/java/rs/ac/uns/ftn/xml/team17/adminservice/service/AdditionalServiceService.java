@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.AdditionalServiceDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.AdditionalService.GetAdditionalServicesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.AdditionalServiceRepository;
@@ -42,7 +41,7 @@ public class AdditionalServiceService {
 	 * 
 	 * @param id - id of the selected additional service
 	 */
-	public void deleteAdditionalService(Integer id) {
+	public AdditionalService deleteAdditionalService(Integer id) {
 		Optional<AdditionalService> opt = findAdditionalService(id);
 
 		if (!opt.isPresent()) {
@@ -56,22 +55,15 @@ public class AdditionalServiceService {
 
 		additionalService.setActive(false);
 		additionalServiceRepository.save(additionalService);
+		return additionalService;
 	}
 
 	/**
-	 * Converts additional services to DTO.
-	 * 
-	 * @return informations about all additional services
+	 * @return informations about all active additional services
 	 */
-	public List<AdditionalServiceDTO> getServices() {
+	public Iterable<AdditionalService> getServices() {
 		Iterable<AdditionalService> additionalServices = additionalServiceRepository.findAll();
-
-		// convert services to DTO
-		List<AdditionalServiceDTO> ret = new ArrayList<>();
-		for (AdditionalService service : additionalServices) {
-			ret.add(new AdditionalServiceDTO(service));
-		}
-		return ret;
+		return additionalServices;
 	}
 	
 	/**
@@ -97,16 +89,13 @@ public class AdditionalServiceService {
 	 * @param additionalServiceDTO - contains new informations for additional service
 	 * @return updated additional service
 	 */
-	public AdditionalService editAddtionalService(AdditionalServiceDTO additionalServiceDTO) {
-		Optional<AdditionalService> opt = additionalServiceRepository.findById(additionalServiceDTO.getId());
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
+	public AdditionalService editAddtionalService(AdditionalService additionalServiceDTO) {
+		Optional<AdditionalService> opt = findAdditionalService(additionalServiceDTO.getId());
 		
-		// set name and description
+		// set name 
 		opt.ifPresent(additionalService -> {
 			additionalService.setName(additionalServiceDTO.getName());
 		});
-		return additionalServiceRepository.save(opt.get());
+		return save(opt.get());
 	}
 }

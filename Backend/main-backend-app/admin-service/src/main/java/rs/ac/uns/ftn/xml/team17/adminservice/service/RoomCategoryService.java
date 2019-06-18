@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomCategoryDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomCategory.GetRoomCategoriesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomCategoryRepository;
@@ -44,8 +43,9 @@ public class RoomCategoryService {
 	 * Deactivates the existing room category.
 	 * 
 	 * @param id - id of the selected room category
+	 * @return 
 	 */
-	public void deleteRoomCategory(Integer id) {
+	public RoomCategory deleteRoomCategory(Integer id) {
 		Optional<RoomCategory> opt = findRoomCategory(id);
 
 		if (!opt.isPresent()) {
@@ -59,22 +59,15 @@ public class RoomCategoryService {
 
 		roomCategory.setActive(false);
 		roomCategoryRepository.save(roomCategory);
+		return roomCategory;
 	}
 
 	/**
-	 * Converts room categories to DTO.
-	 * 
-	 * @return informations about all room categories.
+	 * @return informations about all active room categories.
 	 */
-	public List<RoomCategoryDTO> getRoomCategories() {
+	public Iterable<RoomCategory> getRoomCategories() {
 		Iterable<RoomCategory> categories = roomCategoryRepository.findAll();
-
-		// convert categories to DTO
-		List<RoomCategoryDTO> ret = new ArrayList<>();
-		for (RoomCategory category : categories) {
-			ret.add(new RoomCategoryDTO(category));
-		}
-		return ret;
+		return categories;
 	}
 	
 	public List<GetRoomCategoriesResponse.RoomCategory> getRoomCategoriesSoap() {
@@ -94,19 +87,16 @@ public class RoomCategoryService {
 	 * @param roomCategoryDTO - contains new informations for room category
 	 * @return updated room category
 	 */
-	public RoomCategory editRoomCategory(@Valid RoomCategoryDTO roomCategoryDTO) {
-		Optional<RoomCategory> opt = roomCategoryRepository.findById(roomCategoryDTO.getId());
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
-
+	public RoomCategory editRoomCategory(@Valid RoomCategory roomCategoryDTO) {
+		Optional<RoomCategory> opt = findRoomCategory(roomCategoryDTO.getId());
+	
 		// set number of stars and description
 		opt.ifPresent(roomCategory -> {
 			roomCategory.setNumberOfStars(roomCategoryDTO.getNumberOfStars());
 			roomCategory.setDescription(roomCategoryDTO.getDescription());
 		});
 
-		return roomCategoryRepository.save(opt.get());
+		return save(opt.get());
 	}
 
 }

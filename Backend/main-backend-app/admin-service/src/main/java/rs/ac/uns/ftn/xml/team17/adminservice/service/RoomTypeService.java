@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.xml.team17.adminservice.dto.RoomTypeDTO;
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomType.GetRoomTypesResponse;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomType.RoomType;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomTypeRepository;
@@ -44,8 +43,9 @@ public class RoomTypeService {
 	 * Deactivates the existing room type.
 	 * 
 	 * @param id - id of the selected room type
+	 * @return 
 	 */
-	public void deleteRoomType(Integer id) {
+	public RoomType deleteRoomType(Integer id) {
 		Optional<RoomType> opt = findRoomType(id);
 
 		if (!opt.isPresent()) {
@@ -59,22 +59,15 @@ public class RoomTypeService {
 
 		roomType.setActive(false);
 		roomTypeRepository.save(roomType);
+		return roomType;
 	}
 
-	/**
-	 * Converts room types to DTO.
-	 * 
-	 * @return informations about all room types.
+	/** 
+	 * @return informations about all active room types.
 	 */
-	public List<RoomTypeDTO> getRoomTypes() {
+	public Iterable<RoomType> getRoomTypes() {
 		Iterable<RoomType> types = roomTypeRepository.findAll();
-
-		// convert services to DTO
-		List<RoomTypeDTO> ret = new ArrayList<>();
-		for (RoomType type : types) {
-			ret.add(new RoomTypeDTO(type));
-		}
-		return ret;
+		return types;
 	}
 	
 	public List<GetRoomTypesResponse.RoomType> getRoomTypesSoap() {
@@ -94,17 +87,14 @@ public class RoomTypeService {
 	 * @param roomTypeDTO - contains new informations for room type
 	 * @return updated room type
 	 */
-	public RoomType editRoomType(@Valid RoomTypeDTO roomTypeDTO) {
-		Optional<RoomType> opt = roomTypeRepository.findById(roomTypeDTO.getId());
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
-
+	public RoomType editRoomType(@Valid RoomType roomTypeDTO) {
+		Optional<RoomType> opt = findRoomType(roomTypeDTO.getId());
+		
 		// set name and description
 		opt.ifPresent(roomType -> {
 			roomType.setName(roomTypeDTO.getName());
 		});
-		return roomTypeRepository.save(opt.get());
+		return save(opt.get());
 	}
 
 }
