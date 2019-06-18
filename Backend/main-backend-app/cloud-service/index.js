@@ -78,8 +78,12 @@ app.post('/recensions', function (req, res) {
 		id: recensions.length + 1,
 		rating: req.body.rating,
 		comment: req.body.comment,
-		approved: false,
-		roomId: req.body.roomId
+		isApproved: false,
+		reservationId: req.body.reservationId,
+		roomId: req.body.roomId,
+		hotelId: req.body.hotelId,
+		creationDate: new Date(),
+		modificationDate: new Date()
 	} 
 	recensions.push(recension);
 	writeFile();
@@ -98,8 +102,8 @@ app.put('/recensions/:id', function (req, res) {
 		res.status(400).send('Recenzija je vec odobrena!');
 	}
 	
-	// Update recension 
-	recension.approved = true;
+	// Update recension
+	recension.isApproved = true;
 	// Return the updated recension
 	
 	res.send(recension);
