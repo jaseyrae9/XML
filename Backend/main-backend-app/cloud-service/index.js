@@ -98,7 +98,7 @@ app.put('/recensions/:id', function (req, res) {
 	if(!recension) res.status(404).send('Recenzija sa zadatim identifikatorom ne postoji!');
 	
 	// Validate
-	if(recension.approved === true) {
+	if(recension.isApproved === true) {
 		res.status(400).send('Recenzija je vec odobrena!');
 	}
 	
