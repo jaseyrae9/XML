@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension.Recension;
 
 @RestController
@@ -37,13 +38,13 @@ public class RecensionController {
 	 * @return informations of all recensions.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Recension> getAllRecensions() {
+	public List<RecensionResponseDTO> getAllRecensions() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		List<Recension> recensions = new ArrayList<Recension>();
+		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
 		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
 		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recensions",
-				HttpMethod.GET, entity, new ParameterizedTypeReference<List<Recension>>() {
+				HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
 				}).getBody();
 	}
 
@@ -89,11 +90,11 @@ public class RecensionController {
 	public ResponseEntity<?> approveRecension(@PathVariable Integer recensionId) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		Recension recension = new Recension();
-		HttpEntity<Recension> entity = new HttpEntity<Recension>(recension, headers);
+		RecensionResponseDTO recension = new RecensionResponseDTO();
+		HttpEntity<RecensionResponseDTO> entity = new HttpEntity<RecensionResponseDTO>(recension, headers);
 		return new ResponseEntity<>(restTemplate
 				.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recensions/" + recensionId,
-						HttpMethod.PUT, entity, Recension.class)
+						HttpMethod.PUT, entity, RecensionResponseDTO.class)
 				.getBody(), HttpStatus.OK);
 	}
 
