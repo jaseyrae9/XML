@@ -52,8 +52,7 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Room", namespace = "http://www.tim17.com/room", propOrder = { "id", "hotel", "address", "type",
-		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "description",
-		"totalRating", "numberOfRatings", "floor", "roomNumber" })
+		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "description", "floorNumber", "roomNumber" })
 @NoArgsConstructor
 public class Room {
 	@EqualsAndHashCode.Include
@@ -102,18 +101,14 @@ public class Room {
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room", required = true)
 	protected String description;
-
-	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/room", defaultValue = "0")
-	protected Double totalRating;
-
-	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/room", defaultValue = "0")
-	protected Integer numberOfRatings;
-
+	
 	@Column
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer roomNumber;
+	
+	@Column
+	@XmlElement(namespace = "http://www.tim17.com/room")
+	protected Integer floorNumber;
 
 	@OrderBy("date ASC")
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -135,9 +130,8 @@ public class Room {
 			this.additionalServices.add(as);
 		}
 		this.description = r.getDescription();
-		this.totalRating = r.getTotalRating();
-		this.numberOfRatings = r.getNumberOfRatings();
 		this.roomNumber = r.getRoomNumber();
+		this.floorNumber = r.getFloor();
 	}
 
 	public void setPrice(LocalDate date, double d) {
@@ -164,4 +158,5 @@ public class Room {
 	public void addImage(Image newImage) {
 		this.images.add(newImage);
 	}
+
 }

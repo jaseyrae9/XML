@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,6 +47,7 @@ public class Address {
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
+	@NotBlank(message = "Please, enter country.")
 	protected String country;
 
 	@Column
@@ -51,26 +56,36 @@ public class Address {
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
+	@NotBlank(message = "Please, enter city.")
 	protected String city;
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
+	@NotBlank(message = "Please, enter postal code.")
 	protected String postalCode;
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
+	@NotBlank(message = "Please, enter street.")
 	protected String street;
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
+	@NotBlank(message = "Please, enter street number.")
 	protected String streetNumber;
 
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address")
+	@NotNull(message = "Please, enter latitude.")
+	@Max(value = 90, message = "Maximal latitude is 90.")
+	@Min(value = -90, message = "Minimal latitude is 90.")
 	protected Double lat;
 
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address")
+	@NotNull(message = "Please, enter longitude.")
+	@Max(value = 180, message = "Maximal longitude is 180.")
+	@Min(value = -180, message = "Minimal longitude is -180.")
 	protected Double lng;
 
 	public Address(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Address a) {

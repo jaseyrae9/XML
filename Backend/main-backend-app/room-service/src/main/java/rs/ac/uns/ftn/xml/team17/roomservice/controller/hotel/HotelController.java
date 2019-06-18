@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelDTO;
-import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelDTOResponse;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelFull;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelPreview;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
@@ -57,8 +55,8 @@ public class HotelController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<HotelDTOResponse> addHotel(@Valid @RequestBody HotelDTO hotelDTO) {
+	public ResponseEntity<HotelPreview> addHotel(@Valid @RequestBody HotelPreview hotelDTO) {
 		Hotel hotel = new Hotel(hotelDTO.getName(), hotelDTO.getAddress(), hotelDTO.getPib());
-		return new ResponseEntity<>(new HotelDTOResponse(hotelService.save(hotel)), HttpStatus.CREATED);
+		return new ResponseEntity<>(new HotelPreview(hotelService.save(hotel)), HttpStatus.CREATED);
 	}
 }

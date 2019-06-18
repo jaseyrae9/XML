@@ -1,5 +1,10 @@
 package rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +16,16 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 @Setter
 public class HotelPreview {
 	private Integer id;
+	@NotBlank(message = "Plese, enter a PIB.")
+	@Size(min = 9, max = 9, message = "PIB must have 9 charachters.")
+	private String pib;
+	@NotBlank(message = "Plese, enter a hotel name.")
 	private String name;
+	@Valid @NotNull(message = "Please, enter a hotel address.")
 	private Address address;
 	
 	public HotelPreview(Hotel hotel) {
+		this.pib = hotel.getPib();
 		this.id = hotel.getId();
 		this.name = hotel.getName();
 		this.address = hotel.getAddress();
