@@ -35,7 +35,9 @@ import { RoomPageComponent } from './components/hotel/room-page/room-page.compon
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AddressDetailsComponent } from './components/address-details/address-details.component';
-import { GalleryComponent } from './components/hotel/gallery/gallery.component'; // for FullCalendar!
+import { GalleryComponent } from './components/hotel/gallery/gallery.component';
+import { PriceTableComponent } from './components/hotel/price-table/price-table.component';
+import { ReviewDetailsComponent } from './components/hotel/review-details/review-details.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { GalleryComponent } from './components/hotel/gallery/gallery.component';
     RoomBasicInfoComponent,
     RoomPageComponent,
     AddressDetailsComponent,
-    GalleryComponent
+    GalleryComponent,
+    PriceTableComponent,
+    ReviewDetailsComponent,
   ],
   imports: [
     BrowserModule,

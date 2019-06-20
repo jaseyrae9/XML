@@ -2,7 +2,7 @@
   <!--prvi red - naslov-->
   <div class="row py-2 p">
     <div class="col-12">
-        <a routerLink="" style="color: #33cabb; font-size:25px;">< Back to hotel</a>
+        <a routerLink="/hotel/{{roomFull.hotel.id}}" style="color: #33cabb; font-size:25px;">< Back to hotel</a>
     </div>
   </div>
 
@@ -17,7 +17,7 @@
             </div>
             
             <div class="rating-block bg-light rounded p-1">
-              <!--[(ngModel)]="room.totalRating"-->
+              <!--[(ngModel)]="roomFull.totalRating" -->
                 <rating [max]="5" [readonly]="true" ></rating>
                 <p class="text-detail">
                     Rated 5 times
@@ -27,19 +27,19 @@
               <div class="text-left">
                   <ul class="details-display">
                       <li>
-                          <i class="fa fa-building"></i> Type: bed&breakfast
+                          <i class="fa fa-building"></i> Type: {{roomFull.type.name}}
                       </li>
                       <li>
-                          <i class="fa fa-hashtag"></i> Floor number: 4, Room number: 4
+                          <i class="fa fa-hashtag"></i> Floor number: {{roomFull.floorNumber}}, Room number: {{roomFull.roomNumber}}
                       </li>
                       <li>
-                          <i class="fa fa-star" aria-hidden="true"></i> Category: 5 stars
+                          <i class="fa fa-star" aria-hidden="true"></i> Category: {{roomFull.category.numberOfStars}} stars
                       </li>
                       <li>
-                          <i class="fa fa-user" aria-hidden="true"></i> Number of people: 4
+                          <i class="fa fa-user" aria-hidden="true"></i> Number of people: {{roomFull.numberOfPeople}}
                       </li>
                       <li>
-                          <i class="fa fa-ban" aria-hidden="true"></i> Cancelation: 2 days
+                          <i class="fa fa-ban" aria-hidden="true"></i> Cancelation: {{roomFull.cancelationDays}} days
                       </li>
                   </ul>
               </div>
@@ -58,22 +58,18 @@
             <div><p class="lead">
                 Description
               </p>
-              <p class="text-muted text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                   It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-              </p>
+              <p class="text-muted text-justify"> {{roomFull.description}} </p>
             </div>
             <hr/>
             <div class="mt-2 mb-4">
                 <p class="lead">
                   Additional Services
                 </p>
-                <!--p *ngIf="!room.additionalService" class="text-muted">
+                <p *ngIf="roomFull.additionalServices.length == 0" class="text-muted">
                   There are no additional services available for this room.
-                </p-->
-                <!--*ngFor="let additionalService of room.additionalService"-->
-                <div  class="d-inline-flex pr-1">
-                  <span class="badge badge-pill badge-primary">additionalService.name</span>
+                </p>
+                <div  class="d-inline-flex pr-1" *ngFor="let additionalService of roomFull.additionalServices">
+                  <span class="badge badge-pill badge-primary">{{additionalService.name}}</span>
                 </div>
                 
               </div>
@@ -103,10 +99,7 @@
 
               <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="pricelist" aria-labelledby="pricelist-tab">
-                      <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"
-                      
-                       >
-                    </full-calendar>
+                    <app-price-table [defaultPrice]="roomFull.defaultPrice" [roomId]="roomId"></app-price-table>
                     </div>
                 
                    
@@ -122,6 +115,7 @@
       <!--kraj tab reda-->
     </div>
     <!--kraj centra -->
+
 
     <!-- desno - rezervacija, mapa (adresa)-->
     <div class="col-3">
@@ -162,26 +156,8 @@
                   <!-- END SIDEBAR USERPIC -->          
                  
                   <!-- SIDEBAR MENU -->
-                  <div class="profile-usermenu">
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Street Number</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link disabled" href="#">City, Postal code</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link disabled" href="#">
-                          state
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link disabled" href="#">
-                          country
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  <app-address-details [address]="roomFull.address"></app-address-details>
+
                   <!-- END MENU -->
                 </div>
           </div>

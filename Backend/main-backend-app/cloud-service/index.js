@@ -77,6 +77,7 @@ app.post('/recensions', function (req, res) {
 	const recension = { 
 		id: recensions.length + 1,
 		rating: req.body.rating,
+		title: req.body.title,
 		comment: req.body.comment,
 		isApproved: false,
 		reservationId: req.body.reservationId,
@@ -104,8 +105,9 @@ app.put('/recensions/:id', function (req, res) {
 	
 	// Update recension
 	recension.isApproved = true;
+	recension.modificationDate = new Date();
+
 	// Return the updated recension
-	
 	res.send(recension);
 });
 
@@ -116,14 +118,31 @@ app.get('/recensions', (req, res, next) => {
 
 // Recenzije se vracaju samo za odredjeni smestaj
 app.get('/approvedRecensions/:id', (req, res) => {
-	retVal = recensions.filter(recension => recension.roomId === parseInt(req.params.id) && recension.approved === true);
+	retVal = recensions.filter(recension => recension.roomId === parseInt(req.params.id) && recension.isApproved === true);
 	// treba izabrati samo one koje su odobrene
     res.json(retVal);
 });
 
-/*app.get('/users/:userId', (req, res, next) => {
-    res.json(USERS.find(user => user.id === parseInt(req.params.userId)));
-});*/
+// Vratiti ukupne ocene i broj ocena
+app.get('/rating/:id', (req, res) => {
+	let totalRating = 0;
+	let ratingCount = 0;
+
+	recensions.forEach(function(recension) {
+		if(recension.roomId === parseInt(req.params.id)) {
+			ratingCount+=1;
+			totalRating+=recension.rating;
+		}
+	});
+
+	res.json({ratingCount, totalRating});
+});
+
+app.get('/recension/:hotelId/:date', (req, res) => {
+	retVal = recensions.filter(recension => recension.hotelId === parseInt(req.params.hotelId) && recension.modificationDate > new Date(req.params.date))
+	res.json(retVal);
+});
+
 
 module.exports = {
     app

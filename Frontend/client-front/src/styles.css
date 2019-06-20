@@ -11,3 +11,30 @@ rating {
     color: #fbdc04;
     font-size: 25px;
 }
+
+.fc-right .fc-prev-button, .fc-right .fc-next-button, .fc-right .fc-today-button{
+    color: #fff;
+      background: #33cabb;
+      vertical-align: middle;
+      border: none;
+  }
+  
+  .fc-right .fc-prev-button:hover, .fc-right .fc-next-button:hover, .fc-right .fc-today-button:hover{
+    color: #fff;
+      outline: none;
+      background: #31bfb1;
+  }
+  
+  .fc-right .fc-prev-button:focus, .fc-right .fc-next-button:focus, .fc-right .fc-today-button:focus{
+    color: #fff;
+      outline: none;
+      background: #31bfb1;
+  }
+
+  .fc-left h2 {
+      color: darkslategray;
+  }
+  
+  .fc-view .fc-head .fc-head-container .fc-row .fc-day-header {
+    color: darkslategray;
+  }
