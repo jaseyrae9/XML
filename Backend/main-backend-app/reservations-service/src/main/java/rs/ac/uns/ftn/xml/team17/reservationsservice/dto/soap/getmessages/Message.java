@@ -8,8 +8,6 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,7 +32,7 @@ public class Message {
     protected int id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
-    protected Date dateSent;
+    protected String dateSent;
     @XmlElement(required = true)
     protected MessageDirection status;
     @XmlElement(required = true)
@@ -43,7 +41,7 @@ public class Message {
     public Message(rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.Message message) {
 		this.reservationId = message.getReservation().getId();
 		this.id = message.getId();
-		this.dateSent = message.getCreationDate();
+		this.dateSent = message.getCreationDate().toString();
 		if(message.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.MessageDirection.TO_AGENT) {
 			this.status = MessageDirection.TO_AGENT;
 		}
@@ -93,7 +91,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getDateSent() {
+    public String getDateSent() {
         return dateSent;
     }
 
@@ -105,7 +103,7 @@ public class Message {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDateSent(Date value) {
+    public void setDateSent(String value) {
         this.dateSent = value;
     }
 

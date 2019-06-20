@@ -72,7 +72,7 @@ public class Reservation {
 	protected List<Message> messages;
 	
 	@OrderBy("date ASC")
-	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	protected List<DayReservation> dayReservations;
 
 	@CreationTimestamp

@@ -49,7 +49,7 @@ public class DayReservation {
 	// protected XMLGregorianCalendar date;
 	protected Date date;
 	
-	@ManyToOne(fetch = FetchType.EAGER)	
+	@ManyToOne(fetch = FetchType.LAZY)	
 	@JoinColumn(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
 	protected Reservation reservation;

@@ -24,7 +24,7 @@
             <xs:element name="id" type="xs:int"/> <!-- ID recenzije-->
 			<xs:element name="rating" type="xs:double"/>
 			<xs:element name="comment" type="xs:string"/>
-			<xs:element name="date" type="xs:date"/>
+			<xs:element name="date" type="xs:string"/>
 			<xs:element name="isApproved" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>

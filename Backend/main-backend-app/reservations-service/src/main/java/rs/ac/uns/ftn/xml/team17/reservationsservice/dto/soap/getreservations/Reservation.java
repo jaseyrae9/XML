@@ -7,8 +7,6 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -53,10 +51,10 @@ public class Reservation {
 	protected int id;
 	@XmlElement(required = true)
 	@XmlSchemaType(name = "date")
-	protected Date dateFrom;
+	protected String dateFrom;
 	@XmlElement(required = true)
 	@XmlSchemaType(name = "date")
-	protected Date dateTo;
+	protected String dateTo;
 	protected double totalPrice;
 	@XmlElement(required = true)
 	protected ReservationStatus status;
@@ -65,7 +63,8 @@ public class Reservation {
 
 	public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation r) {
 		this.id = r.getId();
-		// TODO: videti sta za datTo i dateFrom
+		this.dateFrom = r.getDayReservations().get(0).getDate().toString();
+		this.dateTo = r.getDayReservations().get(r.getDayReservations().size()-1).getDate().toString();
 		// TODO: totalPrice ce racunati neki Milicin servis
 		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.RESERVED) {
 			this.status = ReservationStatus.RESERVED;
@@ -103,7 +102,7 @@ public class Reservation {
 	 * @return possible object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public Date getDateFrom() {
+	public String getDateFrom() {
 		return dateFrom;
 	}
 
@@ -113,7 +112,7 @@ public class Reservation {
 	 * @param value allowed object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public void setDateFrom(Date value) {
+	public void setDateFrom(String value) {
 		this.dateFrom = value;
 	}
 
@@ -123,7 +122,7 @@ public class Reservation {
 	 * @return possible object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public Date getDateTo() {
+	public String getDateTo() {
 		return dateTo;
 	}
 
@@ -133,7 +132,7 @@ public class Reservation {
 	 * @param value allowed object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public void setDateTo(Date value) {
+	public void setDateTo(String value) {
 		this.dateTo = value;
 	}
 

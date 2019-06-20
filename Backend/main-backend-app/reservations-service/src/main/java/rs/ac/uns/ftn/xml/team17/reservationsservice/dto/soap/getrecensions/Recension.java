@@ -8,8 +8,6 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -60,14 +58,14 @@ public class Recension {
     protected String comment;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date date;
+    protected String date;
     protected boolean isApproved;
 
     public Recension(rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension.Recension recension) {
 		this.id = recension.getId();
 		this.rating = recension.getRating();
 		this.comment = recension.getComment();
-		this.date = recension.getCreationDate();
+		this.date = recension.getCreationDate().toString();
 		this.isApproved = recension.getIsApproved();
 	}
 
@@ -135,7 +133,7 @@ public class Recension {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -147,7 +145,7 @@ public class Recension {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDate(Date value) {
+    public void setDate(String value) {
         this.date = value;
     }
 
