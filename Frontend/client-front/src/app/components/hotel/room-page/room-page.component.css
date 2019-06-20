@@ -105,10 +105,6 @@ body {
   min-height: 460px;
 }
 
-ngx-gallery{
-  z-index: 10;
-  position: relative;
-}
 
 .additional-service{
   color: #33cabb;
