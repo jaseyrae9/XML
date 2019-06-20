@@ -5,6 +5,7 @@
  @import '~@fullcalendar/core/main.css';
  @import '~@fullcalendar/daygrid/main.css';
  @import '~@fullcalendar/bootstrap/main.css';
+ @import "~@ng-select/ng-select/themes/default.theme.css";
 
 /**/
 rating {
@@ -38,3 +39,10 @@ rating {
   .fc-view .fc-head .fc-head-container .fc-row .fc-day-header {
     color: darkslategray;
   }
+
+  /**/
+.text-detail {
+    font-size: 12px;
+    color: #93a3b5;
+}
+  

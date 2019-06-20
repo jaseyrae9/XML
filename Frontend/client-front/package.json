@@ -24,6 +24,7 @@
     "@fullcalendar/bootstrap": "^4.2.0",
     "@fullcalendar/core": "^4.2.0",
     "@fullcalendar/daygrid": "^4.2.0",
+    "@ng-select/ng-select": "^2.20.0",
     "angular-carousel": "^1.1.0",
     "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.3.1",

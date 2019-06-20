@@ -30,8 +30,8 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" routerLink="/profile">Profile</a>
-                      <div class="dropdown-divider" *ngIf="tokenService.isCustomer"></div>
-                      <a class="dropdown-item" routerLink="/history" *ngIf="tokenService.isCustomer" >History</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" routerLink="/history" >History</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" (click)="logout()">Log out</a>
                   </div>

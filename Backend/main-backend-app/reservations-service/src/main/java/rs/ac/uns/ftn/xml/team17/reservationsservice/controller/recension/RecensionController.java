@@ -66,7 +66,7 @@ public class RecensionController {
 	 * @param roomId - id of the room
 	 * @return informations of approved recension of the selected room.
 	 */
-	@RequestMapping(value = "/{roomId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/approvedRecensions/{roomId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getRoomRecensions(@PathVariable Integer roomId) {
 		// za korisnika
 		HttpHeaders headers = new HttpHeaders();

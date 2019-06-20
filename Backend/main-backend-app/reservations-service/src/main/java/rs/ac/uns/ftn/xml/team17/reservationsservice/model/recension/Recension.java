@@ -28,6 +28,8 @@ import javax.xml.bind.annotation.XmlType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,6 +80,7 @@ public class Recension {
     @CreationTimestamp
 	@XmlElement(namespace = "http://www.tim17.com/recension", required = true)
 	@XmlSchemaType(name = "dateTime")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	protected Date creationDate;
 	
 	@UpdateTimestamp

@@ -19,7 +19,6 @@ export class RoomPageComponent implements OnInit {
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsRangeValue: Date[];
 
-
   constructor(public datePipe: DatePipe,
               private route: ActivatedRoute,
               private roomService: RoomService) {

@@ -38,6 +38,7 @@ import { AddressDetailsComponent } from './components/address-details/address-de
 import { GalleryComponent } from './components/hotel/gallery/gallery.component';
 import { PriceTableComponent } from './components/hotel/price-table/price-table.component';
 import { ReviewDetailsComponent } from './components/hotel/review-details/review-details.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ReviewDetailsComponent } from './components/hotel/review-details/review
     BsDatepickerModule.forRoot(),
     NgxGalleryModule,
     RatingModule,
-    FullCalendarModule // for FullCalendar!
+    FullCalendarModule, // for FullCalendar!
+    NgSelectModule
   ],
   providers: [RoleGuardService, DatePipe],
   bootstrap: [AppComponent]

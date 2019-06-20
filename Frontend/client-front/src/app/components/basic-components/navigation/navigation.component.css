@@ -69,3 +69,13 @@
 		display: none;
 }
 
+.dropdown-item:hover {
+	color: #33cabb;
+}
+
+.dropdown-item:focus {
+	color: white;
+	background: #33cabb !important;
+	box-shadow:none !important;
+	border: none !important;
+}

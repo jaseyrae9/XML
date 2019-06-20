@@ -4,82 +4,55 @@
 
     <!--search (min)-->
 
-    <div class="row">
-        <div class="col-4 input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-            </span>
+    <form [formGroup]="searchForm">
+      <div class="row">
+          <div class="col-md-4 input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Location">
           </div>
-          <input type="text" class="form-control" placeholder="Location">
+      
+          <div class="col-md-4 input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-male" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Number of people">
+          </div>
+
+          <div class="col-md-4 input-group form-group">          
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+              </span>
+            </div>
+            <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
+            bsDaterangepicker placeholder="Departure date from to">
+          </div
+          >
         </div>
     
-        <div class="col-4 input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-male" aria-hidden="true"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" placeholder="Number of people">
+        
+        <div class="alert alert-danger row" role="alert" *ngIf="errorMessage.length != 0">
+          {{errorMessage}}
         </div>
-
-        <div class="col-4 input-group form-group">          
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-calendar-alt" aria-hidden="true"></i>
-            </span>
-          </div>
-          <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
-          bsDaterangepicker placeholder="Departure date from to">
-        </div
-        >
-      </div>
-  
-      <div class="row">
-          <div class="col-4 input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-              </span>
+    
+        <div class="row">
+          <div class="container-fluid">
+            <div class="col-sm-12 text-center">
+              <input type="submit" class="btn btn-primary btn-space" value="Search" />
+              <!--(click)="cancelSearch()"-->
+              <button type="button" class="btn btn-primary btn-space" > Cancel </button>
             </div>
-            <input type="text" class="form-control" placeholder="Type of accommodation">
-          </div>
-      
-          <div class="col-4 input-group form-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="Category of accommodation - videcemo kako">
-          </div>
-          <div class="col-4 input-group form-group">
-            
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-suitcase" aria-hidden="true"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" placeholder="Distance">
-
           </div>
         </div>
+        <!--search (min) - end -->
+      </form>
 
-      <div class="alert alert-danger row" role="alert" *ngIf="errorMessage.length != 0">
-        {{errorMessage}}
-      </div>
-  
-      <div class="row">
-        <div class="container-fluid">
-          <div class="col-sm-12 text-center">
-            <input type="submit" class="btn btn-primary btn-space" value="Search" />
-            <!--(click)="cancelSearch()"-->
-            <button type="button" class="btn btn-primary btn-space" > Cancel </button>
-          </div>
-        </div>
-      </div>
-      <!--search (min) - end -->
-      
       <br/>
 
       <!--search (filter)-->
@@ -90,28 +63,43 @@
               Filter
             </a>
           </div>
+
           <div id="collapseOne" class="collapse" data-parent="#accordion">
+
             <div class="card-body">
               <form name="form">
-                <div class="row">
+                
     
-                  <div class="col-sm-6">
-                    <div class="input-group form-group">
-                      <div class="custom-control custom-checkbox">
-                        <!--[(ngModel)]="additionalServicesNeeded"-->
-                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                        <label class="custom-control-label" for="customCheck">Additional services1</label>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="input-group form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                            <label class="custom-control-label" for="customCheck">Additional services2</label>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                          <label>Room type</label>
+                          <ng-select [searchable]="true" [items]="roomTypes" bindValue="id" bindLabel="name" placeholder="Select room type" formControlName="roomType">
+                          </ng-select>
+                        </div>
+                    
+                        <div class="col-md-4 mb-3">
+                          <label>Room category</label>
+                          <ng-select [searchable]="true" [items]="roomCategories" bindValue="id" bindLabel="numberOfStars" placeholder="Select room category" formControlName="roomCategory">
+                          </ng-select>
+                        </div>
+
+                        <div class="col-md-4 mb-3 ">
+                            <label>Room type</label>                           
+                            <input type="text" class="form-control " placeholder="Distance">
                           </div>
                     </div>
-                  </div>
-    
+
+                    <div class="row">
+                      <div class="col-md-12 mb-3">
+                          <label>Additional Services</label>
+                          <ng-select formControlName="additionalService" [items]="additionalServices" [multiple]="true" bindLabel="name" [closeOnSelect]="false" bindValue="id" placeholder="Select additional services">
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/> {{item.name}}
+                            </ng-template>
+                        </ng-select>
+                      </div>
+                    </div>
+
                   <div class="container-fluid">
                     <div class="col-sm-12 text-center">
                       <!--(click)="filter()" (click)="cancelFilter"-->
@@ -119,9 +107,12 @@
                       <button type="button" class="btn btn-primary btn-space" > Cancel </button>
                     </div>
                   </div>
-                </div>
+
+           
               </form>
             </div>
+
+
           </div>
         </div>
 

@@ -18,7 +18,6 @@ export class HotelService {
   constructor(private http: HttpClient) {
 
   }
-
   getAll(pageNumer, sortBy): Observable<any> {
     return this.http.get(this.url + 'room-service/hotel?page='
                         + pageNumer + '&size=2&sort=' + sortBy);
@@ -27,4 +26,5 @@ export class HotelService {
   getHotel(id): Observable<any> {
     return this.http.get(this.url + 'room-service/hotel/' + id);
   }
+
 }
