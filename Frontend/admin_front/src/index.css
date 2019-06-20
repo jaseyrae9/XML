@@ -17,3 +17,11 @@ html, .tema {
   background-color: #343a40;
   color: white;
 }
+
+.link {
+  border-bottom: 1px solid #66696d;
+  color: #93a3b5;
+  font-weight: 400;
+  font-size: 20px;
+  width: 100%;
+}

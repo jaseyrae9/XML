@@ -27,7 +27,7 @@ class Login extends React.Component {
             <div className="row">
                 <form onSubmit={this.handleSubmit} className='col-3 ml-3'>
                     <FormGroup>
-                        <Label>Urename</Label>
+                        <Label>Username</Label>
                         <Input autoFocus name='username' onChange={this.onChange} />
                     </FormGroup>
                     <FormGroup>
