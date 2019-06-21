@@ -42,7 +42,7 @@ class Recensions extends React.Component {
                 return <tr key={object.id}>
                     {values}
                     <td>
-                        <Button color="warning" onClick={() => update(this.props.url, object.id, this.afterDelete)} className="mr-2">Change</Button>
+                        <Button color="warning" onClick={() => update(this.props.url, object, this.afterDelete)} className="mr-2">Change</Button>
                         <Button color="danger" value={object.id} onClick={() => del(this.props.url, object.id, this.afterDelete)}>Delete</Button>
                     </td>
                 </tr>
