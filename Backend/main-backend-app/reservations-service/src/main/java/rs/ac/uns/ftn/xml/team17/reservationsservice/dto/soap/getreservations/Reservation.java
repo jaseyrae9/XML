@@ -44,11 +44,13 @@ import lombok.NoArgsConstructor;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Reservation", propOrder = { "id", "dateFrom", "dateTo", "totalPrice", "status", "user" })
+@XmlType(name = "Reservation", propOrder = { "id","roomId", "dateFrom", "dateTo", "totalPrice", "status", "user" })
 @NoArgsConstructor
 public class Reservation {
 
 	protected int id;
+	
+	protected int roomId;
 	@XmlElement(required = true)
 	@XmlSchemaType(name = "date")
 	protected String dateFrom;
@@ -63,6 +65,9 @@ public class Reservation {
 
 	public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation r) {
 		this.id = r.getId();
+		
+		this.roomId = r.getDayReservations().get(0).getReservation().getRoom().getId();
+		
 		String tmp0 = r.getDayReservations().get(0).getDate().toString();
 		String[] splited0 = tmp0.split(" ");
 		System.out.println(splited0[0]);
@@ -102,6 +107,9 @@ public class Reservation {
 		this.id = value;
 	}
 
+	
+	
+	
 	/**
 	 * Gets the value of the dateFrom property.
 	 * 
@@ -196,6 +204,14 @@ public class Reservation {
 	 */
 	public void setUser(User value) {
 		this.user = value;
+	}
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
 }
