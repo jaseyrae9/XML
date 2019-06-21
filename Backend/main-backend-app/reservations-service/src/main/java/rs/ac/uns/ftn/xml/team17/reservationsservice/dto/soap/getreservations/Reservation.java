@@ -63,8 +63,14 @@ public class Reservation {
 
 	public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation r) {
 		this.id = r.getId();
-		this.dateFrom = r.getDayReservations().get(0).getDate().toString();
-		this.dateTo = r.getDayReservations().get(r.getDayReservations().size()-1).getDate().toString();
+		String tmp0 = r.getDayReservations().get(0).getDate().toString();
+		String[] splited0 = tmp0.split(" ");
+		System.out.println(splited0[0]);
+		this.dateFrom = splited0[0];
+		String tmp1 = r.getDayReservations().get(r.getDayReservations().size()-1).getDate().toString();
+		String[] splited1 = tmp1.split(" ");
+		System.out.println(splited1[0]);
+		this.dateTo = splited1[0];
 		// TODO: totalPrice ce racunati neki Milicin servis
 		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.RESERVED) {
 			this.status = ReservationStatus.RESERVED;
