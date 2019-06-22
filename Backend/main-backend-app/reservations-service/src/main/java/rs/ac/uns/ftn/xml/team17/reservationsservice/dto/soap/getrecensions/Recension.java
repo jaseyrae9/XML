@@ -8,6 +8,9 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -66,7 +69,11 @@ public class Recension {
 		this.id = recension.getId();
 		this.rating = recension.getRating();
 		this.comment = recension.getComment();
-		this.date = recension.getCreationDate().toString();
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+        String strDate = dateFormat.format(recension.getCreationDate());  
+        
+		this.date = strDate;
 		this.isApproved = recension.getIsApproved();
 	}
 
