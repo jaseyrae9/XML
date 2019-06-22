@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension.Recension;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RoomRecensionDTO;
 
 @RestController
 @RequestMapping("/recension")
@@ -33,7 +33,7 @@ public class RecensionController {
 	private RestTemplate restTemplate;
 
 	/**
-	 * Gets all recensions.
+	 * Gets all recensions for admin.
 	 * 
 	 * @return informations of all recensions.
 	 */
@@ -49,19 +49,7 @@ public class RecensionController {
 	}
 
 	/**
-	 * Gets data about the recension with selected id.
-	 * 
-	 * @param recensionId - id of the recension
-	 * @return
-	 */
-	@RequestMapping(value = "/{recensionId}", method = RequestMethod.GET)
-	public ResponseEntity<?> getReservationRecension(@PathVariable Integer recensionId) {
-		// za admina da moze da vidi recenziju, pa da je odobri
-		return null;
-	}
-
-	/**
-	 * Gets all approved recensions of the room with selected id.
+	 * Gets all approved recensions of the room with selected id for customer.
 	 * 
 	 * @param roomId - id of the room
 	 * @return informations of approved recension of the selected room.
@@ -71,17 +59,15 @@ public class RecensionController {
 		// za korisnika
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		List<Recension> recensions = new ArrayList<Recension>();
-		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
+		RoomRecensionDTO roomRecension = new RoomRecensionDTO();
+		HttpEntity<RoomRecensionDTO> entity = new HttpEntity<RoomRecensionDTO>(roomRecension, headers);
 		return new ResponseEntity<>(restTemplate
 				.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/" + roomId,
-						HttpMethod.GET, entity, new ParameterizedTypeReference<List<Recension>>() {
-						})
-				.getBody(), HttpStatus.OK);
+						HttpMethod.GET, entity, RoomRecensionDTO.class).getBody(), HttpStatus.OK);
 	}
 
 	/**
-	 * Approves the selected recension.
+	 * Admin approves the selected recension.
 	 * 
 	 * @param recensionId - id of the selected recension
 	 * @return
@@ -90,18 +76,35 @@ public class RecensionController {
 	public ResponseEntity<?> approveRecension(@PathVariable Integer recensionId) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		
+		
 		RecensionResponseDTO recension = new RecensionResponseDTO();
 		HttpEntity<RecensionResponseDTO> entity = new HttpEntity<RecensionResponseDTO>(recension, headers);
+		
 		return new ResponseEntity<>(restTemplate
 				.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recensions/" + recensionId,
 						HttpMethod.PUT, entity, RecensionResponseDTO.class)
 				.getBody(), HttpStatus.OK);
 	}
 
+	/**
+	 * Korisnik postavlja recenziju, koju admin treba da odobri.
+	 * 
+	 * @param recensionDTO - informations about the recension
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> addRecension(@Valid @RequestBody RecensionDTO recensionDTO) {
-		// TODO: Pogoditi klaud i postaviti recenziju
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		
+		HttpEntity<RecensionDTO> entity = new HttpEntity<RecensionDTO>(recensionDTO, headers);
+		return new ResponseEntity<>(restTemplate
+				.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recensions",
+						HttpMethod.POST, entity, RecensionResponseDTO.class)
+				.getBody(), HttpStatus.OK);
 	}
+	
+	
 
 }

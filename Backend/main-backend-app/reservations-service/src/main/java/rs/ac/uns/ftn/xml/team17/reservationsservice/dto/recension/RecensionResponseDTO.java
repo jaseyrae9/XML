@@ -12,14 +12,16 @@ import lombok.Setter;
 public class RecensionResponseDTO {
 
 	private Integer id;
-	
-	private Boolean isApproved;
-	
+
 	private Double rating;
+
+	private String title;
 	
 	private String comment;
 	
-	protected Date creationDate;
+	private String username;
 	
-	protected Date modificationDate;
+	private Boolean isApproved;
+	
+	protected Date creationDate;
 }

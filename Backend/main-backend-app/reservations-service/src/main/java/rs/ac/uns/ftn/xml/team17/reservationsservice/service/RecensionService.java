@@ -1,20 +1,26 @@
 package rs.ac.uns.ftn.xml.team17.reservationsservice.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension.Recension;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.repository.RecensionRepository;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
 
 @Service
 public class RecensionService {
-
+	
 	@Autowired
-	private RecensionRepository recensionRepository;
+	private RestTemplate restTemplate;
 	
 	public List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension> getRecensions(Date date, Integer hotelId) {
 		System.out.println("RecensionService getRecensions");
@@ -22,9 +28,15 @@ public class RecensionService {
 		
 		List<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension> ret = new ArrayList<rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension>();
 		
-		List<Recension> recensions = recensionRepository.findAll(date, hotelId);
-		
-		for(Recension recension : recensions) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
+		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
+		List<RecensionResponseDTO> retRecensions = restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recensions/" + hotelId + "/" + date,
+				HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
+				}).getBody();
+	
+		for(RecensionResponseDTO recension : retRecensions) {
 			rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getrecensions.Recension(recension);
 			ret.add(r);
 		}

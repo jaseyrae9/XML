@@ -1,7 +1,5 @@
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -12,13 +10,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecensionDTO {
-	
-	@NotNull(message = "Plese, choose a date.")
-	private Date dateOfRecension;
-	
+		
 	private Double rating;
+	private String title;
 	private String comment;
+	private String username;
 	
 	@NotNull(message = "Please, choose a reservation.")
 	private Integer reservationId;
+	
+	@NotNull(message = "Please, choose a room.")
+	private Integer roomId;
+	
+	@NotNull(message = "Please, choose a hotel.")
+	private Integer hotelId;
 }

@@ -79,6 +79,7 @@ app.post('/recensions', function (req, res) {
 		rating: req.body.rating,
 		title: req.body.title,
 		comment: req.body.comment,
+		username: req.body.username,
 		isApproved: false,
 		reservationId: req.body.reservationId,
 		roomId: req.body.roomId,
@@ -107,6 +108,7 @@ app.put('/recensions/:id', function (req, res) {
 	recension.isApproved = true;
 	recension.modificationDate = new Date();
 
+	writeFile();
 	// Return the updated recension
 	res.send(recension);
 });
@@ -118,13 +120,10 @@ app.get('/recensions', (req, res, next) => {
 
 // Recenzije se vracaju samo za odredjeni smestaj
 app.get('/approvedRecensions/:id', (req, res) => {
-	retVal = recensions.filter(recension => recension.roomId === parseInt(req.params.id) && recension.isApproved === true);
 	// treba izabrati samo one koje su odobrene
-    res.json(retVal);
-});
-
-// Vratiti ukupne ocene i broj ocena
-app.get('/rating/:id', (req, res) => {
+	retRecensions = recensions.filter(recension => recension.roomId === parseInt(req.params.id) && recension.isApproved === true);
+	
+	// za racunanje ocena uzimamo sve recenzije
 	let totalRating = 0;
 	let ratingCount = 0;
 
@@ -134,15 +133,13 @@ app.get('/rating/:id', (req, res) => {
 			totalRating+=recension.rating;
 		}
 	});
-
-	res.json({ratingCount, totalRating});
+    res.json({retRecensions, ratingCount, totalRating});
 });
 
 app.get('/recension/:hotelId/:date', (req, res) => {
 	retVal = recensions.filter(recension => recension.hotelId === parseInt(req.params.hotelId) && recension.modificationDate > new Date(req.params.date))
 	res.json(retVal);
 });
-
 
 module.exports = {
     app

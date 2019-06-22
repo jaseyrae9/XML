@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import lombok.NoArgsConstructor;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
 
 
 /**
@@ -61,7 +62,7 @@ public class Recension {
     protected String date;
     protected boolean isApproved;
 
-    public Recension(rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension.Recension recension) {
+    public Recension(RecensionResponseDTO recension) {
 		this.id = recension.getId();
 		this.rating = recension.getRating();
 		this.comment = recension.getComment();
