@@ -2,6 +2,8 @@ package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,5 +27,6 @@ public class RecensionResponseDTO {
 	
 	private Boolean isApproved;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	protected Date creationDate;
 }

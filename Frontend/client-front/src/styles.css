@@ -10,7 +10,7 @@
 /**/
 rating {
     color: #fbdc04;
-    font-size: 25px;
+    font-size: 12px;
 }
 
 .fc-right .fc-prev-button, .fc-right .fc-next-button, .fc-right .fc-today-button{
@@ -45,4 +45,3 @@ rating {
     font-size: 12px;
     color: #93a3b5;
 }
-  

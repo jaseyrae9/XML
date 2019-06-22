@@ -36,6 +36,7 @@
     "ng-bootstrap-form-validation": "^4.0.0",
     "ngx-bootstrap": "^4.2.0",
     "ngx-gallery": "^5.10.0",
+    "ngx-rating": "0.0.9",
     "popper.js": "^1.15.0",
     "rxjs": "^6.3.3",
     "tslib": "^1.9.0",

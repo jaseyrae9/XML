@@ -4,6 +4,8 @@ import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 import { RoomService } from 'src/app/services/hotel/room.service';
 import { ActivatedRoute } from '@angular/router';
+import { ReservationService } from 'src/app/services/hotel/reservation.service';
+import { RoomRecension } from 'src/app/model/reservation/roomRecension';
 
 @Component({
   selector: 'app-room-page',
@@ -13,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 export class RoomPageComponent implements OnInit {
 
   @Input() roomFull: RoomFull = new RoomFull();
+  roomRecension: RoomRecension = new RoomRecension();
+  averageRating = 0;
   roomId;
 
   // date picker - range
@@ -21,7 +25,8 @@ export class RoomPageComponent implements OnInit {
 
   constructor(public datePipe: DatePipe,
               private route: ActivatedRoute,
-              private roomService: RoomService) {
+              private roomService: RoomService,
+              private reservationService: ReservationService) {
     this.datePickerConfig = Object.assign({},
       {
         containerClass: 'theme-default',
@@ -32,12 +37,24 @@ export class RoomPageComponent implements OnInit {
   ngOnInit() {
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.loadRoom();
+    this.loadRecensions();
   }
 
   loadRoom() {
     this.roomService.getRoom(this.roomId).subscribe(
       (data) => {
         this.roomFull = data;
+      }
+    );
+  }
+
+  loadRecensions() {
+    this.reservationService.getRecensions(this.roomId).subscribe(
+      (data) => {
+        this.roomRecension = data;
+        this.averageRating = this.roomRecension.totalRating / this.roomRecension.ratingCount;
+        console.log(data);
+        console.log('Average rating: ' + this.averageRating);
       }
     );
   }

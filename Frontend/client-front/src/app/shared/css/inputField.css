@@ -35,7 +35,9 @@
 .btn-primary:hover, .btn-primary:focus {
 	color: #fff;
 	outline: none;
-	background: #31bfb1;
+	background: #31bfb1 !important;
+	box-shadow:none !important;
+	border: none !important;
 }
 
 /* Paginatioin */
@@ -43,7 +45,7 @@
     color: #fff;
     background-color: #33cabb;
     border-color: #33cabb;
-	}
+}
 	
 
   

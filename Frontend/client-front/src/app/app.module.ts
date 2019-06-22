@@ -6,7 +6,6 @@ import { RoutingModule } from './app-routing.module';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 // datepicker
 import { BsDatepickerModule} from 'ngx-bootstrap';
-import {RatingModule} from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
@@ -39,6 +38,7 @@ import { GalleryComponent } from './components/hotel/gallery/gallery.component';
 import { PriceTableComponent } from './components/hotel/price-table/price-table.component';
 import { ReviewDetailsComponent } from './components/hotel/review-details/review-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {RatingModule} from 'ngx-rating';
 
 @NgModule({
   declarations: [
