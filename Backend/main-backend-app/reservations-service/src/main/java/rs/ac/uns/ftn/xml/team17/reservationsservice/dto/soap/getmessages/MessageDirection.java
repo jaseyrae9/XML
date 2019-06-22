@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum MessageDirection {
 
     TO_AGENT,
-    TO_CUSOTOMER;
+    TO_CUSTOMER;
 
     public String value() {
         return name();

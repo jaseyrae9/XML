@@ -51,7 +51,7 @@ public class MessageService {
 		Reservation r = opt.get();
 
 		Message m = new Message(newMessageRequest.getMessage(), r);
-		m.setStatus(MessageDirection.TO_CUSOTOMER);
+		m.setStatus(MessageDirection.TO_CUSTOMER);
 		
 		r.addMessage(m);
 		

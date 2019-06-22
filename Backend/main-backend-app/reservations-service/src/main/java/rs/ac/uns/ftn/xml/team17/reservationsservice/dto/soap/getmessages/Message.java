@@ -45,8 +45,8 @@ public class Message {
 		if(message.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.MessageDirection.TO_AGENT) {
 			this.status = MessageDirection.TO_AGENT;
 		}
-		if(message.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.MessageDirection.TO_CUSOTOMER) {
-			this.status = MessageDirection.TO_CUSOTOMER;
+		if(message.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.MessageDirection.TO_CUSTOMER) {
+			this.status = MessageDirection.TO_CUSTOMER;
 		}
 		this.message = message.getMessage();
 	}

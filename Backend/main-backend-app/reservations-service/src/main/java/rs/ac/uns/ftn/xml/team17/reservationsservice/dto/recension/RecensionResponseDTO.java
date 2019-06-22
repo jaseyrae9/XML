@@ -11,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class RecensionResponseDTO {
 
+	private Integer reservationId;
+	
 	private Integer id;
 
 	private Double rating;

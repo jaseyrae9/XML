@@ -47,6 +47,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Recension", propOrder = {
+	"reservationId",
     "id",
     "rating",
     "comment",
@@ -56,6 +57,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 @NoArgsConstructor
 public class Recension {
 
+	protected int reservationId;
     protected int id;
     protected double rating;
     @XmlElement(required = true)
@@ -66,6 +68,7 @@ public class Recension {
     protected boolean isApproved;
 
     public Recension(RecensionResponseDTO recension) {
+    	this.reservationId = recension.getReservationId();
 		this.id = recension.getId();
 		this.rating = recension.getRating();
 		this.comment = recension.getComment();
