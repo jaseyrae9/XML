@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 				.authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
-				.authorizeRequests().antMatchers("/auth/**", "/admin/**", "/actuator/**").permitAll().anyRequest().authenticated().and()
+				.authorizeRequests().antMatchers("/register", "/login", "/validate-token").permitAll()
+				.anyRequest().authenticated().and()
 				.addFilterBefore(new AuthenticationFilter(userDetailsService), BasicAuthenticationFilter.class);
 	}
 }

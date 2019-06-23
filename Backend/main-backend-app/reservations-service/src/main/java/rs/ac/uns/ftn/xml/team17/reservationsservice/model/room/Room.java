@@ -1,9 +1,6 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.model.room;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,20 +8,18 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.address.Address;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.hotel.Hotel;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.model.price.Price;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
 
 /**
  * <p>
@@ -36,12 +31,15 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
 //Lambok annotations
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Room", namespace = "http://www.tim17.com/room", propOrder = { "id", "hotel", "address", 
 		"defaultPrice", "numberOfPeople", "cancelationDays", "roomNumber" })
 public class Room {
 	@Id
+	@EqualsAndHashCode.Include
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer id;
 	
@@ -70,11 +68,4 @@ public class Room {
 	@Column
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer roomNumber;
-
-	@OrderBy("date ASC")
-	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	protected List<Price> prices;
-	
-	@OneToMany(mappedBy = "room", fetch = FetchType.LAZY, orphanRemoval = true)
-	protected Set<Reservation> reservations;
 }

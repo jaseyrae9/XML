@@ -46,14 +46,7 @@ public class RoomType {
 	
 	@Column(nullable = false)
 	private Boolean active;
-	
-	public RoomType(String name) {
-		super();
-		this.name = name;
-		this.active = true; // when created it is active
-
-	}
-	
+		
 	public RoomType(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.RoomType r) { 
 		super();
 		this.id = r.getId();

@@ -18,11 +18,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-/**
- * <p>
- * Java class for AdditionalService complex type.
- * </p>
- */
 
 //Database annotations
 @Entity

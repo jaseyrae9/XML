@@ -13,5 +13,5 @@ public class Message {
 	private Integer id;
 	private String message;
 	private Date dateSent;
-	//TODO: Dodati direction
+	private Boolean fromCustomer;
 }

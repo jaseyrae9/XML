@@ -50,13 +50,6 @@ public class RoomCategory {
 	@Column(nullable = false)
 	private Boolean active;
 	
-	public RoomCategory(Integer numberOfStars, String description) {
-		super();
-		this.numberOfStars = numberOfStars;
-		this.description = description;
-		
-		this.active = true; // when created it is active
-	}
 	
 	public RoomCategory(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.RoomCategory r) {
 		super();

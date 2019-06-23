@@ -14,7 +14,7 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 @NoArgsConstructor
 @Getter
 @Setter
-public class HotelPreview {
+public class HotelBasicsDTO {
 	private Integer id;
 	@NotBlank(message = "Plese, enter a PIB.")
 	@Size(min = 9, max = 9, message = "PIB must have 9 charachters.")
@@ -24,10 +24,18 @@ public class HotelPreview {
 	@Valid @NotNull(message = "Please, enter a hotel address.")
 	private Address address;
 	
-	public HotelPreview(Hotel hotel) {
+	public HotelBasicsDTO(Hotel hotel) {
 		this.pib = hotel.getPib();
 		this.id = hotel.getId();
 		this.name = hotel.getName();
 		this.address = hotel.getAddress();
+	}
+	
+	public Hotel createHotel() {
+		Hotel ret = new Hotel();
+		ret.setName(name);
+		ret.setPib(pib);
+		ret.setAddress(address);
+		return ret;
 	}
 }

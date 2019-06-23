@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelFull;
-import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelPreview;
+import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelWithRoomsDTO;
+import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelBasicsDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.service.HotelService;
 
@@ -31,8 +31,8 @@ public class HotelController {
 	 * @return information about all hotels.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Page<HotelPreview>> getHotel(Pageable page) {
-		Page<HotelPreview> ret = hotelService.getHotels(page);
+	public ResponseEntity<Page<HotelBasicsDTO>> getHotel(Pageable page) {
+		Page<HotelBasicsDTO> ret = hotelService.getHotels(page);
 		return ResponseEntity.ok(ret);
 	}
 
@@ -43,9 +43,9 @@ public class HotelController {
 	 * @return 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{hotelId}")
-	public ResponseEntity<HotelFull> getHotel(@PathVariable Integer hotelId) {
+	public ResponseEntity<HotelWithRoomsDTO> getHotel(@PathVariable Integer hotelId) {
 		Hotel hotel = hotelService.getHotel(hotelId);
-		return new ResponseEntity<>(new HotelFull(hotel), HttpStatus.OK);
+		return new ResponseEntity<>(new HotelWithRoomsDTO(hotel), HttpStatus.OK);
 	}
 	
 	/**
@@ -55,8 +55,8 @@ public class HotelController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<HotelPreview> addHotel(@Valid @RequestBody HotelPreview hotelDTO) {
-		Hotel hotel = new Hotel(hotelDTO.getName(), hotelDTO.getAddress(), hotelDTO.getPib());
-		return new ResponseEntity<>(new HotelPreview(hotelService.save(hotel)), HttpStatus.CREATED);
+	public ResponseEntity<HotelBasicsDTO> addHotel(@Valid @RequestBody HotelBasicsDTO hotelDTO) {
+		Hotel hotel = hotelDTO.createHotel();
+		return new ResponseEntity<>(new HotelBasicsDTO(hotelService.save(hotel)), HttpStatus.CREATED);
 	}
 }

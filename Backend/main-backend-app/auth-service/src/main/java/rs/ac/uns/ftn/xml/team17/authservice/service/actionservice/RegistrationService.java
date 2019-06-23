@@ -10,7 +10,6 @@ import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Agent;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Authority;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.AuthorityService;
-import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.HotelService;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
 @Service
@@ -21,8 +20,6 @@ public class RegistrationService {
 	private AuthorityService authorityService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	@Autowired
-	private HotelService hotelService;
 	
 	/**
 	 * Registers new customer. Encrypts password. Adds role CUSTOMER to user.
@@ -35,8 +32,7 @@ public class RegistrationService {
 	}
 	
 	public User registerAgent(AgentRegistrationDTO agentRegistrationDTO) {
-		Agent agent = agentRegistrationDTO.createAgent();	
-		agent.setHotel(hotelService.getHotel(agentRegistrationDTO.getHotelId()));
+		Agent agent = agentRegistrationDTO.createAgent();
 		return registerUser(agent, "agent", "AGENT");
 	}
 	

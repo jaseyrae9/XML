@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -53,6 +54,7 @@ public class Hotel {
 	protected String name;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/hotel", required = true)
 	protected Address address;
 
@@ -60,17 +62,17 @@ public class Hotel {
 	@XmlElement(name = "PIB", namespace = "http://www.tim17.com/hotel", required = true)
 	protected String pib;
 
-	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY, orphanRemoval = true)
 	protected Set<Room> rooms;
+	
+	public Hotel(Integer id) {
+		this.id = id;
+	}
 
 	public Hotel(String name, Address address, String pib) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.pib = pib;
-	}
-
-	public void addRoom(Room r) {
-		this.rooms.add(r);
 	}
 }

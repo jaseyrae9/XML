@@ -9,21 +9,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.ac.uns.ftn.xml.team17.roomservice.dto.room.Price;
+import rs.ac.uns.ftn.xml.team17.roomservice.dto.room.RoomPriceDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.addimage.AddImageRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.NewRoomRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.price.SetPriceRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.price.Price;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.roomservice.repository.PriceRepository;
 import rs.ac.uns.ftn.xml.team17.roomservice.repository.RoomRepository;
 
 @Service
 public class RoomService {
-	
-	@Autowired
-	private HotelService hotelService;
 	
 	@Autowired
 	private RoomRepository roomRepository;
@@ -60,28 +58,39 @@ public class RoomService {
 	 * @param to - end date
 	 * @return - list of prices, containting date and amount
 	 */
-	public List<Price> getPrice(Integer id, Date from, Date to){
+	public List<RoomPriceDTO> getPrice(Integer id, Date from, Date to){
 		return priceRepository.getRoomPrices(id, from, to);
 	}
 	
 	// TODO: morace se proveriti da li pravi admin dodaje sobu
-	public Room addRoom(NewRoomRequest newRoomRequest) {		
-		Hotel hotel = hotelService.getHotel(newRoomRequest.getId());		
+	public Room addRoom(NewRoomRequest newRoomRequest) {				
 		Room r = new Room(newRoomRequest.getRoom());
-		r.setHotel(hotel);
+		r.setHotel(new Hotel(newRoomRequest.getId()));
 		Room ret = save(r);
 		return ret;
 	}	
 
+	// TODO: morace se proveriti da li pravi admin dodaje cene
 	public void addPrice(SetPriceRequest setPriceRequest) {	
 		Room room = getRoom(setPriceRequest.getId());
+		List<Price> prices = this.priceRepository.getPrices(setPriceRequest.getId(),  setPriceRequest.getDateFrom(),  setPriceRequest.getDateTo());
+		
 		LocalDate start = setPriceRequest.getDateFrom().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate end = setPriceRequest.getDateTo().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		for (LocalDate date = start; date.isBefore(end) || date.isEqual(end); date = date.plusDays(1))
-		{
-		    room.setPrice(date, setPriceRequest.getPrice());
-		}		
-		roomRepository.save(room);
+		{		
+			Date priceDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		    Optional<Price> priceOpt = prices.stream().filter(o -> o.getDate().equals(priceDate)).findFirst();
+		    if(priceOpt.isPresent()) {
+		    	priceOpt.get().setAmount(setPriceRequest.getPrice());
+		    }
+		    else {
+		    	Price price = new Price(room, setPriceRequest.getPrice(), priceDate);
+		    	prices.add(price);
+		    }
+		}	
+		
+		priceRepository.saveAll(prices);
 	}
 
 	public void addImage(AddImageRequest addImageRequest) {

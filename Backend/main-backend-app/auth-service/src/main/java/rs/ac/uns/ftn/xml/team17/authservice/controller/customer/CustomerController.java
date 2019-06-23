@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerStatusChangeDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
@@ -35,9 +36,9 @@ public class CustomerController {
 	 */
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> activateCustomer(@PathVariable Integer id, @Valid @RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<?> changeCustomerStatus(@PathVariable Integer id, @Valid @RequestBody CustomerStatusChangeDTO customerStatusChangeDTO) {
 		Customer ret;
-		if(customerDTO.getBlocked()) {
+		if(!customerStatusChangeDTO.getBlocked()) {
 			ret = (Customer) userService.activateCustomer(id);
 		}
 		else {

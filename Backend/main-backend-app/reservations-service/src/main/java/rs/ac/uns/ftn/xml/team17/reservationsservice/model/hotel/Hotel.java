@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,11 +23,13 @@ import lombok.Setter;
 //Lambok annotations
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Hotel", namespace = "http://www.tim17.com/hotel", propOrder = { "id", "name" })
 public class Hotel {
 	@Id
+	@EqualsAndHashCode.Include
 	@XmlElement(namespace = "http://www.tim17.com/hotel")
 	protected Integer id;
 

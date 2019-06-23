@@ -1,10 +1,7 @@
 
 package rs.ac.uns.ftn.xml.team17.roomservice.model.room;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,7 +30,6 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalSe
 import rs.ac.uns.ftn.xml.team17.roomservice.model.address.Address;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
-import rs.ac.uns.ftn.xml.team17.roomservice.model.price.Price;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
 
@@ -109,10 +104,6 @@ public class Room {
 	@Column
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer floorNumber;
-
-	@OrderBy("date ASC")
-	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	protected List<Price> prices;
 	
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected List<Image> images;
@@ -133,30 +124,9 @@ public class Room {
 		this.roomNumber = r.getRoomNumber();
 		this.floorNumber = r.getFloor();
 	}
-
-	public void setPrice(LocalDate date, double d) {
-		Date priceDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Datum za koji se postavlja cena dd
-		boolean exists = false;
-		for(Price p : this.prices) {
-			if(priceDate.equals(p.getDate())) {
-				p.setAmount(d);
-				exists = true;
-				break;
-			}
-		}
 		
-		if(!exists) {
-			Price p = new Price();
-			p.setDate(priceDate);
-			p.setAmount(new Double(d));
-			p.setRoom(this);
-			this.prices.add(p);
-		}
-		
-	}
-
 	public void addImage(Image newImage) {
-		this.images.add(newImage);
+		this.getImages().add(newImage);
 	}
 
 }

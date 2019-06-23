@@ -19,7 +19,6 @@ public class PriceEndpoint {
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/SetPrice", localPart = "setPriceRequest")
     @ResponsePayload
     public SetPriceResponse confirmReservation(@RequestPayload SetPriceRequest setPriceRequest) {
-		System.out.println("Price endpoint");
 		SetPriceResponse response = new SetPriceResponse();
 		roomService.addPrice(setPriceRequest);
 		response.setSuccessfully(true);

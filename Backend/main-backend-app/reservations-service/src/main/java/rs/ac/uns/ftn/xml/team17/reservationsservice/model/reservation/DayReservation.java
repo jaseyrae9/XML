@@ -40,13 +40,11 @@ public class DayReservation {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "day_reservation_generator")
 	@SequenceGenerator(name="day_reservation_generator", sequenceName = "day_reservation_seq")
 	@XmlElement(namespace = "http://www.tim17.com/reservation")
-	protected int id;
+	protected Integer id;
 	
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
 	@XmlSchemaType(name = "date")
-	// TODO: Baza ne zna da cuva ovo
-	// protected XMLGregorianCalendar date;
 	protected Date date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)	
@@ -56,5 +54,5 @@ public class DayReservation {
 	
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation")
-	protected double price;
+	protected Double price;
 }

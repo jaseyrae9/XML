@@ -18,7 +18,6 @@ import rs.ac.uns.ftn.xml.team17.authservice.dto.authentication.TokenValidationRe
 import rs.ac.uns.ftn.xml.team17.authservice.service.actionservice.AuthenticationService;
 
 @RestController
-@RequestMapping("/auth")
 public class AuthenticationController {
 	
 	@Autowired

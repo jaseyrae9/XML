@@ -7,15 +7,11 @@ import static javax.persistence.InheritanceType.SINGLE_TABLE;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.hibernate.annotations.Check;
 import org.hibernate.annotations.Where;
 
 import lombok.EqualsAndHashCode;
@@ -39,13 +35,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Check(constraints = "username IS NOT NULL OR ( username IS NULL AND active = FALSE)")
 public abstract class User {
 
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-	@SequenceGenerator(name="user_generator", sequenceName = "user_seq")
 	@XmlElement(namespace = "http://www.tim17.com/user")
 	protected Integer id;
 

@@ -18,7 +18,7 @@ public class AuthenticationFilter extends ZuulFilter {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	private String authUrl = "http://auth-service/auth/validate-token";
+	private String authUrl = "http://auth-service/validate-token";
 
 	@Override
 	public boolean shouldFilter() {
