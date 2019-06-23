@@ -32,7 +32,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.Message;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.user.Customer;
 
@@ -73,9 +72,6 @@ public class Reservation {
 
 	@Column(nullable = false)
 	protected ReservationStatus status;
-	
-	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	protected List<Message> messages;
 	
 	@OrderBy("date ASC")
 	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -127,7 +123,4 @@ public class Reservation {
 		return true;
 	}
 
-	public void addMessage(Message m) {
-		this.messages.add(m);
-	}
 }

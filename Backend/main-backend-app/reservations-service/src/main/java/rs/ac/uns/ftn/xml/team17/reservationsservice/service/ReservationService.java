@@ -21,6 +21,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.user.Customer;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.repository.DayReservationRepository;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.repository.ReservationRepository;
 
 @Service
@@ -28,6 +29,9 @@ public class ReservationService {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
+	@Autowired
+	private DayReservationRepository dayReservationRepository;
 	
 	@Autowired
 	private PriceService priceService;
@@ -71,9 +75,21 @@ public class ReservationService {
 	public Page<ReservationDTO> getReservations(Integer customer, Pageable pageable){
 		return this.reservationRepository.findCustomerReservation(customer, pageable);
 	}
+	
+	private Boolean isRoomAvailable(Integer roomId, Date from, Date to) {
+		Integer count = dayReservationRepository.getAlreadyReservedDays(roomId, from, to);
+		if(count > 0) {
+			return false;
+		}
+		return true;
+	}
 		
 	private Reservation createReservation(Integer roomId, Date from, Date to) {
-		//TODO: Provera da li je soba dostupna tih dana
+		//TODO: baciti exception
+		if(!this.isRoomAvailable(roomId, from, to)) {
+			System.err.println("Room not available.");
+			return null;
+		}
 		//create reservation
 		Room room = roomService.getRoom(roomId);
 		Reservation reservation = new Reservation(room);

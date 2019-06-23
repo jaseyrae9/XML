@@ -10,23 +10,11 @@ package rs.ac.uns.ftn.xml.team17.reservationsservice.model.recension;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -44,8 +32,6 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
     "rating",
     "comment"
 })
-//Database annotations
-@Entity
 //Lambok annotations
 @Getter
 @Setter
@@ -53,37 +39,27 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Recension {
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recension_generator")
-	@SequenceGenerator(name="recension_generator", sequenceName = "recension_seq")
+	@EqualsAndHashCode.Include	
 	@XmlElement(namespace = "http://www.tim17.com/recension")
     protected Integer id;
 	
-	@Column
     @XmlElement(namespace = "http://www.tim17.com/recension", defaultValue = "false")
     protected Boolean isApproved;
-    
-    @Column
+      
     @XmlElement(namespace = "http://www.tim17.com/recension")
     protected Double rating;
  
-    @Column
     @XmlElement(namespace = "http://www.tim17.com/recension")
     protected String comment;
-
-    @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
+   
 	@XmlElement(namespace = "http://www.tim17.com/recension", required = true)
 	protected Reservation reservation;
-    
-    @CreationTimestamp
+   
 	@XmlElement(namespace = "http://www.tim17.com/recension", required = true)
 	@XmlSchemaType(name = "dateTime")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	protected Date creationDate;
 	
-	@UpdateTimestamp
 	protected Date modificationDate;
 
 }

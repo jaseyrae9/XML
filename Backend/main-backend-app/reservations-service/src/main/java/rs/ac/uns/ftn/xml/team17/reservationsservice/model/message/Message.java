@@ -5,7 +5,6 @@
 // Generated on: 2019.06.14 at 04:25:21 PM CEST 
 //
 
-
 package rs.ac.uns.ftn.xml.team17.reservationsservice.model.message;
 
 import java.util.Date;
@@ -33,12 +32,7 @@ import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Message", propOrder = {
-    "id",
-    "dateSent",
-    "message",
-    "status"
-})
+@XmlType(name = "Message", propOrder = { "id", "dateSent", "message", "status" })
 @Entity
 @Getter
 @Setter
@@ -47,26 +41,27 @@ public class Message {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_generator")
-	@SequenceGenerator(name="message_generator", sequenceName = "message_seq")
-    protected int id;
+	@SequenceGenerator(name = "message_generator", sequenceName = "message_seq")
+	protected Integer id;
 
-    @XmlElement(required = true)
-    protected String message;
-    @XmlElement(required = true)
-    protected MessageDirection status;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
+	@XmlElement(required = true)
+	protected String message;
+	
+	@XmlElement(required = true)
+	protected MessageDirection status;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
-    protected Reservation reservation;
-    
-    @CreationTimestamp
+	protected Reservation reservation;
+
+	@CreationTimestamp
 	@XmlElement(namespace = "http://www.tim17.com/message", required = true)
 	@XmlSchemaType(name = "dateTime")
 	protected Date creationDate;
-	
+
 	@UpdateTimestamp
 	protected Date modificationDate;
-	
+
 	public Message(String message, Reservation r) {
 		this.message = message;
 		this.reservation = r;

@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,9 +53,8 @@ public class Price {
 	protected Double amount;
 	
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	@XmlElement(namespace = "http://www.tim17.com/price", required = true)
 	@XmlSchemaType(name = "date")
-	// TODO: Baza ne zna da cuva ovo
-	// protected XMLGregorianCalendar date; 
 	protected Date date;
 }

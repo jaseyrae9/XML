@@ -58,11 +58,11 @@ public class Address {
 	@XmlElement(namespace = "http://www.tim17.com/address", required = true)
 	protected String streetNumber;
 
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address")
 	protected Double lat;
 
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address")
 	protected Double lng;
 

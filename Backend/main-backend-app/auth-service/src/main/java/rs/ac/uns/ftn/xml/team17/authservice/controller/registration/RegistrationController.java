@@ -28,7 +28,7 @@ public class RegistrationController {
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value = "/register/agent", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/registerAgent", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> registerAgent(@RequestBody @Valid AgentRegistrationDTO agentRegistrationDTO) {	
 		User user = registrationService.registerAgent(agentRegistrationDTO);
 		return ResponseEntity.ok(user);
