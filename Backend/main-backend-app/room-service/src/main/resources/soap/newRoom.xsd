@@ -57,21 +57,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element default="0" name="totalRating">
-                <xs:simpleType>
-                    <xs:restriction base="xs:double">
-                        <xs:minInclusive value="0"/>
-                        <xs:maxInclusive value="10"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element default="0" name="numberOfRatings">
-                <xs:simpleType>
-                    <xs:restriction base="xs:int">
-                        <xs:minInclusive value="0"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
             <xs:element minOccurs="0" name="floor">
                 <xs:simpleType>
                     <xs:restriction base="xs:int">

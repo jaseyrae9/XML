@@ -8,15 +8,15 @@ import { AuthLoginInfo } from './login-info';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-}; 
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private loginUrl = 'http://localhost:8762/auth-service/auth/login';
-  private signupUrl = 'http://localhost:8762/auth-service/auth/register';
+  private loginUrl = 'http://localhost:8762/auth-service/login';
+  private signupUrl = 'http://localhost:8762/auth-service/register';
 
 
   constructor(private http: HttpClient) { }

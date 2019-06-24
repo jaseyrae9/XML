@@ -5,20 +5,20 @@
           <div class="d-flex">
             <div class="p-2">
               <!--Ovde kao data target obavezno staviti id porduzbine-->     
-              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                  Hotel name
+              <button [attr.data-target]="'#r' + reservation.id" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                 {{reservation.created}} -  {{reservation.hotel.name}}
               </button></div>    
-            <div class="ml-auto p-2"><button class="btn btn-link "  disabled>status</button></div>
+            <div class="ml-auto p-2"><button class="btn btn-link "  disabled>{{reservation.status}}</button></div>
           </div>
         </h5>
       </div>
   
       <!--Ovde obavezno kao id staviti id porduzbine-->
       <!--<div [attr.id]="'r' + reservation.id" class="collapse m-2">-->
-      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div  [attr.id]="'r' + reservation.id" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body bg-light">
             <div class="container">
-          <app-reservation-details></app-reservation-details>
+          <app-reservation-details (reservationCanceled)='reservationCanceled($event)' [reservation]="reservation"></app-reservation-details>
         </div>
         </div>
       </div>

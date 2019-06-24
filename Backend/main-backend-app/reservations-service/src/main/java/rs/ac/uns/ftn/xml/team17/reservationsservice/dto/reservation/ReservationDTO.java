@@ -22,6 +22,7 @@ public class ReservationDTO {
 	 * Detalji o rezervaciji
 	 */
 	private Integer id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd  HH:mm:ss")
 	private Date created;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private LocalDate start;

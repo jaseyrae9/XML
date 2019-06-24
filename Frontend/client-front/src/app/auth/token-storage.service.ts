@@ -85,6 +85,10 @@ export class TokenStorageService {
     return sessionStorage.getItem(USERNAME_KEY);
   }
 
+  public getToken(): string {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
+
   public checkIsLoggedIn(): boolean {
     // TODO: Promeniti da proveri vazi li token i dalje
     if (sessionStorage.getItem(TOKEN_KEY)) {
