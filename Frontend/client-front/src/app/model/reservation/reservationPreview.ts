@@ -5,6 +5,7 @@ export class ReservationPreview {
 
     // Details about reservation
     id: number;
+    created: Date = new Date();
     start: Date = new Date();
     end: Date = new Date();
     totalPrice: number;
@@ -18,6 +19,6 @@ export class ReservationPreview {
     roomId: number;
     address: Address = new Address();
     roomNumber: number;
-    floorNumber: number;
+    // floorNumber: number;
     numberOfPeople: number;
 }

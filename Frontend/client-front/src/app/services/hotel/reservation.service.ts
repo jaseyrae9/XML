@@ -13,5 +13,12 @@ export class ReservationService {
   getRecensions(roomId): Observable<any> {
     return this.http.get(this.url + 'recension/approvedRecensions/' + roomId);
   }
+  getReservations(): Observable<any> {
+    return this.http.get(this.url + 'reservation');
+  }
+
+  cancelReservation(reservationId): Observable<any> {
+    return this.http.delete(this.url + 'reservation/' + reservationId);
+  }
 
 }

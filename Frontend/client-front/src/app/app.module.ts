@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './auth/auth-interceptor';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 // datepicker
@@ -82,7 +84,8 @@ import {RatingModule} from 'ngx-rating';
     FullCalendarModule, // for FullCalendar!
     NgSelectModule
   ],
-  providers: [RoleGuardService, DatePipe],
+  providers: [RoleGuardService, DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

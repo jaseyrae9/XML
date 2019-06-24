@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { ReservationPreview } from 'src/app/model/reservation/reservationPreview';
+import { ReservationService } from 'src/app/services/hotel/reservation.service';
 
 @Component({
   selector: 'app-reservation-details',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation-details.component.css', '../../../shared/css/inputField.css']
 })
 export class ReservationDetailsComponent implements OnInit {
-
-  constructor() { }
+  @Input() reservation: ReservationPreview = new ReservationPreview();
+  @Output() reservationCanceled: EventEmitter<ReservationPreview> = new EventEmitter();
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
+  }
+
+  cancelReservation() {
+    this.reservationService.cancelReservation(this.reservation.id).subscribe(
+      (data) => {
+        console.log('otkazujemo: ', data.id);
+        alert('Otkazana rezervacija: ' + data.id);
+        this.reservationCanceled.emit(data);
+      }
+    );
+
   }
 
 }

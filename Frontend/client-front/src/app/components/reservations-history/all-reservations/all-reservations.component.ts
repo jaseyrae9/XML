@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReservationService } from 'src/app/services/hotel/reservation.service';
+import { ReservationPreview } from 'src/app/model/reservation/reservationPreview';
 
 @Component({
   selector: 'app-all-reservations',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllReservationsComponent implements OnInit {
 
-  constructor() { }
+  reservations: ReservationPreview[] = [];
+
+  constructor(private reservationService: ReservationService) { }
 
   ngOnInit() {
+    this.loadReservations();
+  }
+
+  loadReservations() {
+    this.reservationService.getReservations().subscribe(
+      (data) => {
+        this.reservations = data.content;
+        console.log('Rezervacije: ', this.reservations);
+      }
+    );
+  }
+
+  reservationCanceled(reservation: ReservationPreview) {
+    const i = this.reservations.findIndex(e => e.id === reservation.id);
+    if (i !== -1) {
+      this.reservations.splice(i, 1, reservation);
+      console.log('Res is splice!');
+    }
   }
 
 }

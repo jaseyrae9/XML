@@ -145,7 +145,7 @@ public class ReservationService {
 			return null;
 		}
 		reservation.setStatus(ReservationStatus.CANCELED);
-		return reservation;
+		return reservationRepository.save(reservation);
 	}
 	
 	public void confirmReservation(Integer id) {

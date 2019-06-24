@@ -3,9 +3,11 @@
           <div class="row bg-white border rounded align-items-center p-2 mt-3">
              <div class="col-3 py-1" align="center">
                 <h3 class="display-4" style="font-size:22px;">
-                    <p style="font-size: 25px; color: #33cabb">Jozefa Marcoka 3</p>
+                    <p style="font-size: 25px; color: #33cabb"> {{reservation.address.street}} {{reservation.address.streetNumber}} </p>
                   </h3>
-                <small class="text-muted">Novi Sad, 21000, state, Srbija</small>
+                <small  *ngIf="reservation.address.state" class="text-muted">
+                    {{reservation.address.city}}, {{reservation.address.postalCode}}, {{reservation.address.state}}, {{reservation.address.country}} </small>
+                <small *ngIf="!reservation.address.state"  class="text-muted">  {{reservation.address.city}}, {{reservation.address.postalCode}}, {{reservation.address.country}} </small>
                 
              </div>
  
@@ -14,7 +16,7 @@
  
                
                     <p>Check in date:<br><i class="fas fa-calendar-times"></i></p>
-                <p>1/1/19
+                <p> {{reservation.start}}
                 </p>
              </div>
  
@@ -23,9 +25,9 @@
              </div>
              <div class="col-1 pt-2" align="center">
                 <i class="fas fa-bed"></i><br>
-                <small>No 101</small><br>
-                <small>Floor 5</small><br>
-                <small>4 people</small><br>
+                <small>No {{reservation.roomNumber}} </small><br>
+                <!--small>Floor 5</small><br-->
+                <small>{{reservation.numberOfPeople}} people</small><br>
 
                 
              </div>
@@ -34,14 +36,16 @@
              </div>
              <div class="col-2 pt-4 border-right" style="padding-top:34px;" align="center">               
                 <p>Check out date:<br><i class="fas fa-calendar-times"></i></p>
-                <p>1/1/19
+                <p> {{reservation.end}}
                 </p>
              </div>
               
 
              <div class="col  px-1 py-5" align="center">
-                <p class="py-6" style="font-size: 23px; color: #33cabb">€150</p>              
-                <a routerLink=""><button class="btn btn-primary px-4 m-2">Details...</button></a> 
+                <p class="py-6" style="font-size: 23px; color: #33cabb">€ {{reservation.totalPrice}}</p> 
+ 
+                <button class="btn btn-primary" *ngIf="reservation.canCancel"  (click)="cancelReservation()">Cancel</button>            
+                <a routerLink=""><button class="btn btn-primary px-4 m-2">Details</button></a> 
                
              </div>
           </div>
