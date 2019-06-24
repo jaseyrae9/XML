@@ -107,8 +107,6 @@ import javax.xml.bind.annotation.XmlType;
     "cancelationDays",
     "additionalServices",
     "description",
-    "totalRating",
-    "numberOfRatings",
     "floor",
     "roomNumber"
 })
@@ -127,10 +125,6 @@ public class Room {
     protected List<AdditionalService> additionalServices;
     @XmlElement(required = true)
     protected String description;
-    @XmlElement(defaultValue = "0")
-    protected double totalRating;
-    @XmlElement(defaultValue = "0")
-    protected int numberOfRatings;
     protected Integer floor;
     protected Integer roomNumber;
 
@@ -325,38 +319,6 @@ public class Room {
     }
 
     /**
-     * Gets the value of the totalRating property.
-     * 
-     */
-    public double getTotalRating() {
-        return totalRating;
-    }
-
-    /**
-     * Sets the value of the totalRating property.
-     * 
-     */
-    public void setTotalRating(double value) {
-        this.totalRating = value;
-    }
-
-    /**
-     * Gets the value of the numberOfRatings property.
-     * 
-     */
-    public int getNumberOfRatings() {
-        return numberOfRatings;
-    }
-
-    /**
-     * Sets the value of the numberOfRatings property.
-     * 
-     */
-    public void setNumberOfRatings(int value) {
-        this.numberOfRatings = value;
-    }
-
-    /**
      * Gets the value of the floor property.
      * 
      * @return
@@ -414,9 +376,7 @@ public class Room {
 		return "Room [hotelId=" + hotelId + ", address=" + address + ", type=" + type + ", category=" + category
 				+ ", defaultPrice=" + defaultPrice + ", numberOfPeople=" + numberOfPeople + ", cancelationDays="
 				+ cancelationDays + ", additionalServices=" + additionalServices + ", description=" + description
-				+ ", totalRating=" + totalRating + ", numberOfRatings=" + numberOfRatings + ", floor=" + floor
-				+ ", roomNumber=" + roomNumber + "]";
+				+ ", floor=" + floor + ", roomNumber=" + roomNumber + "]";
 	}
-    
-    
+	
 }
