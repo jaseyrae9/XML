@@ -1,30 +1,27 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.reservation;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.reservation;
 
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.room.Room;
 
 /**
  * <p>
- * Java class for Reservation complex type.
+ * Java class for DayReservation complex type.
  * </p>
  */
 //Database annotations
@@ -35,24 +32,27 @@ import rs.ac.uns.ftn.xml.team17.searchservice.model.room.Room;
 @Setter
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Reservation", namespace = "http://www.tim17.com/reservation", propOrder = { "id", "room"})
-public class Reservation {
-	public enum ReservationStatus {RESERVED, HAPPENED, CANCELED};
-	
+@XmlType(name = "DayReservation", namespace = "http://www.tim17.com/reservation", propOrder = { "id", "date",
+		"reservation", "price" })
+public class DayReservation {
 	@EqualsAndHashCode.Include
 	@Id
 	@XmlElement(namespace = "http://www.tim17.com/reservation")
 	protected Integer id;
-
+	
+	@Column(nullable = false)
+	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
+	@XmlSchemaType(name = "date")
+	// TODO: Baza ne zna da cuva ovo
+	// protected XMLGregorianCalendar date;
+	protected Date date;
+	
 	@ManyToOne(fetch = FetchType.EAGER)	
 	@JoinColumn(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
-	protected Room room;
-
-	@Column(nullable = false)
-	protected ReservationStatus status;
+	protected Reservation reservation;
 	
-	@OrderBy("date ASC")
-	@OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	protected List<DayReservation> dayReservations;
+	@Column(nullable = false)
+	@XmlElement(namespace = "http://www.tim17.com/reservation")
+	protected Double price;
 }

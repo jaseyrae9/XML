@@ -38,4 +38,18 @@ public class SearchRequest {
 	private Double distanceFromLocation;
 	@Min(value = 0, message = "Minimal number of cancelation days is 0.")
 	private Integer cancelationDays;
+	
+	public List<Integer> getAdditionalServices(){
+		if(this.getAdditionalServicesSize() == 0) {
+			return null;
+		}
+		return this.additionalServices;
+	}
+	
+	public Long getAdditionalServicesSize() {
+		if(this.additionalServices == null) {
+			return new Long(0);
+		}
+		return new Long(this.additionalServices.size());
+	}
 }

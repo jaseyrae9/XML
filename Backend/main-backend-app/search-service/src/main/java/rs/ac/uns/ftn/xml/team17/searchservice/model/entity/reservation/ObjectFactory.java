@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.address;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.reservation;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the team17.backendapp.model.address package. 
+ * generated in the team17.backendapp.model.reservation package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -23,18 +23,26 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: team17.backendapp.model.address
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: team17.backendapp.model.reservation
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link Address }
+     * Create an instance of {@link Reservation }
      * 
      */
-    public Address createAddress() {
-        return new Address();
+    public Reservation createReservation() {
+        return new Reservation();
+    }
+
+    /**
+     * Create an instance of {@link DayReservation }
+     * 
+     */
+    public DayReservation createDayReservation() {
+        return new DayReservation();
     }
 
 }

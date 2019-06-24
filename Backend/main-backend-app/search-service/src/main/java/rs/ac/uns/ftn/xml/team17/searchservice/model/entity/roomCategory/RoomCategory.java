@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.roomType;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomCategory;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * Java class for RoomType complex type.
+ * Java class for RoomCategory complex type.
  * </p>
  */
 //Database annotations
@@ -26,14 +26,19 @@ import lombok.Setter;
 @Setter
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "RoomType", namespace = "http://www.tim17.com/roomType", propOrder = { "id", "name" })
-public class RoomType {
+@XmlType(name = "RoomCategory", namespace = "http://www.tim17.com/roomCategory", propOrder = { "id", "numberOfStars",
+		"description" })
+public class RoomCategory {
 	@EqualsAndHashCode.Include
 	@Id
-	@XmlElement(namespace = "http://www.tim17.com/roomType")
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
 	protected Integer id;
 
-	@Column(nullable = false, unique = true)
-	@XmlElement(namespace = "http://www.tim17.com/roomType", required = true)
-	protected String name;
+	@Column(nullable = false)
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
+	protected Integer numberOfStars;
+
+	@Column
+	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
+	protected String description;
 }

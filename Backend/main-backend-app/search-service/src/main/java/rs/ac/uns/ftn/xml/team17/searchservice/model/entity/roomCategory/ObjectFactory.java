@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.hotel;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomCategory;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the team17.backendapp.model.hotel package. 
+ * generated in the team17.backendapp.model.roomCategory package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -23,18 +23,18 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: team17.backendapp.model.hotel
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: team17.backendapp.model.roomCategory
      * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link Hotel }
+     * Create an instance of {@link RoomCategory }
      * 
      */
-    public Hotel createHotel() {
-        return new Hotel();
+    public RoomCategory createRoomCategory() {
+        return new RoomCategory();
     }
 
 }

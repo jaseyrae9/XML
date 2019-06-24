@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.address;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -64,6 +64,5 @@ public class Address {
 
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/address")
-	protected Double lng;
-
+	protected Double lng;	
 }

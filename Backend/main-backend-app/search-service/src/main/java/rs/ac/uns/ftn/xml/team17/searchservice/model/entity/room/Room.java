@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.room;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.room;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.XmlType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.additionalService.AdditionalService;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.address.Address;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.hotel.Hotel;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.roomCategory.RoomCategory;
-import rs.ac.uns.ftn.xml.team17.searchservice.model.roomType.RoomType;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.additionalService.AdditionalService;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.address.Address;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.hotel.Hotel;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomCategory.RoomCategory;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomType.RoomType;
 
 /**
  * <p>
@@ -42,7 +42,7 @@ import rs.ac.uns.ftn.xml.team17.searchservice.model.roomType.RoomType;
 @XmlType(name = "Room", namespace = "http://www.tim17.com/room", propOrder = { "id", "hotel", "address", "type",
 		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "totalRating",
 		"roomNumber" })
-public class Room {
+public class Room{
 	@EqualsAndHashCode.Include
 	@Id
 	@XmlElement(namespace = "http://www.tim17.com/room")

@@ -1,5 +1,5 @@
 
-package rs.ac.uns.ftn.xml.team17.searchservice.model.additionalService;
+package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +15,9 @@ import lombok.Setter;
 
 /**
  * <p>
- * Java class for AdditionalService complex type.
+ * Java class for RoomType complex type.
  * </p>
  */
-
 //Database annotations
 @Entity
 //Lambok annotations
@@ -27,15 +26,14 @@ import lombok.Setter;
 @Setter
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AdditionalService", namespace = "http://www.tim17.com/additionalService", propOrder = { "id", "name" })
-public class AdditionalService {
+@XmlType(name = "RoomType", namespace = "http://www.tim17.com/roomType", propOrder = { "id", "name" })
+public class RoomType {
 	@EqualsAndHashCode.Include
 	@Id
-	@XmlElement(namespace = "http://www.tim17.com/additionalService")
+	@XmlElement(namespace = "http://www.tim17.com/roomType")
 	protected Integer id;
 
-	@Column(nullable = false)
-	@XmlElement(namespace = "http://www.tim17.com/additionalService", required = true)
+	@Column(nullable = false, unique = true)
+	@XmlElement(namespace = "http://www.tim17.com/roomType", required = true)
 	protected String name;
-
 }
