@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.price.Price;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +18,9 @@ public class RoomPriceDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date date;
 	private Double amount;
+	
+	public RoomPriceDTO(Price price) {
+		this.date = price.getDate();
+		this.amount = price.getAmount();
+	}
 }
