@@ -1,0 +1,15 @@
+a:hover {
+    color: darkslategrey;
+  }
+  
+  a {
+    color: #33cabb;
+  }
+  
+  
+/* Profile sidebar */
+.profile-sidebar {
+    padding: 10px 0 10px 0;
+    background: #fff;
+  }
+  

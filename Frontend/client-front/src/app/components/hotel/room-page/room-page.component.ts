@@ -6,6 +6,9 @@ import { RoomService } from 'src/app/services/hotel/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/hotel/reservation.service';
 import { RoomRecension } from 'src/app/model/reservation/roomRecension';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReservationRequest } from 'src/app/model/reservation/reservationRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-page',
@@ -23,10 +26,16 @@ export class RoomPageComponent implements OnInit {
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsRangeValue: Date[];
 
+  bookForm: FormGroup;
+
+  reservationRequest: ReservationRequest = new ReservationRequest();
+
   constructor(public datePipe: DatePipe,
               private route: ActivatedRoute,
               private roomService: RoomService,
-              private reservationService: ReservationService) {
+              private reservationService: ReservationService,
+              private formBuilder: FormBuilder,
+              private router: Router) {
     this.datePickerConfig = Object.assign({},
       {
         containerClass: 'theme-default',
@@ -38,6 +47,9 @@ export class RoomPageComponent implements OnInit {
     this.roomId = this.route.snapshot.paramMap.get('id');
     this.loadRoom();
     this.loadRecensions();
+    this.bookForm = this.formBuilder.group({
+      bsRangeValue: [this.bsRangeValue, [Validators.required]]
+    });
   }
 
   loadRoom() {
@@ -57,6 +69,24 @@ export class RoomPageComponent implements OnInit {
         console.log('Average rating: ' + this.averageRating);
       }
     );
+  }
+
+  bookRoom() {
+    const start = new Date(this.bookForm.value.bsRangeValue[0]);
+    const end = new Date(this.bookForm.value.bsRangeValue[1]);
+
+    this.reservationRequest.start = this.datePipe.transform(start, 'yyyy-MM-dd');
+    this.reservationRequest.end = this.datePipe.transform(end, 'yyyy-MM-dd');
+    this.reservationRequest.roomId = this.roomId;
+    console.log(this.reservationRequest);
+    this.reservationService.createReservation(this.reservationRequest).subscribe(
+      (data) => {
+        this.router.navigate(['/history']);
+        alert('Reservisano.');
+      }
+
+    );
+
   }
 
 }

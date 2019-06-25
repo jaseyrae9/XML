@@ -9,7 +9,7 @@ export class ReservationPreview {
     start: Date = new Date();
     end: Date = new Date();
     totalPrice: number;
-    status: ReservationStatus;
+    status: string;
     canCancel: boolean;
 
     // Details about hotel

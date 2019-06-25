@@ -1,0 +1,123 @@
+<div class="container">
+
+
+ <div class="row py-2 p">
+
+  <!--levo - informacije o rezervacijama -->
+    <div class="col-md-3 text-center">
+        <div class="col-auto mb-2 text-center">
+            <a routerLink="/history">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to all reservations
+            </a>
+        </div>  
+
+        <div class="card mb-2">
+            <div class="card-body">
+              <h6 class="card-title"  style="color: #33cabb;"> 
+                 
+                  <a routerLink="/hotel/{{reservation.hotel.id}}">
+                    {{reservation.hotel.name}}
+                 </a>
+              </h6>
+              <hr/>    
+             
+              <div>
+                  <small>Reserved on: {{createdOn}} </small>
+              </div>
+              <div>
+                  <small  style="color: #33cabb" *ngIf="reservation.status == 'CANCELED'">Canceled</small>            
+
+                  <small style="color: #33cabb" *ngIf="reservation.status != 'CANCELED'">Total price: €{{reservation.totalPrice}}</small>
+              </div>
+                      
+            </div>
+        </div>        
+    </div>
+    <!--kraj levog dela-->
+
+
+    <!--centar - poruke -->
+    <div class="col-md-6 text-center">
+        <div class="col-auto mb-2 text-center">
+          <p style="font-size: 22px; color: #33cabb">Reserved from : {{reservation.start}} to {{reservation.end}} </p>
+        </div>  
+
+        <ul class="nav nav-tabs mt-1">
+            <!--PORUKE-->
+            <li class="nav-item active">
+              <a href="#messages" role="tab" data-toggle="tab" class="nav-link active">
+                <i class="fa fa-envelope mr-1" aria-hidden="true"></i> Messages
+              </a>
+            </li>
+           
+            <!--REVIEWS-->
+            <li class="nav-item">
+              <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
+                <i class="fa fa-star mr-1" aria-hidden="true"></i> Reviews
+              </a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="messages" aria-labelledby="messages-tab">
+              <p> deo za poruke </p>
+            </div>
+          
+             
+              <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
+                <p>deo za komentare</p>
+              </div>
+        </div>
+        <br/>
+    </div>
+    <!--kraj centra-->
+
+    <!--desno - informacije o sobi -->
+    <div class="col-md-3 text-center">
+        <div class="col-auto mb-2 text-center">
+            <a routerLink="/room/{{reservation.roomId}}">
+               See room <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>  
+
+        <div class="card mb-2">
+            <div class="card-body">
+              <h6 class="card-title"  style="color: #33cabb;">Basic details about room</h6>
+              <hr/>    
+             
+              <div>
+                  <small>Room number: {{reservation.roomNumber}} </small>
+              </div>
+              <div>
+                  <small>Number of people: {{reservation.numberOfPeople}} </small>
+              </div>                      
+            </div>
+        </div>  
+
+        <div class="profile-sidebar">
+            <!-- SIDEBAR USERPIC -->
+            <div>
+              <app-map></app-map>
+            </div>
+            <!-- END SIDEBAR USERPIC -->          
+           
+            <!-- SIDEBAR MENU -->
+            <app-address-details [address]="reservation.address"></app-address-details>
+
+            <!-- END MENU -->
+        </div>      
+    </div>
+    <!--kraj desnog dela-->
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+</div>

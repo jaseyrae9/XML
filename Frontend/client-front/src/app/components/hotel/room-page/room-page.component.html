@@ -126,18 +126,22 @@
                   <h5 class="card-title"  style="color: #33cabb;">Book your room</h5>
                   <hr/>
                  
-                  <div class="input-group form-group py-1">
-                      <div class="input-group-prepend"> 
-                          <span class="input-group-text">
-                            <i class="fa fa-calendar-alt" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
-                        bsDaterangepicker placeholder="Book room from to">
-                  </div>
+                  <form name="form" [formGroup]="bookForm">
+                      <div class="input-group form-group py-1">
+                        <div class="input-group-prepend"> 
+                            <span class="input-group-text">
+                              <i class="fa fa-calendar-alt" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                          <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
+                          bsDaterangepicker placeholder="Book room from to"
+                          required="required" formControlName="bsRangeValue">
+                    </div>
 
-                  <button type="button" class="btn btn-primary btn-block" > Book </button>
+                    <button type="button" class="btn btn-primary btn-block" (click)="bookRoom()" > Book </button>
 
+                  </form>
+                 
                 </div>
               </div>
         </div>
@@ -158,7 +162,7 @@
                   <app-address-details [address]="roomFull.address"></app-address-details>
 
                   <!-- END MENU -->
-                </div>
+              </div>
           </div>
         </div>
         <!--kraj adresa deo-->

@@ -42,10 +42,10 @@
               
 
              <div class="col  px-1 py-5" align="center">
-                <p class="py-6" style="font-size: 23px; color: #33cabb">€ {{reservation.totalPrice}}</p> 
+                <p class="py-6" style="font-size: 23px; color: #33cabb">€{{reservation.totalPrice}}</p> 
  
                 <button class="btn btn-primary" *ngIf="reservation.canCancel"  (click)="cancelReservation()">Cancel</button>            
-                <a routerLink=""><button class="btn btn-primary px-4 m-2">Details</button></a> 
+                <a routerLink="/history/{{reservation.id}}"><button class="btn btn-primary px-4 m-2">Details</button></a> 
                
              </div>
           </div>

@@ -41,6 +41,7 @@ import { PriceTableComponent } from './components/hotel/price-table/price-table.
 import { ReviewDetailsComponent } from './components/hotel/review-details/review-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {RatingModule} from 'ngx-rating';
+import { ReservationPageComponent } from './components/reservations-history/reservation-page/reservation-page.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import {RatingModule} from 'ngx-rating';
     GalleryComponent,
     PriceTableComponent,
     ReviewDetailsComponent,
+    ReservationPageComponent,
   ],
   imports: [
     BrowserModule,
