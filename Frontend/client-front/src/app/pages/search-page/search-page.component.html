@@ -4,7 +4,7 @@
 
     <!--search (min)-->
 
-    <form [formGroup]="searchForm">
+    <form [formGroup]="searchForm" #myForm="ngForm">
       <div class="row">
           <div class="col-md-4 input-group form-group">
             <div class="input-group-prepend">
@@ -31,7 +31,7 @@
               </span>
             </div>
             <input formControlName="bsRangeValue" class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
-            bsDaterangepicker placeholder="Departure date from to">
+            bsDaterangepicker placeholder="Choose date from to">
           </div
           >
         </div>
@@ -106,7 +106,7 @@
                     <div class="col-sm-12 text-center">
                       <!--(click)="filter()" (click)="cancelFilter"-->
                       <button type="submit" class="btn btn-primary btn-space" (click)="search()" > Filter </button>
-                      <button type="button" class="btn btn-primary btn-space" > Cancel </button>
+                      <button type="button" class="btn btn-primary btn-space" (click)="cancelFilter()" > Cancel </button>
                     </div>
                   </div>
 
