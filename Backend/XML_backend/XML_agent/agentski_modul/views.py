@@ -34,10 +34,18 @@ class Login(APIView):
         data = request.data
         username = data.get('username', None)
         password = data.get('password', None)
+        print(username)
+        print(password)
+        
+        lu = Update.objects.last()
+        if (lu == None):
+            lu = Update.objects.create(last_updated = '2000-01-01 00:00:00')
 
         # deo sa autentifikacijom sa glavnim backom
         client = zeep.Client('http://localhost:8762/auth-service/auth/soap/authentication.wsdl')
-        client.service._binding_options['address'] = 'http://localhost:8762/auth-service/auth/soap'
+        # client.service._binding_options['address'] = 'http://localhost:8762/auth-service/auth/soap'
+
+        print()
 
         try:
             result_token = client.service.authentication(username, password)
@@ -109,7 +117,7 @@ class Login(APIView):
             client.transport.session.headers.update({'Authorization': 'Bearer ' + str(result_token)})
             client.service._binding_options['address'] = 'http://localhost:8762/reservations-service/ws/getReservations'
 
-            result = client.service.getReservations(Update.objects.order_by('-pk')[0].last_updated)
+            result = client.service.getReservations(lu.last_updated)
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
             print(result)
@@ -129,7 +137,7 @@ class Login(APIView):
             client.transport.session.headers.update({'Authorization': 'Bearer ' + str(result_token)})
             client.service._binding_options['address'] = 'http://localhost:8762/reservations-service/ws/getMessages'
 
-            result = client.service.getMessages(Update.objects.order_by('-pk')[0].last_updated)
+            result = client.service.getMessages(lu.last_updated)
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
             print(result)
@@ -145,7 +153,7 @@ class Login(APIView):
             client.transport.session.headers.update({'Authorization': 'Bearer ' + str(result_token)})
             client.service._binding_options['address'] = 'http://localhost:8762/reservations-service/ws/getRecensions'
 
-            result = client.service.getRecensions(Update.objects.order_by('-pk')[0].last_updated)
+            result = client.service.getRecensions(lu.last_updated)
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
             print(result)
