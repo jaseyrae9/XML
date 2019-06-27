@@ -12,6 +12,9 @@
     "@google-cloud/storage": "^2.5.0",
     "@google/cloud-debug": "^0.9.3",
     "express": "^4.17.1",
-    "fast-crc32c": "^1.0.4"
+    "fast-crc32c": "^1.0.4",
+    "firebase-admin": "^8.2.0",
+    "uuid": "^3.3.2",
+    "wait.for": "^0.6.6"
   }
 }

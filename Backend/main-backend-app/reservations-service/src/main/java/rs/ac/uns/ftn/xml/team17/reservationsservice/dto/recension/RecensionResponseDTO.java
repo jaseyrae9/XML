@@ -15,7 +15,7 @@ public class RecensionResponseDTO {
 
 	private Integer reservationId;
 	
-	private Integer id;
+	private String id;
 
 	private Double rating;
 

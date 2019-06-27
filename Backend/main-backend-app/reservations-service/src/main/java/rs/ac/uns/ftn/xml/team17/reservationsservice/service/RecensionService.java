@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -16,7 +18,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RoomRecensionDTO;
 
 @Service
 public class RecensionService {
@@ -53,6 +57,42 @@ public class RecensionService {
 		
 		return ret;
 		
+	}
+
+	public List<RecensionResponseDTO> getAllRecensions() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
+		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
+		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension",HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
+				}).getBody();
+		
+	}
+
+	public RoomRecensionDTO getRoomRecensions(Integer roomId) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		RoomRecensionDTO roomRecension = new RoomRecensionDTO();
+		HttpEntity<RoomRecensionDTO> entity = new HttpEntity<RoomRecensionDTO>(roomRecension, headers);
+		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/" + roomId, HttpMethod.GET, entity, RoomRecensionDTO.class).getBody();
+	}
+
+	public Boolean approveRecension(String recensionId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		
+		RecensionResponseDTO recension = new RecensionResponseDTO();
+		HttpEntity<RecensionResponseDTO> entity = new HttpEntity<RecensionResponseDTO>(recension, headers);
+		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + recensionId,HttpMethod.PUT, entity, Boolean.class).getBody();
+	}
+
+	public RecensionResponseDTO addRecension(@Valid RecensionDTO recensionDTO) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		
+		HttpEntity<RecensionDTO> entity = new HttpEntity<RecensionDTO>(recensionDTO, headers);
+		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension",HttpMethod.POST, entity, RecensionResponseDTO.class).getBody();
 	}
 
 }

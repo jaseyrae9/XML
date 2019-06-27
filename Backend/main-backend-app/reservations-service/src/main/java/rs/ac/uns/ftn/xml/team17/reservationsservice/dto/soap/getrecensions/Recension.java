@@ -58,7 +58,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 public class Recension {
 
 	protected int reservationId;
-    protected int id;
+    protected String id;
     protected double rating;
     @XmlElement(required = true)
     protected String comment;
@@ -84,7 +84,7 @@ public class Recension {
      * Gets the value of the id property.
      * 
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -92,7 +92,7 @@ public class Recension {
      * Sets the value of the id property.
      * 
      */
-    public void setId(int value) {
+    public void setId(String value) {
         this.id = value;
     }
 
