@@ -1,3 +1,4 @@
+import { RoleGuardService } from './auth/service/route-guard.service';
 import { CreateRoomPageComponent } from './pages/create-room-page/create-room-page.component';
 import { RoomPageComponent } from './pages/room-page/room-page.component';
 import { HotelPageComponent } from './pages/hotel-page/hotel-page.component';
@@ -8,10 +9,15 @@ import { ModuleWithProviders } from '@angular/core';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  { path: 'hotel', component: HotelPageComponent },
-  { path: 'createroom', component: CreateRoomPageComponent },
-  { path: 'room/:id', component: RoomPageComponent },
-  { path: '**', redirectTo: '' }
+  { path: 'hotel', component: HotelPageComponent,
+    canActivate: [RoleGuardService]
+  },
+  { path: 'room/:id', component: RoomPageComponent,
+    canActivate: [RoleGuardService]
+  },
+  { path: 'createroom', component: CreateRoomPageComponent,
+    canActivate: [RoleGuardService]
+  }
 ];
 
 export const RoutingModule: ModuleWithProviders = RouterModule.forRoot(routes, {

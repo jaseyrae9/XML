@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import zeep
 from datetime import datetime
+from datetime import timedelta
 from django.utils.dateparse import parse_date
 
 from django_filters import rest_framework as filters, DateFromToRangeFilter
@@ -148,24 +149,28 @@ class Login(APIView):
             print("Messages synchronised")
 
 
-            print("Getting recensions from main backend")
-            client = zeep.Client('http://localhost:8762/reservations-service/ws/getRecensions.wsdl')
-            client.transport.session.headers.update({'Authorization': 'Bearer ' + str(result_token)})
-            client.service._binding_options['address'] = 'http://localhost:8762/reservations-service/ws/getRecensions'
+            # print("Getting recensions from main backend")
+            # client = zeep.Client('http://localhost:8762/reservations-service/ws/getRecensions.wsdl')
+            # client.transport.session.headers.update({'Authorization': 'Bearer ' + str(result_token)})
+            # client.service._binding_options['address'] = 'http://localhost:8762/reservations-service/ws/getRecensions'
 
-            result = client.service.getRecensions(lu.last_updated)
-            input_dict = zeep.helpers.serialize_object(result)
-            output_dict = json.loads(json.dumps(input_dict))
-            print(result)
-            print("Saving feched recension data")
-            for obj_dict in output_dict:
-                obj_dict['reservationId_id'] = obj_dict.pop('reservationId') 
-                obj, created = Recension.objects.update_or_create(id=obj_dict.pop('id'), defaults = {**obj_dict})
-            print("Recensions synchronised")
+            # result = client.service.getRecensions(lu.last_updated)
+            # input_dict = zeep.helpers.serialize_object(result)
+            # output_dict = json.loads(json.dumps(input_dict))
+            # print(result)
+            # print("Saving feched recension data")
+            # for obj_dict in output_dict:
+            #     obj_dict['reservationId_id'] = obj_dict.pop('reservationId') 
+            #     obj, created = Recension.objects.update_or_create(id=obj_dict.pop('id'), defaults = {**obj_dict})
+            # print("Recensions synchronised")
             
             
-            Update.objects.create(last_updated = last_update_datetime)
-            token = Token.objects.all()[:1][0]
+            lu = Update.objects.first()
+            if lu == None:
+                lu = Update.objects.create(last_updated = '2000-01-01 00:00:00')
+            token = Token.objects.first()
+            if token == None:
+                token = Token.objects.create(last_token = str(result_token))
             token.last_token = str(result_token)
             token.save()
 
@@ -231,15 +236,18 @@ class RoomView(viewsets.ModelViewSet):
         room_category = factory.RoomCategory(id=d['roomCategory'])
         room_type = factory.RoomType(id=d['roomType'])
         lineitem = []
-        for item in d.getlist('additionalService'):
+        print(d['additionalService'])
+        for item in d['additionalService']:
 	        line = {'id': item}
         	lineitem.append(line)
-        room_address = factory.Address(country=d['address.country'], state=d['address.state'], city=d['address.city'], postalCode=d['address.postalCode'], street=d['address.street'], streetNumber=d['address.streetNumber'], lng=d['address.lng'], lat=d['address.lat'])
         
-        room = factory.Room(hotelId=d['hotel'], address=room_address, additionalServices=lineitem, category=room_category, type=room_type, roomNumber=d['roomNumber'], defaultPrice=d['defaultPrice'], numberOfPeople=d['numberOfPeople'], cancelationDays=d['cancelationDays'], description=d['description'], totalRating=d['totalRating'], numberOfRatings=d['numberOfRaitings'])
+        room_address = factory.Address(country=d['address']['country'], state=d['address']['state'], city=d['address']['city'], postalCode=d['address']['postalCode'], street=d['address']
+        ['street'], streetNumber=d['address']['streetNumber'], lng=d['address']['lng'], lat=d['address']['lat'])
+        
         # pazi ovde uzimas prvi hotel po pretpostavkom u dogovoru sa timom da ce biti samo 1/ svakako si spreman za promenu jer se salje i hotel id request.data
-        hotel_id = Hotel.objects.all()[:1][0].id  
-
+        hotel_id = Hotel.objects.all()[:1][0].id 
+        room = factory.Room(hotelId=hotel_id, address=room_address, additionalServices=lineitem, category=room_category, type=room_type, roomNumber=d['roomNumber'], defaultPrice=d['defaultPrice'], numberOfPeople=d['numberOfPeople'], cancelationDays=d['cancelationDays'], description=d['description'])
+       
         node = client.create_message(client.service, 'newRoom', id=hotel_id, room=room)
         tree = ET.ElementTree(node)
         tree.write('test.xml',pretty_print=True)
@@ -248,7 +256,9 @@ class RoomView(viewsets.ModelViewSet):
         input_dict = zeep.helpers.serialize_object(result)
         output_dict = json.loads(json.dumps(input_dict))
 
-        serializer = RoomSerializerInput(data=request.data, context={'request': request, 'address_id': output_dict.pop('addressId', None), 'id':output_dict.pop('roomId', None)})
+        data = request.data
+        data['hotel'] = hotel_id
+        serializer = RoomSerializerInput(data=data, context={'request': request, 'address_id': output_dict.pop('addressId', None), 'id':output_dict.pop('roomId', None)})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

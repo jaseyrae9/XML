@@ -7,3 +7,13 @@
 .rooms-display{
   padding-left: 3%;
 }
+
+.jumbotron-holder {
+  background-image: url("/assets/images/background-images/hotelBanner.jpg");
+  background-size: cover;
+  margin-bottom: 1%
+}
+
+.jumbotron {
+  background: rgba(	211,211,211, 0.7);
+}

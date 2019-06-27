@@ -1,3 +1,4 @@
+import { TokenService } from './../../auth/service/token.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenService: TokenService) { }
 
   ngOnInit() {
+  }
+
+  onLogout(){
+    this.tokenService.signOut();
   }
 
 }

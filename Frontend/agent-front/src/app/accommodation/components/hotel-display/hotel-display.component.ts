@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hotel-display.component.css']
 })
 export class HotelDisplayComponent implements OnInit {
-  hotel: Hotel = {address:{}, name: '', pib: ''} as Hotel;
+  hotel: Hotel = {address: {}, name: '', pib: ''} as Hotel;
   rooms: Room[] = [];
 
   constructor(private accommodationService: AccommodationHTTPService) { }
@@ -22,6 +22,6 @@ export class HotelDisplayComponent implements OnInit {
         (rooms) => {
           this.rooms = rooms.results;
         }
-    )
+    );
   }
 }

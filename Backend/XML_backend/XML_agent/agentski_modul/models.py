@@ -61,9 +61,9 @@ class Room(models.Model):
     defaultPrice = models.FloatField()
     numberOfPeople = models.IntegerField(validators=[MinValueValidator(1)])
     cancelationDays = models.IntegerField(validators=[MinValueValidator(0)], null=True)
-    description = models.CharField(max_length=256, default='')
-    totalRating = models.FloatField(null=True)
-    numberOfRaitings = models.IntegerField(default=0)
+    description = models.CharField(blank=True, max_length=256, default='')
+    totalRating = models.FloatField(blank=True, null=True)
+    numberOfRaitings = models.IntegerField(blank=True, null=True)
 
 
 class RoomFotos(models.Model):

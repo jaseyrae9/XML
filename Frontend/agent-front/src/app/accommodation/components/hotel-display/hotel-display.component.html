@@ -1,14 +1,17 @@
 <div class="container">
+    <div class="jumbotron-holder p-4">
+      <div class="jumbotron jumbotron-fluid p-2 m-0">
+          <div class="container text-center">
+            <h1 class="display-4">{{hotel.name}}</h1>
+            <p class="lead">Welcome</p>
+          </div>
+      </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
-          <!-- SIDEBAR USERPIC -->
-          <app-map-display></app-map-display>
-          <!-- END SIDEBAR USERPIC -->
-          <!-- SIDEBAR HOTEL TITLE -->
-          <div class="hotel-name">
-                  <h4>{{hotel.name}}</h4>
-          </div>
-          <!-- END SIDEBAR HOTEL TITLE -->
+          <!-- SIDEBAR MAP -->
+          <app-map-display [address]="hotel.address"></app-map-display>
+          <!-- END SIDEBAR MAP -->
           <!-- SIDEBAR ADDRESS -->
           <app-address-display [address]="hotel.address"></app-address-display>
           <!-- END SIDEBAR ADDRESS-->
@@ -17,7 +20,7 @@
             <p *ngIf="rooms.length == 0" style="color:  #33cabb;" align="center" >
               There are no rooms.
             </p>
-            <div *ngFor="let room of rooms" class="container">
+            <div *ngFor="let room of rooms" class="container mb-5">
                 <app-room-preview [room]="room"></app-room-preview>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './auth/interceptor/jwt-interceptor';
 import { AccommodationModule } from './accommodation/accommodation.module';
 import { AuthModule } from './auth/auth.module';
 import { BasicUiModule } from './basic-ui/basic-ui.module';
@@ -24,7 +25,7 @@ import { CreateRoomPageComponent } from './pages/create-room-page/create-room-pa
   imports: [
     BrowserModule, BasicUiModule, AuthModule, RoutingModule, AccommodationModule, BsDatepickerModule.forRoot(), BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [JwtInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

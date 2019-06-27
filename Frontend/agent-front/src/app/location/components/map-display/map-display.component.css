@@ -1,3 +1,8 @@
 .map-holder{
-  margin: 1%;
+  margin-top: 4%;
+}
+
+agm-map {
+  width: 250px;
+  height: 250px;
 }

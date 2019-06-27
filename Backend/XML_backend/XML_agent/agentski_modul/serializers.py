@@ -62,12 +62,20 @@ class RoomSerializerInput(serializers.ModelSerializer):
         
 
     def create(self, validated_data):
+        print('1. django sranje')
         address_data = validated_data.pop('address')
         address_data = Address.objects.create(id = self.context['address_id'], **address_data)
+        print('1. adresa kraj')
+        print(address_data)
         additional_services = validated_data.pop('additionalService')
+        print('1. pop dodatne usluge')
+        print(additional_services)
 
-        room = Room.objects.create(id=self.context['id'], address = address_data, **validated_data)
+        room = Room.objects.create(id=self.context['id'], address = address_data, **validated_data)        
+        print('room done')
+        print(room)
         room.additionalService.set(additional_services)
+        print('dodali dodatne usluge')
         room.save()
 
         return room

@@ -77,7 +77,7 @@
           </div>
           <app-new-reservation-form></app-new-reservation-form>
           <!-- SIDEBAR MAP -->
-          <app-map-display></app-map-display>
+          <app-map-display [address]="room.address"></app-map-display>
           <!-- END SIDEBAR MAP -->
           <!-- SIDEBAR ADDRESS -->
           <app-address-display [address]="room.address" class="text-left"></app-address-display>

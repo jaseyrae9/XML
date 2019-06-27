@@ -4,12 +4,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapDisplayComponent } from './components/map-display/map-display.component';
 import { AddressDisplayComponent } from './components/address-display/address-display.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [MapDisplayComponent, AddressDisplayComponent],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAha_PuYkkB226RBgsn81j3CP7vG-Mv1ig'
+    })
   ],
   exports: [
     AddressDisplayComponent,

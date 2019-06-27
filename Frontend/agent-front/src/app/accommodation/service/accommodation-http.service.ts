@@ -1,16 +1,13 @@
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationHTTPService {
-  url = 'http://localhost:8000';
+  url = environment.baseUrl;
   hotelUrl = '/hotel/';
   roomUrl = '/room/';
   priceUrl = '/price/';
@@ -33,11 +30,11 @@ export class AccommodationHTTPService {
   }
 
   createRoom(room): Observable<Room> {
-    return this.http.post<Room>(this.url + this.roomUrl, room, httpOptions);
+    return this.http.post<Room>(this.url + this.roomUrl, room, environment.httpOptions);
   }
 
   setPrice(priceRequest): Observable<any> {
-    return this.http.post(this.url + this.priceUrl, priceRequest, httpOptions);
+    return this.http.post(this.url + this.priceUrl, priceRequest, environment.httpOptions);
   }
 
   getPrices(roomId, from, to): Observable<any> {

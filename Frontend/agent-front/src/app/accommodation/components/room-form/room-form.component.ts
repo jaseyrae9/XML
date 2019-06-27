@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { LocationService } from './../../../location/service/location.service';
 import { AccommodationHTTPService } from './../../service/accommodation-http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,9 +18,8 @@ export class RoomFormComponent implements OnInit {
   additionalServices: AdditionalService[] = [];
 
   constructor(private formBuilder: FormBuilder, private accommodationHTTPService: AccommodationHTTPService,
-              private locationService: LocationService) {
+              private locationService: LocationService, private router: Router) {
     this.createRoomForm = this.formBuilder.group({
-      hotel : [''],
       roomType: ['', [Validators.required]],
       roomCategory: ['', [Validators.required]],
       roomNumber: ['', [Validators.required, Validators.min(0)]],
@@ -27,7 +27,7 @@ export class RoomFormComponent implements OnInit {
       defaultPrice: ['', [Validators.required, Validators.min(0)]],
       numberOfPeople: ['', [Validators.required, Validators.min(0)]],
       cancelationDays: ['', [Validators.required, Validators.min(0)]],
-      description: [''],
+      description: ['', [Validators.maxLength(256)]],
       additionalService: [''],
       address: this.formBuilder.group({
         street: ['', [Validators.required]],
@@ -68,11 +68,12 @@ export class RoomFormComponent implements OnInit {
   }
 
   createRoom() {
-    this.accommodationHTTPService.createRoom(this.createRoomForm.value).subscribe(
+    const roomData = this.createRoomForm.value;
+    this.accommodationHTTPService.createRoom(roomData).subscribe(
       (data) => {
-        console.log(data);
+        this.router.navigate(['room/' + data.id]);
       }
-    )
+    );
   }
 
   resetToHotelAddress() {
