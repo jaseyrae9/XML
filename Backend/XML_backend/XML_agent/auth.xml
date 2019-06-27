@@ -1,8 +1,0 @@
-<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap-env:Body>
-    <ns0:authenticationRequest xmlns:ns0="http://www.team17.xml.ftn.uns.ac.rs/authentication">
-      <ns0:username>admin</ns0:username>
-      <ns0:password>admin</ns0:password>
-    </ns0:authenticationRequest>
-  </soap-env:Body>
-</soap-env:Envelope>

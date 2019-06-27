@@ -23,7 +23,7 @@ class RoomType(models.Model):
 class RoomCategory(models.Model):
     id = models.IntegerField(primary_key=True)
     numberOfStars = models.IntegerField()
-    description = models.CharField(max_length=256)
+    description = models.CharField(max_length=256, null = True)
     active = models.BooleanField()
 
     def __str__(self):
@@ -33,7 +33,7 @@ class RoomCategory(models.Model):
 class Address(models.Model):
     id = models.IntegerField(primary_key=True)
     country = models.CharField(max_length=30, default='', blank=False)
-    state = models.CharField(max_length=30, default='', blank=False)
+    state = models.CharField(max_length=30, default='', blank=True)
     city = models.CharField(max_length=30, default='', blank=False)
     postalCode = models.CharField(max_length=30, default='', blank=False)
     street = models.CharField(max_length=30, default='', blank=False)
@@ -45,7 +45,7 @@ class Address(models.Model):
 class Hotel(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30, default='')
-    address = models.OneToOneField(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, null=True)
     PIB = models.CharField(max_length=30, default='', blank=False)
 
 
