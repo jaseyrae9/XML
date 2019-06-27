@@ -82,25 +82,42 @@ class Customer(models.Model):
     id = models.IntegerField(primary_key=True)
     firstName = models.CharField(max_length=32)
     lastName = models.CharField(max_length=32)
+    username = models.CharField(max_length=32)
     
 
 class Resrvation(models.Model):
     id = models.IntegerField(primary_key=True)
-    room = models.ForeignKey(Room, on_delete=models.PROTECT)
-    dateOfReservation = models.DateField()
+    roomId = models.ForeignKey(Room, on_delete=models.PROTECT)
+    # dateOfReservation = models.DateField()
     dateFrom = models.DateField()
     dateTo = models.DateField()
+    totalPrice = models.FloatField()
     STATUS_CHOICES = (('RESERVED', 'RESERVED'), ('HAPPENED', 'HAPPENED'), ('CANCELED', 'CANCELED'))
-    status = models.CharField(choices=STATUS_CHOICES, default='R', max_length=8)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=8)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT, null=True, blank=True)
 
 
 class Message(models.Model):
     id = models.IntegerField(primary_key=True)
+    reservationId = models.ForeignKey(Resrvation, on_delete=models.CASCADE)
+    dateSent = models.DateTimeField()
+    message = models.CharField(max_length=512)
+    STATUS_CHOICES = (('TO_CUSTOMER', 'TO_CUSTOMER'), ('TO_AGENT', 'TO_AGENT'))
+    status = models.CharField(choices=STATUS_CHOICES, max_length=11)
+
+
+class Recension(models.Model):
+    id = models.IntegerField(primary_key=True)
+    reservationId = models.ForeignKey(Resrvation, on_delete=models.CASCADE)
+    rating = models.FloatField()
+    comment = models.CharField(max_length=512)
     date = models.DateTimeField()
-    text = models.CharField(max_length=512)
+    isApproved = models.BooleanField()
 
 
 class Update(models.Model):
     last_updated = models.DateTimeField()
-     
+
+
+class Token(models.Model):
+    last_token = models.CharField(max_length=512)

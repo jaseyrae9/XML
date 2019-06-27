@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-from datetime import timedelta
 
 
 class RoomCategorySerializer(serializers.ModelSerializer):
@@ -96,14 +95,30 @@ class PriceSerializerInput(serializers.Serializer):
 class ResrvationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resrvation
-        fields = ('url', 'id', 'room', 'customer', 'dateOfReservation', 'status', 'dateFrom', 'dateTo')
-        read_only_fields = ('customer', 'dateOfReservation', 'status', 'id')
+        fields = ('url', 'id', 'roomId', 'customer', 'status', 'dateFrom', 'dateTo', 'totalPrice')
+        read_only_fields = ('customer', 'status', 'id', 'totalPrice')
 
 
 class ResrvationSerializerPut(serializers.ModelSerializer):
+    status = serializers.ChoiceField(choices=['HAPPENED'])
     class Meta:
         model = Resrvation
-        fields = ('status',)
+        fields = '__all__'
+        read_only_fields = ('customer', 'id', 'roomId', 'dateFrom', 'dateTo', 'totalPrice')
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = '__all__'
+        read_only_fields = ('id', 'dateSent', 'status')
+
+
+class RecensionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recension
+        fields = '__all__'
+
 
 
 
