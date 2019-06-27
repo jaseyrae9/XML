@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,7 @@ import { SearchRequest } from 'src/app/model/searchRequest';
   styleUrls: ['./search-page.component.css',  '../../shared/css/inputField.css']
 })
 export class SearchPageComponent implements OnInit {
+  @ViewChild('myForm') formValues;
   datePickerConfig: Partial<BsDatepickerConfig>;
   bsRangeValue: Date[];
 
@@ -29,6 +30,7 @@ export class SearchPageComponent implements OnInit {
 
   rooms: RoomPreview[] = [];
   searchRequest: SearchRequest = new SearchRequest();
+  defaultValue = 'category_asc';
 
   constructor(public datePipe: DatePipe,
               private searchService: SearchService,
@@ -102,15 +104,53 @@ export class SearchPageComponent implements OnInit {
     console.log(this.searchRequest);
     this.searchService.search(this.searchRequest).subscribe(
       (data) => {
-        this.rooms = data;
-        console.log('odg');
-        console.log(this.rooms);
+        this.populateView(data);
       }
     );
   }
 
+  populateView(data) {
+    console.log(data);
+    if (this.defaultValue === 'category_asc') {
+      data.sort((a, b) => a.category.numberOfStars - b.category.numberOfStars);
+    }
+
+    if (this.defaultValue === 'category_desc') {
+      data.sort((a, b) => b.category.numberOfStars - a.category.numberOfStars);
+    }
+
+    if (this.defaultValue === 'distance_asc') {
+      data.sort((a, b) => a.distance - b.distance);
+    }
+
+    if (this.defaultValue === 'distance_desc') {
+      data.sort((a, b) => b.distance - a.distance);
+    }
+
+    if (this.defaultValue === 'price_asc') {
+      data.sort((a, b) => a.totalStayPrice - b.totalStayPrice);
+    }
+
+    if (this.defaultValue === 'price_desc') {
+      data.sort((a, b) => b.totalStayPrice - a.totalStayPrice);
+    }
+
+    this.rooms = data;
+  }
+
+  onSortChange(data) {
+    this.defaultValue = data;
+    this.populateView(this.rooms);
+  }
+
   cancelSearch() {
     this.rooms = [];
+    this.formValues.resetForm();
+  }
+
+  cancelFilter() {
+    this.rooms = [];
+    this.formValues.resetForm();
   }
 
 }
