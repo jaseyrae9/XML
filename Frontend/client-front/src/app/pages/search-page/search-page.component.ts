@@ -6,6 +6,8 @@ import { RoomType } from 'src/app/model/room/roomType';
 import { RoomCategory } from 'src/app/model/room/roomCategory';
 import { SearchService } from 'src/app/services/search.service';
 import { AdditionalService } from 'src/app/model/room/additionalService';
+import { RoomPreview } from 'src/app/model/room/roomPreview';
+import { SearchRequest } from 'src/app/model/searchRequest';
 
 @Component({
   selector: 'app-search-page',
@@ -25,6 +27,9 @@ export class SearchPageComponent implements OnInit {
   roomCategories: RoomCategory[] = [];
   additionalServices: AdditionalService[] = [];
 
+  rooms: RoomPreview[] = [];
+  searchRequest: SearchRequest = new SearchRequest();
+
   constructor(public datePipe: DatePipe,
               private searchService: SearchService,
               private formBuilder: FormBuilder) {
@@ -35,15 +40,16 @@ export class SearchPageComponent implements OnInit {
       });
 
     this.searchForm = this.formBuilder.group({
-
-    });
-
-    this.filterForm = this.formBuilder.group({
-      roomType: ['', [Validators.required]],
-      roomCategory: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      numberOfPeople: ['', [Validators.required, Validators.min(1)]],
+      bsRangeValue: [this.bsRangeValue, [Validators.required]],
+      roomType: [''],
+      roomCategory: [''],
       additionalService: [''],
-
+      distance: ['', [Validators.min(0)]],
+      cancelationDays: ['', [Validators.min(0)]]
     });
+
   }
 
   ngOnInit() {
@@ -56,8 +62,6 @@ export class SearchPageComponent implements OnInit {
     this.searchService.getTypes().subscribe(
       (data) => {
         this.roomTypes = data;
-        console.log('Tipovi');
-        console.log(data);
       }
     );
   }
@@ -66,8 +70,6 @@ export class SearchPageComponent implements OnInit {
     this.searchService.getCategories().subscribe(
       (data) => {
         this.roomCategories = data;
-        console.log('Kategorije');
-        console.log(data);
       }
     );
   }
@@ -76,10 +78,39 @@ export class SearchPageComponent implements OnInit {
     this.searchService.getServices().subscribe(
       (data) => {
         this.additionalServices = data;
-        console.log('Dodatne usluge');
-        console.log(data);
       }
     );
+  }
+
+  search() {
+    const value = this.searchForm.value;
+
+    this.searchRequest.location = value.location;
+    this.searchRequest.numberOfPeople = value.numberOfPeople;
+    this.searchRequest.start = this.datePipe.transform(value.bsRangeValue[0], 'yyyy-MM-dd');
+    this.searchRequest.end = this.datePipe.transform(value.bsRangeValue[1], 'yyyy-MM-dd');
+    this.searchRequest.type = value.roomType;
+    this.searchRequest.category = value.roomCategory;
+    if (value.additionalService === '') {
+      this.searchRequest.additionalServices = [];
+    } else {
+      this.searchRequest.additionalServices = value.additionalService;
+    }
+    this.searchRequest.distanceFromLocation = value.distance;
+    this.searchRequest.cancelationDays = value.cancelationDays;
+    console.log('zahtev');
+    console.log(this.searchRequest);
+    this.searchService.search(this.searchRequest).subscribe(
+      (data) => {
+        this.rooms = data;
+        console.log('odg');
+        console.log(this.rooms);
+      }
+    );
+  }
+
+  cancelSearch() {
+    this.rooms = [];
   }
 
 }

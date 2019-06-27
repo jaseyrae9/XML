@@ -42,6 +42,8 @@ import { ReviewDetailsComponent } from './components/hotel/review-details/review
 import { NgSelectModule } from '@ng-select/ng-select';
 import {RatingModule} from 'ngx-rating';
 import { ReservationPageComponent } from './components/reservations-history/reservation-page/reservation-page.component';
+import { SearchedRoomBasicInfoComponent } from './components/hotel/searched-room-basic-info/searched-room-basic-info.component';
+import {NgPipesModule} from 'ngx-pipes';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { ReservationPageComponent } from './components/reservations-history/rese
     PriceTableComponent,
     ReviewDetailsComponent,
     ReservationPageComponent,
+    SearchedRoomBasicInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { ReservationPageComponent } from './components/reservations-history/rese
     NgxGalleryModule,
     RatingModule,
     FullCalendarModule, // for FullCalendar!
-    NgSelectModule
+    NgSelectModule,
+    NgPipesModule
   ],
   providers: [RoleGuardService, DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],

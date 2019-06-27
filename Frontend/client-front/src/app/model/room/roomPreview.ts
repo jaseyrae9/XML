@@ -1,6 +1,7 @@
 import { Address } from '../address';
 import { RoomType } from './roomType';
 import { RoomCategory } from './roomCategory';
+import { HotelPreview } from '../hotel/hotelPreview';
 
 export class RoomPreview {
 
@@ -10,4 +11,10 @@ export class RoomPreview {
     category: RoomCategory;
     numberOfPeople: number;
     roomNumber: number;
+
+    // for search
+    hotel: HotelPreview;
+    totalStayPrice: number;
+    distance: number;
+
 }

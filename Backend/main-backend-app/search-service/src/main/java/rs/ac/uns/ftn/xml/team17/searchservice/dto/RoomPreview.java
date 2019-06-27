@@ -35,6 +35,7 @@ public class RoomPreview {
 	
 	public RoomPreview(Room room) {
 		this.id = room.getId();
+		this.hotel = room.getHotel();
 		this.address = room.getAddress();
 		this.roomNumber = room.getRoomNumber();
 		this.type = room.getType();

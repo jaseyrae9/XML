@@ -20,4 +20,5 @@ export class RoomService {
   getPrices(id, from, to): Observable<any> {
     return this.http.get(this.url + 'room-service/room/' + id + '/price?from=' + from + '&to=' + to);
   }
+
 }
