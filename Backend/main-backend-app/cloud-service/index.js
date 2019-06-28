@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const admin = require('firebase-admin');
 const serviceAccount = require('./XML.json');
-const uuidv1 = require('uuid/v1');
-const wait=require('wait.for');
 
 'use strict';
 // Imports the Google Cloud client library
@@ -21,9 +19,6 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5555;
 
-
-let recensions = {};
-
 // Za firestore
 admin.initializeApp({ 
 	credential: admin.credential.applicationDefault()
@@ -32,7 +27,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 function readFire() {
-	db.collection('xml').get().then(snapshot => {
+	db.collection('recensions').get().then(snapshot => {
 	  snapshot.forEach(doc => {
 		console.log(doc.id, '=>', doc.data());
 	  });
@@ -50,7 +45,7 @@ app.listen(PORT, () => {
 
 app.post('/recension', function (req, res) {   
 
-	const ref = db.collection('xml').doc();
+	const ref = db.collection('recensions').doc();
 	const recension = { 
 		id: ref.id,
 		rating: req.body.rating,
@@ -65,14 +60,56 @@ app.post('/recension', function (req, res) {
 		modificationDate: new Date()
 	} 
 
-	db.collection('xml').doc(ref.id).set(recension);
+	console.log('U funkciji' + req.body.roomId);
+	db.collection('ratings').doc(req.body.roomId.toString()).get().then(doc => {
+		if (!doc.exists) {
+			console.log('Ne postoje rejtinzi za tu sobu, prave se!');
+			
+			const rating = {
+				roomId: req.body.roomId,
+				numberOfRatings: 1,
+				totalRating: req.body.rating,
+				modificationDate: new Date()
+			}
+
+			db.collection('ratings').doc(req.body.roomId.toString()).set(rating);
+		} else {
+			console.log('Postoje rejtinzi za tu sobu');
+			console.log('Document data:', doc.data());
+
+			db.collection('ratings').doc(req.body.roomId.toString()).update({
+				numberOfRatings: doc.data().numberOfRatings+1, totalRating: doc.data().totalRating + req.body.rating, modificationDate : new Date()
+			});
+		}
+	})
+	
+	db.collection('recensions').doc(ref.id).set(recension);
 	res.send(recension);
+});
+
+app.get('/rating/:date', function (req, res) {  
+
+	let ratingRef = db.collection('ratings');
+	ratingRef.where('modificationDate', '>', new Date(req.params.date)).get().then(snapshot => {
+		if (snapshot.empty) {
+			console.log('No matching documents.');
+			res.status(404).send('Ne postoje nove ocene!');
+			return;
+		}  
+		let retVal = [];
+		snapshot.docs.forEach(function(rating) {
+			let tmp = rating.data();
+			tmp.modificationDate = rating.get('modificationDate').toDate();
+			retVal.push(tmp);
+		});
+		res.json(retVal);
+	});
 });
 
 
 app.put('/recension/:id', function (req, res) {
 
-	db.collection('xml').doc(req.params.id).get().then(doc => {
+	db.collection('recensions').doc(req.params.id).get().then(doc => {
 		if (!doc.exists) {
 			console.log('No such document!');
 			res.status(404).send('Recenzija sa zadatim identifikatorom ne postoji!');
@@ -85,7 +122,7 @@ app.put('/recension/:id', function (req, res) {
 		console.log('Error getting document', err);
 	});
 
-	db.collection('xml').doc(req.params.id).update({
+	db.collection('recensions').doc(req.params.id).update({
 		isApproved: true, modificationDate : new Date()
 	});
 
@@ -95,8 +132,8 @@ app.put('/recension/:id', function (req, res) {
 // Kada admin preuzima sve recenzije
 app.get('/recension', (req, res, next) => {
 
-	let xmlRef = db.collection('xml');
-	xmlRef.where('isApproved', '==', false).get().then(snapshot => {
+	let recensionsRef = db.collection('recensions');
+	recensionsRef.where('isApproved', '==', false).get().then(snapshot => {
 		if (snapshot.empty) {
 			console.log('No matching documents.');
 			return;
@@ -121,7 +158,7 @@ app.get('/approvedRecensions/:id', (req, res) => {
 	let totalRating = 0;
 	let ratingCount = 0;
 
-	let xmlRef = db.collection('xml');
+	let xmlRef = db.collection('recensions');
 
 	xmlRef.where('roomId', '==', parseInt(req.params.id)).get().then(snapshot => {
 		if (snapshot.empty) {
@@ -145,7 +182,7 @@ app.get('/approvedRecensions/:id', (req, res) => {
 });
 
 app.get('/recension/:hotelId/:date', (req, res) => {
-	let xmlRef = db.collection('xml');
+	let xmlRef = db.collection('recensions');
 	xmlRef.where('hotelId', '==', parseInt(req.params.hotelId)).get().then(snapshot => {
 		if (snapshot.empty) {
 			console.log('No matching documents.');
