@@ -42,8 +42,9 @@ public class MessageEndpoint {
     @ResponsePayload
     public NewMessageResponse newMessage(@RequestPayload NewMessageRequest newMessageRequest) throws NotFoundException {
 		System.out.println("MessageEndpoint newMessage");
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
 		NewMessageResponse response = new NewMessageResponse();
-	    rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message m = messageService.newMessage(newMessageRequest);
+	    rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message m = messageService.newMessage(newMessageRequest, hotelId);
 		response.setMessage(m);
 		return response;
     }

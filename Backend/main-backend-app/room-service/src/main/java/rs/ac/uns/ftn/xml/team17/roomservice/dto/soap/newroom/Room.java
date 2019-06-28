@@ -98,7 +98,6 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Room", propOrder = {
-    "hotelId",
     "address",
     "type",
     "category",
@@ -112,7 +111,6 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Room {
 
-    protected int hotelId;
     @XmlElement(required = true)
     protected Address address;
     @XmlElement(required = true)
@@ -127,22 +125,6 @@ public class Room {
     protected String description;
     protected Integer floor;
     protected Integer roomNumber;
-
-    /**
-     * Gets the value of the hotelId property.
-     * 
-     */
-    public int getHotelId() {
-        return hotelId;
-    }
-
-    /**
-     * Sets the value of the hotelId property.
-     * 
-     */
-    public void setHotelId(int value) {
-        this.hotelId = value;
-    }
 
     /**
      * Gets the value of the address property.
@@ -373,7 +355,7 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room [hotelId=" + hotelId + ", address=" + address + ", type=" + type + ", category=" + category
+		return "Room [address=" + address + ", type=" + type + ", category=" + category
 				+ ", defaultPrice=" + defaultPrice + ", numberOfPeople=" + numberOfPeople + ", cancelationDays="
 				+ cancelationDays + ", additionalServices=" + additionalServices + ", description=" + description
 				+ ", floor=" + floor + ", roomNumber=" + roomNumber + "]";

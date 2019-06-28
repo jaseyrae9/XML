@@ -61,9 +61,8 @@ public class MessageService {
 		return messageRepostitory.getByReservationAndCustomer(reservation, customer, pageable);
 	}
 	
-	public rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message newMessage(NewMessageRequest newMessageRequest) throws NotFoundException {
-		//TODO: Proveri sme li ovaj agent za ove rezervacije da salje
-		Reservation r = reservationService.getReservation(newMessageRequest.getId());
+	public rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message newMessage(NewMessageRequest newMessageRequest, Integer hotelId) throws NotFoundException {
+		Reservation r = reservationService.getAgentReservation(newMessageRequest.getId(), hotelId);
 		Message m = this.createMessage(r, newMessageRequest.getMessage());
 		m.setStatus(MessageDirection.TO_CUSTOMER);			
 		return new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message(this.save(m));

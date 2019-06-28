@@ -42,6 +42,15 @@ public class ReservationService {
 	@Autowired
 	private RoomService roomService;
 
+	
+	public Reservation getAgentReservation(Integer id, Integer hotelId) throws NotFoundException {
+		Optional<Reservation> opt = reservationRepository.findAgentReservation(id, hotelId);
+		if (!opt.isPresent()) {
+			throw new NotFoundException(id, Reservation.class.getSimpleName());
+		}
+		return opt.get();
+	}
+	
 	/**
 	 * Finds reservation with given id.
 	 * @param id
@@ -124,9 +133,8 @@ public class ReservationService {
 		return reservationRepository.save(r);
 	}
 
-	public Reservation newReservation(NewReservationRequest newReservationRequest) throws ReservationImpossibleException, NotFoundException {
-		//TODO: Provera sme li taj agent za tu sobu da napravi rezervaciju
-		Room room = this.roomService.getRoom(newReservationRequest.getId());
+	public Reservation newReservation(NewReservationRequest newReservationRequest, Integer hotelId) throws ReservationImpossibleException, NotFoundException {
+		Room room = this.roomService.getAgentRoom(newReservationRequest.getId(), hotelId);
 		Reservation r = this.createReservation(room, newReservationRequest.getDateFrom(), newReservationRequest.getDateTo());
 		return reservationRepository.save(r);
 	}
@@ -150,9 +158,8 @@ public class ReservationService {
 		return reservationRepository.save(reservation);
 	}
 	
-	public void confirmReservation(Integer id) throws NotFoundException, ReservationStatusException {
-		//TODO: provera sme li taj agent da potvri tu rezervaciju
-		Reservation r = getReservation(id);
+	public void confirmReservation(Integer id, Integer hotelId) throws NotFoundException, ReservationStatusException {
+		Reservation r = getAgentReservation(id, hotelId);
 		if(r.getStatus() != ReservationStatus.RESERVED) {
 			throw new ReservationStatusException(id);
 		}

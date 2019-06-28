@@ -37,31 +37,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id",
     "room"
 })
 @XmlRootElement(name = "newRoomRequest")
 public class NewRoomRequest {
 
-    protected int id;
     @XmlElement(required = true)
     protected Room room;
-
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(int value) {
-        this.id = value;
-    }
 
     /**
      * Gets the value of the room property.
@@ -91,7 +73,7 @@ public class NewRoomRequest {
 
 	@Override
 	public String toString() {
-		return "NewRoomRequest [id=" + id + ", room=" + room + "]";
+		return "NewRoomRequest [room=" + room + "]";
 	}
 
 }
