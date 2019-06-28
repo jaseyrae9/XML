@@ -76,7 +76,7 @@ public class Reservation {
 		String[] splited1 = tmp1.split(" ");
 		System.out.println(splited1[0]);
 		this.dateTo = splited1[0];
-		// TODO: totalPrice ce racunati neki Milicin servis
+		this.totalPrice = r.getTotal();
 		if (r.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.RESERVED) {
 			this.status = ReservationStatus.RESERVED;
 		}

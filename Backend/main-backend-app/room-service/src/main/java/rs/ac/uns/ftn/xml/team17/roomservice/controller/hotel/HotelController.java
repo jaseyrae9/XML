@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelWithRoomsDTO;
+import rs.ac.uns.ftn.xml.team17.roomservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelBasicsDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.service.HotelService;
@@ -41,9 +42,10 @@ public class HotelController {
 	 * 
 	 * @param hotelId - id of the hotel
 	 * @return 
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{hotelId}")
-	public ResponseEntity<HotelWithRoomsDTO> getHotel(@PathVariable Integer hotelId) {
+	public ResponseEntity<HotelWithRoomsDTO> getHotel(@PathVariable Integer hotelId) throws NotFoundException {
 		Hotel hotel = hotelService.getHotel(hotelId);
 		return new ResponseEntity<>(new HotelWithRoomsDTO(hotel), HttpStatus.OK);
 	}

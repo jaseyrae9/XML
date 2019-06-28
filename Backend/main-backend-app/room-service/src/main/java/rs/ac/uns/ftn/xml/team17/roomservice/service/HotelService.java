@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelBasicsDTO;
+import rs.ac.uns.ftn.xml.team17.roomservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.repository.HotelRepository;
 
@@ -16,10 +17,10 @@ public class HotelService {
 	@Autowired
 	private HotelRepository hotelRepository;
 
-	public Hotel getHotel(Integer id) {
+	public Hotel getHotel(Integer id) throws NotFoundException {
 		Optional<Hotel> opt = hotelRepository.findById(id);
 		if (!opt.isPresent()) {
-			// TODO: exception
+			throw new NotFoundException(id, Hotel.class.getSimpleName());
 		}
 		return opt.get();
 	}

@@ -17,6 +17,9 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.NewR
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.NewReservationResponse;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.reservation.ConfirmReservationRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.reservation.ConfirmReservationResponse;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.ReservationImpossibleException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.ReservationStatusException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.service.ReservationService;
 
 @Endpoint
@@ -30,7 +33,7 @@ public class ReservationEndpoint {
 	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Reservation", localPart = "confirmReservationRequest")
     @ResponsePayload
-    public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest confirmReservationRequest) {
+    public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest confirmReservationRequest) throws NotFoundException, ReservationStatusException {
 		ConfirmReservationResponse response = new ConfirmReservationResponse();
 		reservationService.confirmReservation(confirmReservationRequest.getId());
 		response.setSuccessfully(true);
@@ -50,7 +53,7 @@ public class ReservationEndpoint {
 	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/NewReservation", localPart = "newReservationRequest")
     @ResponsePayload
-    public NewReservationResponse newReservation(@RequestPayload NewReservationRequest newReservationRequest) {
+    public NewReservationResponse newReservation(@RequestPayload NewReservationRequest newReservationRequest) throws ReservationImpossibleException, NotFoundException {
 		System.out.println("New reservation controller");
 		NewReservationResponse response = new NewReservationResponse();
 		rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation(reservationService.newReservation(newReservationRequest));

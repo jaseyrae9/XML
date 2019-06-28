@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerStatusChangeDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.authservice.exception.UserStatusChangeException;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.service.entityservice.UserService;
 
@@ -33,10 +35,12 @@ public class CustomerController {
 	 * 
 	 * @param id - id of the customer
 	 * @return 
+	 * @throws UserStatusChangeException 
+	 * @throws NotFoundException 
 	 */
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> changeCustomerStatus(@PathVariable Integer id, @Valid @RequestBody CustomerStatusChangeDTO customerStatusChangeDTO) {
+	public ResponseEntity<?> changeCustomerStatus(@PathVariable Integer id, @Valid @RequestBody CustomerStatusChangeDTO customerStatusChangeDTO) throws NotFoundException, UserStatusChangeException {
 		Customer ret;
 		if(!customerStatusChangeDTO.getBlocked()) {
 			ret = (Customer) userService.activateCustomer(id);
@@ -52,10 +56,11 @@ public class CustomerController {
 	 * 
 	 * @param id - id of the customer
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> removeCustomer(@PathVariable Integer id) {
+	public ResponseEntity<?> removeCustomer(@PathVariable Integer id) throws NotFoundException {
 		Customer customer = (Customer) userService.removeCustomer(id);
 		return  new ResponseEntity<>(new CustomerDTO(customer), HttpStatus.OK);
 	}

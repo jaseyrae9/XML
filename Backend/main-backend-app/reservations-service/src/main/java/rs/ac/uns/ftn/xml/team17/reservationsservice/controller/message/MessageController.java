@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.message.MessageDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.message.MessageRequest;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.Message;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.service.MessageService;
 
@@ -28,7 +29,7 @@ public class MessageController {
 	
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
 	@RequestMapping(value = "/message", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<MessageDTO> sendMessage(@RequestHeader(value="UserId") Integer customer, @PathVariable Integer reservationId, @Valid @RequestBody MessageRequest messageRequest){
+	public ResponseEntity<MessageDTO> sendMessage(@RequestHeader(value="UserId") Integer customer, @PathVariable Integer reservationId, @Valid @RequestBody MessageRequest messageRequest) throws NotFoundException{
 		Message m = this.messageService.createMessage(messageRequest, customer, reservationId);
 		return new ResponseEntity<MessageDTO>(new MessageDTO(m), HttpStatus.CREATED);
 	}

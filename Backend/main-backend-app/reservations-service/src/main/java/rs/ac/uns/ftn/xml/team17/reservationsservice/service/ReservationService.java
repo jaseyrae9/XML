@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.reservation.ReservationDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.reservation.ReservationRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.NewReservationRequest;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.ReservationStatusException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.ReservationImpossibleException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.price.Price;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.DayReservation;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
@@ -43,11 +46,12 @@ public class ReservationService {
 	 * Finds reservation with given id.
 	 * @param id
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	public Reservation getReservation(Integer id) {
+	public Reservation getReservation(Integer id) throws NotFoundException {
 		Optional<Reservation> opt = reservationRepository.findById(id);
 		if (!opt.isPresent()) {
-			// TODO: exception
+			throw new NotFoundException(id, Reservation.class.getSimpleName());
 		}
 		return opt.get();
 	}
@@ -57,12 +61,12 @@ public class ReservationService {
 	 * @param id
 	 * @param customer
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	public Reservation getReservation(Integer id, Integer customer) {
+	public Reservation getReservation(Integer id, Integer customer) throws NotFoundException {
 		Optional<Reservation> opt = reservationRepository.findByCustomerAndId(id, customer);
 		if (!opt.isPresent()) {
-			// TODO: exception
-			System.out.println("Not found");
+			throw new NotFoundException(id, Reservation.class.getSimpleName());
 		}
 		return opt.get();
 	}
@@ -84,11 +88,9 @@ public class ReservationService {
 		return true;
 	}
 		
-	private Reservation createReservation(Integer roomId, Date from, Date to) {
-		//TODO: baciti exception
+	private Reservation createReservation(Integer roomId, Date from, Date to) throws ReservationImpossibleException, NotFoundException {		
 		if(!this.isRoomAvailable(roomId, from, to)) {
-			System.err.println("Room not available.");
-			return null;
+			throw new ReservationImpossibleException(from, to);
 		}
 		//create reservation
 		Room room = roomService.getRoom(roomId);
@@ -102,7 +104,6 @@ public class ReservationService {
 			DayReservation dr = new DayReservation();
 			Date dayReservationDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			dr.setDate(dayReservationDate);
-			// TODO: ZA MILOSA, uradila sam set price, ako hoces da vidis
 			dr.setPrice(priceService.decidePrice(prices, room.getDefaultPrice(), dayReservationDate)); 
 			dr.setReservation(reservation);
 			reservation.addDayReservation(dr);
@@ -115,14 +116,16 @@ public class ReservationService {
 	 * @param reservationRequest - reservation information with requested room, start and end date.
 	 * @param customerId - customer id
 	 * @return - reservation object
+	 * @throws ReservationImpossibleException 
+	 * @throws NotFoundException 
 	 */
-	public Reservation createReservation(ReservationRequest reservationRequest, Integer customerId) {
+	public Reservation createReservation(ReservationRequest reservationRequest, Integer customerId) throws ReservationImpossibleException, NotFoundException {
 		Reservation r = this.createReservation(reservationRequest.getRoomId(), reservationRequest.getStart(), reservationRequest.getEnd());
 		r.setCustomer(new Customer(customerId));
 		return reservationRepository.save(r);
 	}
 
-	public Reservation newReservation(NewReservationRequest newReservationRequest) {
+	public Reservation newReservation(NewReservationRequest newReservationRequest) throws ReservationImpossibleException, NotFoundException {
 		//TODO: Provera sme li taj agent za tu sobu da napravi rezervaciju
 		Reservation r = this.createReservation(newReservationRequest.getId(), newReservationRequest.getDateFrom(), newReservationRequest.getDateTo());
 		return reservationRepository.save(r);
@@ -135,24 +138,23 @@ public class ReservationService {
 	 * @param customerId
 	 * @param reservationId
 	 * @return
+	 * @throws NotFoundException 
+	 * @throws ReservationStatusException 
 	 */
-	public Reservation cancelReservation(Integer customerId, Integer reservationId) {
+	public Reservation cancelReservation(Integer customerId, Integer reservationId) throws NotFoundException, ReservationStatusException {
 		Reservation reservation = this.getReservation(reservationId, customerId);
-		//check if this customer can be canceled
 		if(!reservation.canBeCanceled()) {
-			//TODO: exception
-			System.out.println("can not be canceled");
-			return null;
+			throw new ReservationStatusException(reservationId);
 		}
 		reservation.setStatus(ReservationStatus.CANCELED);
 		return reservationRepository.save(reservation);
 	}
 	
-	public void confirmReservation(Integer id) {
+	public void confirmReservation(Integer id) throws NotFoundException, ReservationStatusException {
 		//TODO: provera sme li taj agent da potvri tu rezervaciju
 		Reservation r = getReservation(id);
 		if(r.getStatus() != ReservationStatus.RESERVED) {
-			// TODO: exception
+			throw new ReservationStatusException(id);
 		}
 		r.setStatus(ReservationStatus.HAPPENED);
 		reservationRepository.save(r);

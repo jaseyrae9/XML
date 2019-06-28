@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.AdditionalService.GetAdditionalServicesResponse;
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.AdditionalServiceRepository;
 
@@ -16,10 +17,10 @@ public class AdditionalServiceService {
 	@Autowired
 	private AdditionalServiceRepository additionalServiceRepository;
 
-	public AdditionalService getAdditionalService(Integer id) {
+	public AdditionalService getAdditionalService(Integer id) throws NotFoundException {
 		Optional<AdditionalService> additionalService = additionalServiceRepository.findById(id);
 		if (!additionalService.isPresent()) {
-			// TODO: Ovde baciti exception
+			throw new NotFoundException(id, AdditionalService.class.getSimpleName());
 		}
 		return additionalService.get();
 	}
@@ -40,19 +41,10 @@ public class AdditionalServiceService {
 	 * Deactivates the existing additional service.
 	 * 
 	 * @param id - id of the selected additional service
+	 * @throws NotFoundException 
 	 */
-	public AdditionalService deleteAdditionalService(Integer id) {
-		Optional<AdditionalService> opt = findAdditionalService(id);
-
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
-
-		AdditionalService additionalService = opt.get();
-		if (!additionalService.getActive()) {
-			// TODO: exception
-		}
-
+	public AdditionalService deleteAdditionalService(Integer id) throws NotFoundException {
+		AdditionalService additionalService = this.getAdditionalService(id);
 		additionalService.setActive(false);
 		additionalServiceRepository.save(additionalService);
 		return additionalService;
@@ -88,14 +80,11 @@ public class AdditionalServiceService {
 	 * 
 	 * @param additionalServiceDTO - contains new informations for additional service
 	 * @return updated additional service
+	 * @throws NotFoundException 
 	 */
-	public AdditionalService editAddtionalService(AdditionalService additionalServiceDTO) {
-		Optional<AdditionalService> opt = findAdditionalService(additionalServiceDTO.getId());
-		
-		// set name 
-		opt.ifPresent(additionalService -> {
-			additionalService.setName(additionalServiceDTO.getName());
-		});
-		return save(opt.get());
+	public AdditionalService editAddtionalService(Integer id, AdditionalService additionalServiceDTO) throws NotFoundException {
+		AdditionalService additionalService = this.getAdditionalService(id);
+		additionalService.setName(additionalServiceDTO.getName());
+		return save(additionalService);
 	}
 }

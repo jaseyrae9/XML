@@ -68,9 +68,6 @@ public class Reservation {
 
     public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation newReservation) {
 		this.id = newReservation.getId();
-		// this.dateFrom TODO: Proveriti sta da se radi sa ovim
-		// this.dateTo 
-		// TODO: totalPrice (Milicin servis)
 	}
 
 	/**

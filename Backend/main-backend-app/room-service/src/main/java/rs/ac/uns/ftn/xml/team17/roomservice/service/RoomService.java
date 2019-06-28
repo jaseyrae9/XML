@@ -13,6 +13,7 @@ import rs.ac.uns.ftn.xml.team17.roomservice.dto.room.RoomPriceDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.addimage.AddImageRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.NewRoomRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.price.SetPriceRequest;
+import rs.ac.uns.ftn.xml.team17.roomservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.price.Price;
@@ -33,11 +34,27 @@ public class RoomService {
 	 * Finds room with given id.
 	 * @param id - room id
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	public Room getRoom(Integer id) {
+	public Room getRoom(Integer id) throws NotFoundException {
 		Optional<Room> opt = roomRepository.findById(id);		
 		if (!opt.isPresent()) {
-			// TODO: exception
+			throw new NotFoundException(id, Room.class.getSimpleName());
+		}
+		return opt.get();
+	}
+	
+	/**
+	 * Finds room belonging to given hotel.
+	 * @param room
+	 * @param hotel
+	 * @return
+	 * @throws NotFoundException
+	 */
+	public Room getRoom(Integer room, Integer hotel) throws NotFoundException {
+		Optional<Room> opt = roomRepository.getRoom(room, hotel);	
+		if (!opt.isPresent()) {
+			throw new NotFoundException(room, Room.class.getSimpleName());
 		}
 		return opt.get();
 	}
@@ -62,17 +79,16 @@ public class RoomService {
 		return priceRepository.getRoomPrices(id, from, to);
 	}
 	
-	// TODO: morace se proveriti da li pravi admin dodaje sobu
-	public Room addRoom(NewRoomRequest newRoomRequest) {				
+	public Room addRoom(NewRoomRequest newRoomRequest, Integer hotelId) {				
 		Room r = new Room(newRoomRequest.getRoom());
-		r.setHotel(new Hotel(newRoomRequest.getId()));
+		r.setHotel(new Hotel(hotelId));
 		Room ret = save(r);
 		return ret;
 	}	
 
-	// TODO: morace se proveriti da li pravi admin dodaje cene
-	public void addPrice(SetPriceRequest setPriceRequest) {	
-		Room room = getRoom(setPriceRequest.getId());
+	
+	public void addPrice(SetPriceRequest setPriceRequest, Integer hotelId) throws NotFoundException {	
+		Room room = getRoom(setPriceRequest.getId(), hotelId);
 		List<Price> prices = this.priceRepository.getPrices(setPriceRequest.getId(),  setPriceRequest.getDateFrom(),  setPriceRequest.getDateTo());
 		
 		LocalDate start = setPriceRequest.getDateFrom().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -93,8 +109,8 @@ public class RoomService {
 		priceRepository.saveAll(prices);
 	}
 
-	public void addImage(AddImageRequest addImageRequest) {
-		Room r =  getRoom(addImageRequest.getId());
+	public void addImage(AddImageRequest addImageRequest, Integer hotelId) throws NotFoundException {
+		Room r = getRoom(addImageRequest.getId(), hotelId);
 		
 		if(addImageRequest.isMainImage()) {
 			for(Image i : r.getImages()) {

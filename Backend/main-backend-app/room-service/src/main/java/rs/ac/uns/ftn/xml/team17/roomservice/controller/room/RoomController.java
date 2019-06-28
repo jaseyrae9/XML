@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.room.RoomPriceDTO;
+import rs.ac.uns.ftn.xml.team17.roomservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.room.RoomDetailsDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.roomservice.service.RoomService;
@@ -29,9 +30,10 @@ public class RoomController {
 	 * Returns details about room with given id.
 	 * @param roomId
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{roomId}")
-	public ResponseEntity<RoomDetailsDTO> getRoom(@PathVariable Integer roomId){
+	public ResponseEntity<RoomDetailsDTO> getRoom(@PathVariable Integer roomId) throws NotFoundException{
 		Room room = roomService.getRoom(roomId);
 		return new ResponseEntity<>(new RoomDetailsDTO(room), HttpStatus.OK);
 	}

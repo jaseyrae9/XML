@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.RoomCategoryService;
 
@@ -37,9 +38,10 @@ public class RoomCategoryController {
 	 * 
 	 * @param id - id of the room category.
 	 * @return 
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getRoomCategory(@PathVariable Integer id){
+	public ResponseEntity<?> getRoomCategory(@PathVariable Integer id) throws NotFoundException{
 		RoomCategory roomCategory = roomCategoryService.getRoomCategory(id);
 		return new ResponseEntity<>(roomCategory, HttpStatus.OK);
 	} 
@@ -62,10 +64,11 @@ public class RoomCategoryController {
 	 * @param id - id of the room category
 	 * @param roomCategoryDTO - contains new information for room category
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<RoomCategory> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategory roomCategoryDTO) {
-		RoomCategory ret = roomCategoryService.editRoomCategory(roomCategoryDTO);
+	public ResponseEntity<RoomCategory> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategory roomCategoryDTO) throws NotFoundException {
+		RoomCategory ret = roomCategoryService.editRoomCategory(id, roomCategoryDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -74,9 +77,10 @@ public class RoomCategoryController {
 	 * 
 	 * @param id - id of the additional service
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRoomCategory(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteRoomCategory(@PathVariable Integer id) throws NotFoundException {
 		RoomCategory ret = roomCategoryService.deleteRoomCategory(id);
 		return new ResponseEntity<>(ret,HttpStatus.OK);	
 	}

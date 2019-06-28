@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.message.MessageDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.message.MessageRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.NewMessageRequest;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.Message;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.message.MessageDirection;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
@@ -40,8 +41,9 @@ public class MessageService {
 	 * @param messageRequest - reservation id and message text
 	 * @param customer - id of customer
 	 * @return message
+	 * @throws NotFoundException 
 	 */
-	public Message createMessage(MessageRequest messageRequest, Integer customer, Integer reservation) {
+	public Message createMessage(MessageRequest messageRequest, Integer customer, Integer reservation) throws NotFoundException {
 		Reservation r = reservationService.getReservation(reservation, customer);
 		Message m = this.createMessage(r, messageRequest.getMessage());
 		m.setStatus(MessageDirection.TO_AGENT);	
@@ -59,7 +61,7 @@ public class MessageService {
 		return messageRepostitory.getByReservationAndCustomer(reservation, customer, pageable);
 	}
 	
-	public rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message newMessage(NewMessageRequest newMessageRequest) {
+	public rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message newMessage(NewMessageRequest newMessageRequest) throws NotFoundException {
 		//TODO: Proveri sme li ovaj agent za ove rezervacije da salje
 		Reservation r = reservationService.getReservation(newMessageRequest.getId());
 		Message m = this.createMessage(r, newMessageRequest.getMessage());

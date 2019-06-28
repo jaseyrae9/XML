@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomType.GetRoomTypesResponse;
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomType.RoomType;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomTypeRepository;
 
@@ -19,10 +18,10 @@ public class RoomTypeService {
 	@Autowired
 	private RoomTypeRepository roomTypeRepository;
 
-	public RoomType getRoomType(Integer id) {
+	public RoomType getRoomType(Integer id) throws NotFoundException {
 		Optional<RoomType> roomType = roomTypeRepository.findById(id);
 		if (!roomType.isPresent()) {
-			// TODO: Ovde baciti exception
+			throw new NotFoundException(id, RoomType.class.getSimpleName());
 		}
 		return roomType.get();
 	}
@@ -43,33 +42,24 @@ public class RoomTypeService {
 	 * Deactivates the existing room type.
 	 * 
 	 * @param id - id of the selected room type
-	 * @return 
+	 * @return
+	 * @throws NotFoundException
 	 */
-	public RoomType deleteRoomType(Integer id) {
-		Optional<RoomType> opt = findRoomType(id);
-
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
-
-		RoomType roomType = opt.get();
-		if (!roomType.getActive()) {
-			// TODO: exception
-		}
-
+	public RoomType deleteRoomType(Integer id) throws NotFoundException {
+		RoomType roomType = this.getRoomType(id);
 		roomType.setActive(false);
 		roomTypeRepository.save(roomType);
 		return roomType;
 	}
 
-	/** 
+	/**
 	 * @return informations about all active room types.
 	 */
 	public Iterable<RoomType> getRoomTypes() {
 		Iterable<RoomType> types = roomTypeRepository.findAll();
 		return types;
 	}
-	
+
 	public List<GetRoomTypesResponse.RoomType> getRoomTypesSoap() {
 		Iterable<RoomType> types = roomTypeRepository.findAll();
 
@@ -86,15 +76,12 @@ public class RoomTypeService {
 	 * 
 	 * @param roomTypeDTO - contains new informations for room type
 	 * @return updated room type
+	 * @throws NotFoundException 
 	 */
-	public RoomType editRoomType(@Valid RoomType roomTypeDTO) {
-		Optional<RoomType> opt = findRoomType(roomTypeDTO.getId());
-		
-		// set name and description
-		opt.ifPresent(roomType -> {
-			roomType.setName(roomTypeDTO.getName());
-		});
-		return save(opt.get());
+	public RoomType editRoomType(Integer id, RoomType roomTypeDTO) throws NotFoundException {
+		RoomType roomType = this.getRoomType(id);
+		roomType.setName(roomTypeDTO.getName());
+		return save(roomType);
 	}
 
 }

@@ -43,8 +43,6 @@ public class DayReservation {
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/reservation", required = true)
 	@XmlSchemaType(name = "date")
-	// TODO: Baza ne zna da cuva ovo
-	// protected XMLGregorianCalendar date;
 	protected Date date;
 	
 	@ManyToOne(fetch = FetchType.EAGER)	

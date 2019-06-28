@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.AdditionalServiceService;
 
@@ -36,9 +37,10 @@ public class AdditionalServiceController {
 	 * 
 	 * @param id - id of the additional service
 	 * @return 
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
+	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id) throws NotFoundException{
 		AdditionalService additionalService = additionalServiceService.getAdditionalService(id);		
 		return new ResponseEntity<>(additionalService, HttpStatus.OK);
 	}
@@ -61,10 +63,11 @@ public class AdditionalServiceController {
 	 * @param id - id of the additional service
 	 * @param additionalServiceDTO - contains new informations for additional service
 	 * @return updated additional service
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<AdditionalService> editAdditionalService(@PathVariable Integer id, @RequestBody AdditionalService additionalServiceDTO) {
-		AdditionalService ret = additionalServiceService.editAddtionalService(additionalServiceDTO);
+	public ResponseEntity<AdditionalService> editAdditionalService(@PathVariable Integer id, @RequestBody AdditionalService additionalServiceDTO) throws NotFoundException {
+		AdditionalService ret = additionalServiceService.editAddtionalService(id, additionalServiceDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -73,9 +76,10 @@ public class AdditionalServiceController {
 	 * 
 	 * @param id - id of the additional service
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteAdditionalService(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteAdditionalService(@PathVariable Integer id) throws NotFoundException {
 		AdditionalService ret = additionalServiceService.deleteAdditionalService(id);
 		return new ResponseEntity<>(ret, HttpStatus.OK);	
 	}

@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.authservice.dto.customer.CustomerDTO;
+import rs.ac.uns.ftn.xml.team17.authservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.authservice.exception.UserStatusChangeException;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Agent;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.Customer;
 import rs.ac.uns.ftn.xml.team17.authservice.model.entity.user.User;
@@ -18,6 +20,18 @@ import rs.ac.uns.ftn.xml.team17.authservice.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	
+	private Customer findCustomer(Integer id) throws NotFoundException {
+		Optional<User> userOpt = userRepository.findById(id);
+		if(!userOpt.isPresent()) {
+			throw new NotFoundException(id, Customer.class.getSimpleName());
+		}
+		User user = userOpt.get();
+		if(!(user instanceof Customer)) {
+			throw new NotFoundException(id, Customer.class.getSimpleName());
+		}
+		return (Customer) user;
+	}
 
 	/**
 	 * Tries to find user with passed username. If no user is found causes
@@ -68,25 +82,16 @@ public class UserService {
 	 * and has been previously blocked.
 	 * 
 	 * @param id - id of the customer
+	 * @throws NotFoundException 
+	 * @throws UserStatusChangeException 
 	 */
-	public User blockCustomer(Integer id) {
-		Optional <User> user = userRepository.findById(id);
-		if(!user.isPresent()) { 
-			// TODO: exception
+	public User blockCustomer(Integer id) throws NotFoundException, UserStatusChangeException {
+		Customer customer = this.findCustomer(id);		
+		if(customer.getBlocked()) {
+			throw new UserStatusChangeException(id);
 		}
-		
-		if(!(user.get() instanceof Customer)) {
-			// TODO: exception
-		}
-		
-		if(user.get().getBlocked()) { // TODO: proveriti uslov
-			// TODO: exception
-			System.out.println("vec je blokiran, ne mozete ga opet blokirati.");
-		}
-		user.get().setBlocked(true);	
-		
-		userRepository.save(user.get());
-		return user.get();
+		customer.setBlocked(true);
+		return userRepository.save(customer);
 	}
 
 	/**
@@ -94,48 +99,30 @@ public class UserService {
 	 * and has been previously blocked.
 	 * 
 	 * @param id - id of the customer
+	 * @throws NotFoundException 
+	 * @throws UserStatusChangeException 
 	 */
-	public User activateCustomer(Integer id) {
-		Optional <User> user = userRepository.findById(id);
-		if(!user.isPresent()) { 
-			// TODO: exception
+	public User activateCustomer(Integer id) throws NotFoundException, UserStatusChangeException {
+		Customer customer = this.findCustomer(id);		
+		if(!customer.getBlocked()) {
+			throw new UserStatusChangeException(id);
 		}
-		
-		if(!(user.get() instanceof Customer)) {
-			// TODO: exception
-		}
-		
-		if(!user.get().getBlocked()) { // TODO: proveriti uslov
-			// TODO: exception
-			System.out.println("nije blokiran, pa se ne moze blokirati");
-		}
-		user.get().setBlocked(false);
-		userRepository.save(user.get());
-		return user.get();
+		customer.setBlocked(false);
+		return userRepository.save(customer);
 	}
 
 	/**
 	 * Removes the active customer. Checks if the user is a customer.
 	 * 
 	 * @param id - id of the customer
+	 * @throws NotFoundException 
 	 */
-	public User removeCustomer(Integer id) {
-		// TODO Auto-generated method stub
-		Optional <User> user = userRepository.findById(id);
-		if(!user.isPresent()) { 
-			// TODO: exception
-		}
-		
-		if(!(user.get() instanceof Customer)) {
-			// TODO: exception
-		}
-		Customer customer = (Customer) user.get();
+	public User removeCustomer(Integer id) throws NotFoundException {
+		Customer customer = this.findCustomer(id);
 		customer.setActive(false);
-		customer.setUsername(null); // TODO: ispraviti
-		customer.setEmail(null);
-		
-		userRepository.save(user.get());
-		return user.get();
+		customer.setUsername(null);
+		customer.setEmail(null);		
+		return userRepository.save(customer);
 	}
 	
 	/**

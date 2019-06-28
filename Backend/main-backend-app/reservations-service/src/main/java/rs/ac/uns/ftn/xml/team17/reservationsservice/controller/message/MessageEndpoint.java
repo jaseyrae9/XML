@@ -15,6 +15,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.GetMess
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getmessages.Message;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.NewMessageRequest;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.NewMessageResponse;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.service.MessageService;
 
 @Endpoint
@@ -39,7 +40,7 @@ public class MessageEndpoint {
 	
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/NewMessage", localPart = "newMessageRequest")
     @ResponsePayload
-    public NewMessageResponse newMessage(@RequestPayload NewMessageRequest newMessageRequest) {
+    public NewMessageResponse newMessage(@RequestPayload NewMessageRequest newMessageRequest) throws NotFoundException {
 		System.out.println("MessageEndpoint newMessage");
 		NewMessageResponse response = new NewMessageResponse();
 	    rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newmessage.Message m = messageService.newMessage(newMessageRequest);

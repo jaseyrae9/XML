@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomType.RoomType;
 import rs.ac.uns.ftn.xml.team17.adminservice.service.RoomTypeService;
 
@@ -37,9 +38,10 @@ public class RoomTypeController {
 	 * 
 	 * @param id - id of the room type
 	 * @return 
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id){
+	public ResponseEntity<?> getAdditionalService(@PathVariable Integer id) throws NotFoundException{
 		RoomType roomType = roomTypeService.getRoomType(id);
 		return new ResponseEntity<>(roomType, HttpStatus.OK);
 	} 	
@@ -62,10 +64,11 @@ public class RoomTypeController {
 	 * @param id - id of the room type
 	 * @param roomTypeDTO - contains new information for room type
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<RoomType> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomType roomTypeDTO) {
-		RoomType ret = roomTypeService.editRoomType(roomTypeDTO);
+	public ResponseEntity<RoomType> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomType roomTypeDTO) throws NotFoundException {
+		RoomType ret = roomTypeService.editRoomType(id, roomTypeDTO);
 		return new ResponseEntity<>(ret, HttpStatus.OK);
 	}
 	
@@ -74,9 +77,10 @@ public class RoomTypeController {
 	 * 
 	 * @param id - id of the room type
 	 * @return
+	 * @throws NotFoundException 
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteRoomType(@PathVariable Integer id) {
+	public ResponseEntity<?> deleteRoomType(@PathVariable Integer id) throws NotFoundException {
 		RoomType ret = roomTypeService.deleteRoomType(id);
 		return new ResponseEntity<>(ret, HttpStatus.OK);	
 	}

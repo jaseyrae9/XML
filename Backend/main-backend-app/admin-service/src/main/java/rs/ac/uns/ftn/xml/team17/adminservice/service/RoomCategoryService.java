@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ac.uns.ftn.xml.team17.adminservice.dto.soap.RoomCategory.GetRoomCategoriesResponse;
+import rs.ac.uns.ftn.xml.team17.adminservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.adminservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.adminservice.repository.RoomCategoryRepository;
 
@@ -19,10 +18,10 @@ public class RoomCategoryService {
 	@Autowired
 	private RoomCategoryRepository roomCategoryRepository;
 
-	public RoomCategory getRoomCategory(Integer id) {
+	public RoomCategory getRoomCategory(Integer id) throws NotFoundException {
 		Optional<RoomCategory> roomCategory = roomCategoryRepository.findById(id);
 		if (!roomCategory.isPresent()) {
-			// TODO: Ovde baciti exception
+			throw new NotFoundException(id, RoomCategory.class.getSimpleName());
 		}
 		return roomCategory.get();
 	}
@@ -43,20 +42,11 @@ public class RoomCategoryService {
 	 * Deactivates the existing room category.
 	 * 
 	 * @param id - id of the selected room category
-	 * @return 
+	 * @return
+	 * @throws NotFoundException
 	 */
-	public RoomCategory deleteRoomCategory(Integer id) {
-		Optional<RoomCategory> opt = findRoomCategory(id);
-
-		if (!opt.isPresent()) {
-			// TODO: exception
-		}
-
-		RoomCategory roomCategory = opt.get();
-		if (!roomCategory.getActive()) {
-			// TODO: exception
-		}
-
+	public RoomCategory deleteRoomCategory(Integer id) throws NotFoundException {
+		RoomCategory roomCategory = this.getRoomCategory(id);
 		roomCategory.setActive(false);
 		roomCategoryRepository.save(roomCategory);
 		return roomCategory;
@@ -69,7 +59,7 @@ public class RoomCategoryService {
 		Iterable<RoomCategory> categories = roomCategoryRepository.findAll();
 		return categories;
 	}
-	
+
 	public List<GetRoomCategoriesResponse.RoomCategory> getRoomCategoriesSoap() {
 		Iterable<RoomCategory> categories = roomCategoryRepository.findAll();
 
@@ -78,7 +68,7 @@ public class RoomCategoryService {
 		for (RoomCategory category : categories) {
 			ret.add(new GetRoomCategoriesResponse.RoomCategory(category));
 		}
-		return ret; 
+		return ret;
 	}
 
 	/**
@@ -86,17 +76,13 @@ public class RoomCategoryService {
 	 * 
 	 * @param roomCategoryDTO - contains new informations for room category
 	 * @return updated room category
+	 * @throws NotFoundException 
 	 */
-	public RoomCategory editRoomCategory(@Valid RoomCategory roomCategoryDTO) {
-		Optional<RoomCategory> opt = findRoomCategory(roomCategoryDTO.getId());
-	
-		// set number of stars and description
-		opt.ifPresent(roomCategory -> {
-			roomCategory.setNumberOfStars(roomCategoryDTO.getNumberOfStars());
-			roomCategory.setDescription(roomCategoryDTO.getDescription());
-		});
-
-		return save(opt.get());
+	public RoomCategory editRoomCategory(Integer id, RoomCategory roomCategoryDTO) throws NotFoundException {
+		RoomCategory roomCategory = this.getRoomCategory(id);
+		roomCategory.setNumberOfStars(roomCategoryDTO.getNumberOfStars());
+		roomCategory.setDescription(roomCategoryDTO.getDescription());
+		return save(roomCategory);
 	}
 
 }

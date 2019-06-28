@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.repository.RoomRepository;
 
@@ -17,11 +18,12 @@ public class RoomService {
 	 * Finds room with given id.
 	 * @param id
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	public Room getRoom(Integer id) {
+	public Room getRoom(Integer id) throws NotFoundException {
 		Optional<Room> opt = roomRepository.findById(id);
 		if (!opt.isPresent()) {
-			// TODO: exception
+			throw new NotFoundException(id, Room.class.getSimpleName());
 		}
 		return opt.get();
 	}

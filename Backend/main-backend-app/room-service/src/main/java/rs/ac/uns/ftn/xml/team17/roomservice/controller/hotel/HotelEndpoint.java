@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.xml.team17.roomservice.controller.hotel;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -10,6 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.hotel.GetHotelRequest;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.hotel.GetHotelResponse;
+import rs.ac.uns.ftn.xml.team17.roomservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.hotel.Hotel;
 import rs.ac.uns.ftn.xml.team17.roomservice.service.HotelService;
 
@@ -22,9 +24,10 @@ public class HotelEndpoint {
 	@Autowired
 	private HttpServletRequest request;
 	
+	@PreAuthorize("hasAnyRole('AGENT')")
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Hotel", localPart = "getHotelRequest")
 	@ResponsePayload
-	public GetHotelResponse getHotel(@RequestPayload GetHotelRequest getHotelRequest){	
+	public GetHotelResponse getHotel(@RequestPayload GetHotelRequest getHotelRequest) throws NotFoundException{	
 		GetHotelResponse response = new GetHotelResponse();
 		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
 		System.out.println("Id hotela: " + hotelId);
