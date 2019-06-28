@@ -88,15 +88,13 @@ public class ReservationService {
 		return true;
 	}
 		
-	private Reservation createReservation(Integer roomId, Date from, Date to) throws ReservationImpossibleException, NotFoundException {		
-		if(!this.isRoomAvailable(roomId, from, to)) {
+	private Reservation createReservation(Room room, Date from, Date to) throws ReservationImpossibleException, NotFoundException {		
+		if(!this.isRoomAvailable(room.getId(), from, to)) {
 			throw new ReservationImpossibleException(from, to);
 		}
-		//create reservation
-		Room room = roomService.getRoom(roomId);
 		Reservation reservation = new Reservation(room);
 		//Get all prices
-		List<Price> prices = priceService.getPrices(roomId, from, to);
+		List<Price> prices = priceService.getPrices(room.getId(), from, to);
 		//Adding day reservations
 		LocalDate start = from.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate end = to.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -120,14 +118,16 @@ public class ReservationService {
 	 * @throws NotFoundException 
 	 */
 	public Reservation createReservation(ReservationRequest reservationRequest, Integer customerId) throws ReservationImpossibleException, NotFoundException {
-		Reservation r = this.createReservation(reservationRequest.getRoomId(), reservationRequest.getStart(), reservationRequest.getEnd());
+		Room room = this.roomService.getRoom(reservationRequest.getRoomId());
+		Reservation r = this.createReservation(room, reservationRequest.getStart(), reservationRequest.getEnd());
 		r.setCustomer(new Customer(customerId));
 		return reservationRepository.save(r);
 	}
 
 	public Reservation newReservation(NewReservationRequest newReservationRequest) throws ReservationImpossibleException, NotFoundException {
 		//TODO: Provera sme li taj agent za tu sobu da napravi rezervaciju
-		Reservation r = this.createReservation(newReservationRequest.getId(), newReservationRequest.getDateFrom(), newReservationRequest.getDateTo());
+		Room room = this.roomService.getRoom(newReservationRequest.getId());
+		Reservation r = this.createReservation(room, newReservationRequest.getDateFrom(), newReservationRequest.getDateTo());
 		return reservationRepository.save(r);
 	}
 	
