@@ -47,13 +47,14 @@ import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
 //XML annotations
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Room", namespace = "http://www.tim17.com/room", propOrder = { "id", "hotel", "address", "type",
-		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "description", "floorNumber", "roomNumber" })
+		"category", "defaultPrice", "numberOfPeople", "cancelationDays", "additionalServices", "description",
+		"floorNumber", "roomNumber" })
 @NoArgsConstructor
 public class Room {
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_generator")
-	@SequenceGenerator(name="room_generator", sequenceName = "room_seq")
+	@SequenceGenerator(name = "room_generator", sequenceName = "room_seq")
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer id;
 
@@ -96,24 +97,24 @@ public class Room {
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room", required = true)
 	protected String description;
-	
+
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer roomNumber;
-	
+
 	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer floorNumber;
-	
+
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	protected List<Image> images = new ArrayList<Image>();
-	
+
 	@Column(nullable = false)
 	protected Integer numberOfRatings = 0;
-	
+
 	@Column(nullable = false)
 	protected Double totalRating = 0.0;
-	
+
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
 		this.address = new Address(r.getAddress());
 		this.type = new RoomType(r.getType());
@@ -122,17 +123,27 @@ public class Room {
 		this.numberOfPeople = r.getNumberOfPeople();
 		this.cancelationDays = r.getCancelationDays();
 		this.additionalServices = new ArrayList<AdditionalService>();
-		for(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a : r.getAdditionalServices()) {
-			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(a);
+		for (rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.AdditionalService a : r.getAdditionalServices()) {
+			rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService as = new AdditionalService(
+					a);
 			this.additionalServices.add(as);
 		}
 		this.description = r.getDescription();
 		this.roomNumber = r.getRoomNumber();
 		this.floorNumber = r.getFloor();
 	}
-		
+
 	public void addImage(Image newImage) {
 		this.getImages().add(newImage);
+	}
+
+	public byte[] getMainImage() {
+		for (Image i : images) {
+			if (i.getMainImage()) {
+				return i.getImage();
+			}
+		}
+		return null;
 	}
 
 }

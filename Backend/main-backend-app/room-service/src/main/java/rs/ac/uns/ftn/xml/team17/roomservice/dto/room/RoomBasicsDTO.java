@@ -28,5 +28,6 @@ public class RoomBasicsDTO {
 		this.category = room.getCategory();
 		this.numberOfPeople = room.getNumberOfPeople();
 		this.roomNumber = room.getRoomNumber();
+		this.mainImage = room.getMainImage();
 	}
 }

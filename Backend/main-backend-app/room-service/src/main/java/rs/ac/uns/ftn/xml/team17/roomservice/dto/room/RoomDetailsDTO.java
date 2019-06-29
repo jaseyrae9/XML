@@ -8,6 +8,7 @@ import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.roomservice.dto.hotel.HotelBasicsDTO;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.address.Address;
+import rs.ac.uns.ftn.xml.team17.roomservice.model.image.Image;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.room.Room;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.roomservice.model.roomType.RoomType;
@@ -30,6 +31,7 @@ public class RoomDetailsDTO {
 	private Double defaultPrice;
 	private Integer numberOfRatings;
 	private Double totalRating;
+	private List<Image> images;
 	
 	public RoomDetailsDTO(Room room) {
 		this.id = room.getId();
@@ -46,5 +48,6 @@ public class RoomDetailsDTO {
 		this.defaultPrice = room.getDefaultPrice();
 		this.numberOfRatings = room.getNumberOfRatings();
 		this.totalRating = room.getTotalRating();
+		this.images = room.getImages();
 	}
 }
