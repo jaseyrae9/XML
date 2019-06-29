@@ -15,7 +15,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import zeep
-from datetime import datetime
+
+
 from datetime import timedelta
 from django.utils.dateparse import parse_date
 
@@ -230,6 +231,8 @@ class RoomView(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
 
         client = zeep.Client('http://localhost:8762/room-service/soap/room/newRoom.wsdl')
+        client.transport.session.headers.update({'Authorization': 'Bearer ' + Token.objects.first().last_token})
+        client.service._binding_options['address'] = 'http://localhost:8762/room-service/soap/newRoom'
         factory = client.type_factory('ns0')
 
         d = request.data
@@ -246,13 +249,13 @@ class RoomView(viewsets.ModelViewSet):
         
         # pazi ovde uzimas prvi hotel po pretpostavkom u dogovoru sa timom da ce biti samo 1/ svakako si spreman za promenu jer se salje i hotel id request.data
         hotel_id = Hotel.objects.all()[:1][0].id 
-        room = factory.Room(hotelId=hotel_id, address=room_address, additionalServices=lineitem, category=room_category, type=room_type, roomNumber=d['roomNumber'], defaultPrice=d['defaultPrice'], numberOfPeople=d['numberOfPeople'], cancelationDays=d['cancelationDays'], description=d['description'])
+        room = factory.Room(address=room_address, additionalServices=lineitem, category=room_category, type=room_type, floor=d['roomFloor'], roomNumber=d['roomNumber'], defaultPrice=d['defaultPrice'], numberOfPeople=d['numberOfPeople'], cancelationDays=d['cancelationDays'], description=d['description'])
        
-        node = client.create_message(client.service, 'newRoom', id=hotel_id, room=room)
+        node = client.create_message(client.service, 'newRoom', room=room)
         tree = ET.ElementTree(node)
         tree.write('test.xml',pretty_print=True)
 
-        result = client.service.newRoom(id=hotel_id, room=room)
+        result = client.service.newRoom(room=room)
         input_dict = zeep.helpers.serialize_object(result)
         output_dict = json.loads(json.dumps(input_dict))
 
@@ -292,6 +295,8 @@ class PriceView(viewsets.ModelViewSet):
             delta = date_to - date_from
 
             client = zeep.Client('http://localhost:8762/room-service/soap/price/price.wsdl')
+            client.transport.session.headers.update({'Authorization': 'Bearer ' + Token.objects.first().last_token})
+            client.service._binding_options['address'] = 'http://localhost:8762/room-service/soap/price'
             result = client.service.setPrice(id=validated_data['room'].id, dateTo=date_to, dateFrom=date_from, price=validated_data['amount'])
 
             # rez vraca success (True) ako prodje
