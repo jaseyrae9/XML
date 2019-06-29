@@ -8,7 +8,7 @@
 
 package rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import lombok.NoArgsConstructor;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.getreservations.ReservationStatus;
 
 
 /**
@@ -58,16 +59,32 @@ public class Reservation {
     protected int id;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date dateFrom;
+    protected String dateFrom;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
-    protected Date dateTo;
+    protected String dateTo;
     protected double totalPrice;
     @XmlElement(required = true)
     protected ReservationStatus status;
 
     public Reservation(rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation newReservation) {
 		this.id = newReservation.getId();
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		this.dateFrom = simpleDateFormat.format(newReservation.getDayReservations().get(0).getDate());
+		
+		this.dateTo = simpleDateFormat.format(newReservation.getDayReservations().get(newReservation.getDayReservations().size() - 1).getDate());
+				
+		this.totalPrice = newReservation.getTotal();
+		if (newReservation.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.RESERVED) {
+			this.status = ReservationStatus.RESERVED;
+		}
+		if (newReservation.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.CANCELED) {
+			this.status = ReservationStatus.CANCELED;
+		}
+		if (newReservation.getStatus() == rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation.ReservationStatus.HAPPENED) {
+			this.status = ReservationStatus.HAPPENED;
+		}
 	}
 
 	/**
@@ -94,7 +111,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getDateFrom() {
+    public String getDateFrom() {
         return dateFrom;
     }
 
@@ -106,7 +123,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDateFrom(Date value) {
+    public void setDateFrom(String value) {
         this.dateFrom = value;
     }
 
@@ -118,7 +135,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public Date getDateTo() {
+    public String getDateTo() {
         return dateTo;
     }
 
@@ -130,7 +147,7 @@ public class Reservation {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDateTo(Date value) {
+    public void setDateTo(String value) {
         this.dateTo = value;
     }
 

@@ -100,7 +100,14 @@ class PriceSerializerInput(serializers.Serializer):
     dateTo = serializers.DateField()
 
 
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+
 class ResrvationSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
     class Meta:
         model = Resrvation
         fields = ('url', 'id', 'roomId', 'customer', 'status', 'dateFrom', 'dateTo', 'totalPrice')
@@ -126,6 +133,10 @@ class RecensionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recension
         fields = '__all__'
+
+
+
+
 
 
 

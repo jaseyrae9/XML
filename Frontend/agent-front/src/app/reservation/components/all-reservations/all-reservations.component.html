@@ -1,0 +1,8 @@
+<div>
+    <p *ngIf="reservations.length == 0" style="color:  #33cabb;" align="center" >
+      There are no reservations.
+    </p>
+    <div *ngFor="let reservation of reservations" class="mt-5 mb-5">
+        <app-reservation-preview [reservation]="reservation"></app-reservation-preview>
+    </div>
+</div>

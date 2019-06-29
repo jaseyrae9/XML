@@ -19,6 +19,7 @@ import zeep
 
 
 from datetime import timedelta
+from datetime import datetime
 from django.utils.dateparse import parse_date
 
 from django_filters import rest_framework as filters, DateFromToRangeFilter
@@ -114,10 +115,11 @@ class Login(APIView):
             for obj_dict in output_dict:
                 customer_dict = obj_dict.pop('user', None)
                 obj_dict['roomId_id'] = obj_dict.pop('roomId')
-                customer, created = Customer.objects.update_or_create(id=customer_dict.pop('id', None), defaults = {**customer_dict})
                 reservation , created = Resrvation.objects.update_or_create(id=obj_dict.pop('id', None), defaults = {**obj_dict})
-                reservation.customer = customer
-                reservation.save()
+                if (customer_dict is not None):
+                    customer, created = Customer.objects.update_or_create(id=customer_dict.pop('id', None), defaults = {**customer_dict})
+                    reservation.customer = customer
+                    reservation.save()
             print("Reservations synchronised")
 
 
@@ -161,8 +163,8 @@ class Login(APIView):
             content = {'active_token': str(token.access_token)}
 
             return Response(content, status=status.HTTP_200_OK)
-        except zeep.exceptions.Fault as fault:
-            return Response(fault.message, status=fault.code)
+        except zeep.exceptions.Fault as fault:           
+            return Response(fault.message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RoomCategoryView(viewsets.ReadOnlyModelViewSet):
@@ -229,7 +231,7 @@ class RoomView(viewsets.ModelViewSet):
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
         except zeep.exceptions.Fault as fault:
-            return Response(fault.message, status=fault.code)
+            return Response(fault.message, status=status.HTTP_400_BAD_REQUEST)
 
         data = request.data
         data['hotel'] = Hotel.objects.first().id
@@ -284,7 +286,7 @@ class PriceView(viewsets.ModelViewSet):
             serializer = PriceSerializer(ret, many=True, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else: 
-            return Response(zeep.exceptions.Fault.message, status=zeep.exceptions.Fault.code)
+            return Response(zeep.exceptions.Fault.message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RoomReservationFilter(filters.FilterSet):
@@ -317,13 +319,13 @@ class ResrvationView(viewsets.ModelViewSet):
             print("Approved form main backend server")
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
-            res = Reservation.objects.create(**output_dict)
+            ret = Resrvation.objects.create(roomId = validated_data['roomId'], **output_dict)
             print("Creted")
 
-            serializer = RoomSerializer(ret)
+            serializer = ResrvationSerializer(ret, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except zeep.exceptions.Fault as fault:
-            return Response(fault.message, status=fault.code)
+            return Response(fault.message, status=status.HTTP_400_BAD_REQUEST)
         
 
 
@@ -342,7 +344,7 @@ class ResrvationView(viewsets.ModelViewSet):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(zeep.exceptions.Fault.message, status=zeep.exceptions.Fault.code)
+            return Response(zeep.exceptions.Fault.message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ImageView(viewsets.ModelViewSet):
@@ -372,7 +374,7 @@ class ImageView(viewsets.ModelViewSet):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except zeep.exceptions.Fault as fault:
-            return Response(fault.message, status=fault.code)
+            return Response(fault.message, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MessageView(viewsets.ModelViewSet):
@@ -396,13 +398,14 @@ class MessageView(viewsets.ModelViewSet):
             print("Approved form main backend server")
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
-            res = Reservation.objects.create(**output_dict)
+            output_dict['reservationId_id'] = output_dict.pop('reservationId')
+            ret = Message.objects.create(**output_dict)
             print("Creted")
 
-            serializer = RoomSerializer(ret)
+            serializer = MessageSerializer(ret, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except zeep.exceptions.Fault as fault:
-            return Response(fault.message, status=fault.code)
+            return Response(fault.message, status=status.HTTP_400_BAD_REQUEST)
 
 
 

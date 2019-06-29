@@ -48,7 +48,7 @@ import { RoomFormComponent } from './components/room-form/room-form.component';
     NgBootstrapFormValidationModule
   ],
   exports: [
-    HotelDisplayComponent, RoomDisplayComponent, RoomFormComponent
+    HotelDisplayComponent, RoomDisplayComponent, RoomFormComponent, RoomPreviewComponent
   ],
   providers: [
     DatePipe
