@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gallery';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-gallery',
@@ -39,25 +40,26 @@ export class GalleryComponent implements OnInit {
 
     this.galleryImages = [
       {
-          small: 'assets/images/room/queen/small.jpg',
-          medium: 'assets/images/room/queen/medium.jpg',
-          big: 'assets/images/room/queen/big.jpg'
-      },
-      {
-          small: 'assets/images/room/king/small.jpg',
-          medium: 'assets/images/room/king/medium.jpg',
-          big: 'assets/images/room/king/big.jpg'
-      },
-      {
-          small: 'assets/images/room/single/small.jpg',
-          medium: 'assets/images/room/single/medium.jpg',
-          big: 'assets/images/room/single/big.jpg'
-      },
-      {
-          small: 'assets/images/room/double/small.jpg',
-          medium: 'assets/images/room/double/medium.jpg',
-          big: 'assets/images/room/double/big.jpg'
-       },
+          small: 'assets/images/no-image.png',
+          medium: 'assets/images/no-image.png',
+          big: 'assets/images/no-image.png'
+      }
     ];
+  }
+
+  populateGallery(images) {
+    if (images.length !== 0) {
+      this.galleryImages = [];
+      images.forEach(image => {
+        const base64 = window.atob(image);
+        const url = 'data:image/jpeg;base64,' + base64;
+        const newImage = {
+          small: url,
+          medium: url,
+          big: url
+        };
+        this.galleryImages.push(newImage);
+      });
+    }
   }
 }

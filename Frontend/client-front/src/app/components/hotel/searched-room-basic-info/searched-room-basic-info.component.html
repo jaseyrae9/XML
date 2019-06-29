@@ -1,10 +1,10 @@
 <div class="row border rounded align-items-center py-2 mt-2">
     <div class="col-auto pt-2 px-4" align="center">
-          
-      <img src="assets/images/room/queen/medium.jpg" width="200px" class="rounded">
-                  
+
+      <img src={{url}} width="200px" class="rounded">
+
     </div>
-  
+
     <div class="col pt-2 border-left border-right p-3" >
             <div class="d-flex">
                     <div class="pt-2">
@@ -15,37 +15,37 @@
                     </div>
               </div>
 
-              <p class="text-muted" align="left"> Room type: {{room.type.name}},  Number of stars: {{room.category.numberOfStars}} 
+              <p class="text-muted" align="left"> Room type: {{room.type.name}},  Number of stars: {{room.category.numberOfStars}}
                    </p>
-       
+
             <hr>
 
         <div>
           <div class="row">
-            
+
               <div class="col-4">
                   <i class="fa fa-hashtag" aria-hidden="true" ></i> No. {{room.roomNumber}}
               </div>
               <div class="col-4">
                   <i class="fa fa-bed" aria-hidden="true" style="margin-right: 9px;"></i> {{room.numberOfPeople}} People
-    
+
               </div>
               <div class="col-4">
                   <i class="fa fa-briefcase" aria-hidden="true" style="margin-right: 9px;"></i> Distance {{room.distance | floor : 2}}km
               </div>
-        
+
           </div>
-        
-        </div>      
+
+        </div>
     </div>
-    
+
 
     <!--div class="col  px-1 py-5" align="center">
-       
+
      </div-->
     <div class="col-auto p-3" align="center">
-        <p class="py-6" style="font-size: 23px; color: #33cabb">€{{room.totalStayPrice}}</p>   
-      <a routerLink="/room/{{room.id}}"><button class="btn btn-primary px-4 m-2">Details...</button></a> 
-    
-      </div>  
+        <p class="py-6" style="font-size: 23px; color: #33cabb">€{{room.totalStayPrice}}</p>
+      <a routerLink="/room/{{room.id}}"><button class="btn btn-primary px-4 m-2">Details...</button></a>
+
+      </div>
   </div>

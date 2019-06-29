@@ -9,17 +9,15 @@ import { RoomPreview } from 'src/app/model/room/roomPreview';
 export class RoomBasicInfoComponent implements OnInit {
   @Input() room: RoomPreview;
 
-  url = 'assets/images/room/queen/medium.jpg';
+  url = 'assets/images/no-image.png';
 
   constructor() { }
 
   ngOnInit() {
-    const uints = new Uint8Array(this.room.mainImage);
-    const stringChar = String.fromCharCode.apply(null, uints);
-
-    const base64 = btoa(String.fromCharCode(stringChar));
-    this.url = 'data:image/jpeg;base64,' + base64; // use t
-    console.log(this.url);
+    if (this.room.mainImage) {
+      const base64 = window.atob(this.room.mainImage);
+      this.url = 'data:image/jpeg;base64,' + base64;
+    }
   }
 
 }

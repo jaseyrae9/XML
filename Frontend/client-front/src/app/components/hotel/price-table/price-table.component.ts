@@ -27,6 +27,14 @@ export class PriceTableComponent implements OnInit {
   ngOnInit() {
   }
 
+  removeUndefined(defaultPrice) {
+    this.calendarPrices.events.forEach(element => {
+      if (element.title == 'undefined$') {
+        element.title = defaultPrice + '$';
+      }
+    });
+  }
+
   onRender(event) {
     const from = this.datePipe.transform(event.view.activeStart, 'MM/dd/yyyy');
     const to = this.datePipe.transform(event.view.activeEnd, 'MM/dd/yyyy');
