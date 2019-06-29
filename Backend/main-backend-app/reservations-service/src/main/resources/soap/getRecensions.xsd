@@ -22,6 +22,7 @@
 	<xs:complexType name="Recension">
         <xs:sequence>
         	<xs:element name="reservationId" type="xs:int"/>
+        	<xs:element name="roomId" type="xs:int"/>
             <xs:element name="id" type="xs:string"/> <!-- ID recenzije-->
 			<xs:element name="rating" type="xs:double"/>
 			<xs:element name="comment" type="xs:string"/>

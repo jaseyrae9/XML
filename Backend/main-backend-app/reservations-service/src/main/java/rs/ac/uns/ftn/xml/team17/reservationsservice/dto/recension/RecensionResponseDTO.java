@@ -14,6 +14,8 @@ import lombok.Setter;
 public class RecensionResponseDTO {
 
 	private Integer reservationId;
+	
+	private Integer roomId;
 
 	private String id;
 

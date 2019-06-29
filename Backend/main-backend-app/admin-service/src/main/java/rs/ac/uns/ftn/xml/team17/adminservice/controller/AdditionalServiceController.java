@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +52,7 @@ public class AdditionalServiceController {
 	 * @param additionalService  - informations of the additional service
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AdditionalService> addAdditionalService(@Valid @RequestBody AdditionalService ad) {
 		AdditionalService additionalService = new AdditionalService(ad.getName());
@@ -65,6 +67,7 @@ public class AdditionalServiceController {
 	 * @return updated additional service
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<AdditionalService> editAdditionalService(@PathVariable Integer id, @RequestBody AdditionalService additionalServiceDTO) throws NotFoundException {
 		AdditionalService ret = additionalServiceService.editAddtionalService(id, additionalServiceDTO);
@@ -78,6 +81,7 @@ public class AdditionalServiceController {
 	 * @return
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteAdditionalService(@PathVariable Integer id) throws NotFoundException {
 		AdditionalService ret = additionalServiceService.deleteAdditionalService(id);
