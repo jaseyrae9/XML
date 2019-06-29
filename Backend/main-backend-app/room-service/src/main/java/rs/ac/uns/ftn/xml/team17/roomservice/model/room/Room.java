@@ -105,8 +105,8 @@ public class Room {
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer floorNumber;
 	
-	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	protected List<Image> images;
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	protected List<Image> images = new ArrayList<Image>();
 	
 	@Column(nullable = false)
 	protected Integer numberOfRatings = 0;

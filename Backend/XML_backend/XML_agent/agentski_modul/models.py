@@ -67,7 +67,7 @@ class Room(models.Model):
 
 
 class RoomFotos(models.Model):
-    room = models.ForeignKey(Room,on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, related_name='fotos', on_delete=models.CASCADE)
     is_cover = models.BooleanField()
     photo = models.FileField(upload_to='images/')
 
@@ -107,7 +107,7 @@ class Message(models.Model):
 
 
 class Recension(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.CharField(primary_key=True, max_length=256)
     reservationId = models.ForeignKey(Resrvation, on_delete=models.CASCADE)
     rating = models.FloatField()
     comment = models.CharField(max_length=512)

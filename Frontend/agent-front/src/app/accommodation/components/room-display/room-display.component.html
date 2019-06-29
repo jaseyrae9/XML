@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 flenpx-column p-1 text-center">
-            <app-galery></app-galery>
+            <app-galery [images]="room.fotos" #galery></app-galery>
+            <app-upload-image-form [roomId]="room.id" (uploadEvent)="uploadImage($event)"></app-upload-image-form>
             <div class="rating-block bg-light rounded p-1">
                 <rating [max]="5" [readonly]="true" [(ngModel)]="room.totalRating"></rating>
                 <p class="text-detail">

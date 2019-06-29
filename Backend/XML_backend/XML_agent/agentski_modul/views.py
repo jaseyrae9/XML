@@ -136,17 +136,18 @@ class Login(APIView):
             print("Messages synchronised")
 
 
-            # print("Getting recensions from main backend")
-            # client = return_zeep_client('/reservations-service/ws/getRecensions.wsdl', str(result_token), '/reservations-service/ws/getRecensions')
-            # result = client.service.getRecensions(lu.last_updated)
-            # input_dict = zeep.helpers.serialize_object(result)
-            # output_dict = json.loads(json.dumps(input_dict))
+            print("Getting recensions from main backend")
+            client = return_zeep_client('/reservations-service/ws/getRecensions.wsdl', str(result_token), '/reservations-service/ws/getRecensions')
+            result = client.service.getRecensions(lu.last_updated)
 
-            # print("Saving feched recension data")
-            # for obj_dict in output_dict:
-            #     obj_dict['reservationId_id'] = obj_dict.pop('reservationId') 
-            #     obj, created = Recension.objects.update_or_create(id=obj_dict.pop('id'), defaults = {**obj_dict})
-            # print("Recensions synchronised")
+            input_dict = zeep.helpers.serialize_object(result)
+            output_dict = json.loads(json.dumps(input_dict))
+            
+            print("Saving feched recension data")
+            for obj_dict in output_dict:
+                obj_dict['reservationId_id'] = obj_dict.pop('reservationId') 
+                obj, created = Recension.objects.update_or_create(id=obj_dict.pop('id'), defaults = {**obj_dict})
+            print("Recensions synchronised")
             
             
             lu = Update.objects.create(last_updated = '2000-01-01 00:00:00')
@@ -354,7 +355,7 @@ class ImageView(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = ImageSerializer(data=request.data)
-        if serializer.is_valid():
+        if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         validated_data = serializer.validated_data

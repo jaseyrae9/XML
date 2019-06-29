@@ -14,6 +14,7 @@ export class AccommodationHTTPService {
   roomTypeUrl = '/room_type/';
   roomCategoryUrl = '/room_category/';
   additionalServicesUrl  = '/additional_services/';
+  imageUrl = '/room_image/'
 
   constructor(private http: HttpClient) { }
 
@@ -51,5 +52,9 @@ export class AccommodationHTTPService {
 
   getAdditionalServices(): Observable<any> {
     return this.http.get(this.url + this.additionalServicesUrl);
+  }
+
+  addImage(imageData: FormData): Observable<any> {
+    return this.http.post(this.url + this.imageUrl, imageData);
   }
 }

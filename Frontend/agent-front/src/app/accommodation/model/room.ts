@@ -13,4 +13,5 @@ interface Room{
   description: string;
   totalRating: number;
   numberOfRatings: number;
+  fotos: Image[];
 }
