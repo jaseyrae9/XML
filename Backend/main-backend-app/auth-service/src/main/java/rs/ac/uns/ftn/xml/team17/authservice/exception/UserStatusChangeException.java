@@ -14,7 +14,7 @@ public class UserStatusChangeException extends Exception{
 	private Integer id;
 
 	public UserStatusChangeException(Integer id) {
-		super("Can not change status of user with id" + id.toString() + ".");
+		super("Can not change status of user with id " + id.toString() + ".");
 		this.id = id;		
 	}
 }

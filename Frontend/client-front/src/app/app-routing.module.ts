@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'room/:id', component:  RoomPageComponent },
   { path: 'history', component: AllReservationsComponent},
   { path: 'history/:id', component: ReservationPageComponent},
-  { path: 'find-hotel', component: SearchPageComponent },
+  { path: 'find-accommodation', component: SearchPageComponent },
   { path: 'error/:code', component: ErrorPageComponent },
   { path: '**', redirectTo: '' }
 ];

@@ -5,6 +5,7 @@ import { RoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './auth/response-interceptor';
+import { AgmCoreModule } from '@agm/core';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 // datepicker
@@ -73,8 +74,7 @@ import { MessagesDetailsComponent } from './components/reservations-history/mess
     ReservationPageComponent,
     SearchedRoomBasicInfoComponent,
     CreateRecensionComponent,
-    MessagesDetailsComponent,
-
+    MessagesDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +90,10 @@ import { MessagesDetailsComponent } from './components/reservations-history/mess
     RatingModule,
     FullCalendarModule, // for FullCalendar!
     NgSelectModule,
-    NgPipesModule
+    NgPipesModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAha_PuYkkB226RBgsn81j3CP7vG-Mv1ig'
+    })
   ],
   providers: [RoleGuardService, DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
