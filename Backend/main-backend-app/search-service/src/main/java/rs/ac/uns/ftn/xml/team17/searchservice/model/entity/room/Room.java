@@ -87,5 +87,11 @@ public class Room{
 	@Column
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer roomNumber;
+	
+	@Column(nullable = false)
+	protected Integer numberOfRatings = 0;
+	
+	@Column(nullable = false)
+	protected Double totalRating = 0.0;
 
 }

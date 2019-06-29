@@ -19,9 +19,6 @@ public class RecensionDTO {
 	@NotNull(message = "Please, choose a reservation.")
 	private Integer reservationId;
 	
-	@NotNull(message = "Please, choose a room.")
 	private Integer roomId;
-	
-	@NotNull(message = "Please, choose a hotel.")
 	private Integer hotelId;
 }

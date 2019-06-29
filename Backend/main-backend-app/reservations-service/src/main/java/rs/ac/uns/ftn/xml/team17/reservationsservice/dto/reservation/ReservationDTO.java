@@ -31,6 +31,7 @@ public class ReservationDTO {
 	private Double totalPrice;
 	private ReservationStatus status;
 	private Boolean canCancel;
+	private Boolean hasRecension;
 	/*
 	 * Detalji o hotelu
 	 */
@@ -51,6 +52,7 @@ public class ReservationDTO {
 		this.status = reservation.getStatus();
 		this.totalPrice = reservation.getTotal();
 		this.canCancel = reservation.canBeCanceled();
+		this.hasRecension = reservation.getHasRecension();
 				
 		this.hotel = reservation.getRoom().getHotel();
 		

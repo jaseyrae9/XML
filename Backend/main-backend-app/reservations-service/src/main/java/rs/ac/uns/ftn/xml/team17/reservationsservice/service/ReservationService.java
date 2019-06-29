@@ -41,6 +41,10 @@ public class ReservationService {
 
 	@Autowired
 	private RoomService roomService;
+	
+	public Reservation saveReservation(Reservation reservation) {
+		return this.reservationRepository.save(reservation);
+	}
 
 	/**
 	 * Finds reservation with given id.

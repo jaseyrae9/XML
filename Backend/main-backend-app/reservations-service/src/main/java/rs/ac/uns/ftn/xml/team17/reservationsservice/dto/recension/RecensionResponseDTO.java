@@ -14,19 +14,19 @@ import lombok.Setter;
 public class RecensionResponseDTO {
 
 	private Integer reservationId;
-	
+
 	private String id;
 
 	private Double rating;
 
 	private String title;
-	
+
 	private String comment;
-	
+
 	private String username;
-	
+
 	private Boolean isApproved;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	protected Date creationDate;
 }

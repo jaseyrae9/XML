@@ -97,16 +97,22 @@ public class Room {
 	@XmlElement(namespace = "http://www.tim17.com/room", required = true)
 	protected String description;
 	
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer roomNumber;
 	
-	@Column
+	@Column(nullable = false)
 	@XmlElement(namespace = "http://www.tim17.com/room")
 	protected Integer floorNumber;
 	
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	protected List<Image> images;
+	
+	@Column(nullable = false)
+	protected Integer numberOfRatings = 0;
+	
+	@Column(nullable = false)
+	protected Double totalRating = 0.0;
 	
 	public Room(rs.ac.uns.ftn.xml.team17.roomservice.dto.soap.newroom.Room r) {
 		this.address = new Address(r.getAddress());

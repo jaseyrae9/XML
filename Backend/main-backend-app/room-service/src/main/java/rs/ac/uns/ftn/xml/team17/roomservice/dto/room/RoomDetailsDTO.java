@@ -28,6 +28,8 @@ public class RoomDetailsDTO {
 	private Integer floorNumber;
 	private String description;
 	private Double defaultPrice;
+	private Integer numberOfRatings;
+	private Double totalRating;
 	
 	public RoomDetailsDTO(Room room) {
 		this.id = room.getId();
@@ -42,5 +44,7 @@ public class RoomDetailsDTO {
 		this.floorNumber = room.getFloorNumber();
 		this.description = room.getDescription();
 		this.defaultPrice = room.getDefaultPrice();
+		this.numberOfRatings = room.getNumberOfRatings();
+		this.totalRating = room.getTotalRating();
 	}
 }

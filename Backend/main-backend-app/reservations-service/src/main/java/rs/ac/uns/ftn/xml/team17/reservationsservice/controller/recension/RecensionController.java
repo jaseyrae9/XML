@@ -7,14 +7,18 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.RecensionException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.service.RecensionService;
 
 @RestController
@@ -61,10 +65,13 @@ public class RecensionController {
 	 * 
 	 * @param recensionDTO - informations about the recension
 	 * @return
+	 * @throws NotFoundException 
+	 * @throws RecensionException 
 	 */
+	@PreAuthorize("hasAnyRole('CUSTOMER')")
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addRecension(@Valid @RequestBody RecensionDTO recensionDTO) {
-		return new ResponseEntity<>(recensionService.addRecension(recensionDTO), HttpStatus.OK);
+	public ResponseEntity<?> addRecension(@RequestHeader(value="UserId") Integer customerId, @Valid @RequestBody RecensionDTO recensionDTO) throws NotFoundException, RecensionException {
+		return new ResponseEntity<>(recensionService.addRecension(customerId, recensionDTO), HttpStatus.OK);
 	}
 	
 	

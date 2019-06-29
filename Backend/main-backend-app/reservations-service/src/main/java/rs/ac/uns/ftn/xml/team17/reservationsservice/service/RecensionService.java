@@ -21,9 +21,15 @@ import org.springframework.web.client.RestTemplate;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RoomRecensionDTO;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.RecensionException;
+import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
 
 @Service
 public class RecensionService {
+	
+	@Autowired
+	private ReservationService reservationService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -87,7 +93,17 @@ public class RecensionService {
 		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + recensionId,HttpMethod.PUT, entity, Boolean.class).getBody();
 	}
 
-	public RecensionResponseDTO addRecension(@Valid RecensionDTO recensionDTO) {
+	public RecensionResponseDTO addRecension(Integer customer, @Valid RecensionDTO recensionDTO) throws NotFoundException, RecensionException {
+		Reservation reservation = this.reservationService.getReservation(recensionDTO.getReservationId(), customer);
+		if(reservation.getStatus() != Reservation.ReservationStatus.HAPPENED) {
+			throw new RecensionException(recensionDTO.getReservationId());
+		}
+		recensionDTO.setRoomId(reservation.getRoom().getId());
+		recensionDTO.setHotelId(reservation.getRoom().getHotel().getId());
+		
+		reservation.setHasRecension(true);
+		this.reservationService.saveReservation(reservation);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		

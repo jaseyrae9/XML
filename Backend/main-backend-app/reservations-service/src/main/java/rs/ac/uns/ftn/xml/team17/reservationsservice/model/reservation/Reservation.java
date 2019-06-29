@@ -85,6 +85,9 @@ public class Reservation {
 	@UpdateTimestamp
 	protected Date modificationDate;
 	
+	@Column(nullable = false)
+	protected Boolean hasRecension = false;
+	
 	public Reservation(Room room) {
 		this.room = room;
 		this.status = ReservationStatus.RESERVED;

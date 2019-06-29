@@ -26,6 +26,7 @@ public class RoomPreview {
 	private RoomType type;
 	private RoomCategory category;
 	private Integer numberOfPeople;
+	private Integer numberOfRatings;
 	private Double totalRating;
 	/*
 	 * Calculated details
@@ -41,6 +42,8 @@ public class RoomPreview {
 		this.type = room.getType();
 		this.category = room.getCategory();
 		this.numberOfPeople = room.getNumberOfPeople();
+		this.numberOfRatings = room.getNumberOfRatings();
+		this.totalRating = room.getTotalRating();
 	}
 	
 }

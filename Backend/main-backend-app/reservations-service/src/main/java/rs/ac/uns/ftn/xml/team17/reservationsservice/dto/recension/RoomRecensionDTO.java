@@ -13,7 +13,4 @@ public class RoomRecensionDTO {
 
 	private List<RecensionResponseDTO> retRecensions;
 	
-	private Integer ratingCount;
-	private Double totalRating;
-	
 }
