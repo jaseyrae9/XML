@@ -8,16 +8,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./room-display.component.css']
 })
 export class RoomDisplayComponent implements OnInit {
-  @Input() room: Room = {} as Room;
-  constructor(private accommodationService: AccommodationHTTPService, private route: ActivatedRoute) { }
+  room: Room = {} as Room;
+  constructor(private route: ActivatedRoute, private accommodationHTTPService: AccommodationHTTPService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.accommodationService.getRoom(id).subscribe(
-      (room: Room) => {
-        this.room = room;
+    this.accommodationHTTPService.getRoom(id).subscribe(
+      (data) => {
+        this.room = data;
       }
-    )
+    );
   }
 
 }

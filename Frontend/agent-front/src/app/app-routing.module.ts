@@ -1,3 +1,5 @@
+import { ReservationPageComponent } from './pages/reservation-page/reservation-page.component';
+import { AllReservationsPageComponent } from './pages/all-reservations-page/all-reservations-page.component';
 import { RoleGuardService } from './auth/service/route-guard.service';
 import { CreateRoomPageComponent } from './pages/create-room-page/create-room-page.component';
 import { RoomPageComponent } from './pages/room-page/room-page.component';
@@ -13,6 +15,12 @@ const routes: Routes = [
     canActivate: [RoleGuardService]
   },
   { path: 'room/:id', component: RoomPageComponent,
+    canActivate: [RoleGuardService]
+  },
+  { path: 'room/:id/reservation', component: AllReservationsPageComponent,
+    canActivate: [RoleGuardService]
+  },
+  { path: 'reservation/:id', component: ReservationPageComponent,
     canActivate: [RoleGuardService]
   },
   { path: 'createroom', component: CreateRoomPageComponent,

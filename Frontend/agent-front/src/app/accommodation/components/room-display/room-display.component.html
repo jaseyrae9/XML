@@ -71,11 +71,11 @@
         </div>
         <div class="col-md-3 flenpx-column p-1 text-center">
           <div class="col-auto mb-2 text-center">
-              <a routerLink="/room/{{room.id}}">
+              <a routerLink="/room/{{room.id}}/reservation">
                   See All Reservations <i class="fa fa-arrow-right blue-fa" aria-hidden="true"></i>
               </a>
           </div>
-          <app-new-reservation-form></app-new-reservation-form>
+          <app-new-reservation-form [roomId]="room.id"></app-new-reservation-form>
           <!-- SIDEBAR MAP -->
           <app-map-display [address]="room.address"></app-map-display>
           <!-- END SIDEBAR MAP -->

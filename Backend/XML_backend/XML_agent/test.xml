@@ -1,9 +1,7 @@
 <soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
   <soap-env:Body>
     <ns0:newRoomRequest xmlns:ns0="http://www.team17.xml.ftn.uns.ac.rs/NewRoom">
-      <ns0:id>3</ns0:id>
       <ns0:room>
-        <ns0:hotelId>3</ns0:hotelId>
         <ns0:address>
           <ns0:country>Serbia</ns0:country>
           <ns0:state>Zlatibor</ns0:state>
@@ -15,25 +13,23 @@
           <ns0:lng>19.7050399</ns0:lng>
         </ns0:address>
         <ns0:type>
-          <ns0:id>3</ns0:id>
+          <ns0:id>2</ns0:id>
         </ns0:type>
         <ns0:category>
           <ns0:id>6</ns0:id>
         </ns0:category>
-        <ns0:defaultPrice>80</ns0:defaultPrice>
-        <ns0:numberOfPeople>3</ns0:numberOfPeople>
+        <ns0:defaultPrice>50</ns0:defaultPrice>
+        <ns0:numberOfPeople>2</ns0:numberOfPeople>
         <ns0:cancelationDays>10</ns0:cancelationDays>
         <ns0:additionalServices>
           <ns0:id>1</ns0:id>
         </ns0:additionalServices>
         <ns0:additionalServices>
-          <ns0:id>3</ns0:id>
+          <ns0:id>13</ns0:id>
         </ns0:additionalServices>
-        <ns0:additionalServices>
-          <ns0:id>2</ns0:id>
-        </ns0:additionalServices>
-        <ns0:description></ns0:description>
-        <ns0:roomNumber>105</ns0:roomNumber>
+        <ns0:description>Opis sobe.</ns0:description>
+        <ns0:floor>1</ns0:floor>
+        <ns0:roomNumber>103</ns0:roomNumber>
       </ns0:room>
     </ns0:newRoomRequest>
   </soap-env:Body>

@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3 pt-2 text-center">
+
+            <p>
+                <a routerLink="/room/{{reservation.roomId}}/reservation">
+                  <i class="fa fa-arrow-left blue-fa" aria-hidden="true"></i> Back to all reservations
+                </a>
+            </p>
+
+            <div class="d-flex flex-column border rounded p-2 pb-3">
+                <div class="border-bottom pb-2 text-center">{{ reservation.dateFrom | date }}
+                    <br><i class="fas fa-arrow-down blue-fa"></i>
+                    <br>{{ reservation.dateTo | date }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between pt-2">
+                    <div>#{{reservation.id}}</div>
+                    <div>
+                        <span class="badge badge-warning" *ngIf="reservation.status == 'RESERVED'" >{{reservation.status}}</span>
+                        <span class="badge badge-success" *ngIf="reservation.status == 'HAPPENED'" >{{reservation.status}}</span>
+                        <span class="badge badge-danger" *ngIf="reservation.status == 'CANCELED'" >{{reservation.status}}</span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row justify-content-between pt-1" *ngIf="reservation.customer" >
+                  <small>By:</small><small class="text-right">{{reservation.customer.firstName}} {{reservation.customer.lastName}} @{{reservation.customer.username}}</small>
+                </div>
+
+                <div class="d-flex flex-row justify-content-between pt-1 pb-3"><small>Total price:</small><small class="text-right">€{{reservation.totalPrice}}</small></div>
+
+                <button class="btn btn-primary mr-2 align-self-center" *ngIf="reservation.status == 'RESERVED'" (click)="approveReservation()">Approve</button>
+            </div>
+
+        </div>
+
+        <div class="col-6">
+
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-mssg-tab" data-toggle="tab" href="#nav-mssg" role="tab"><i class="fas fa-envelope blue-fa"></i> Messages</a>
+
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-mssg" role="tabpanel">
+                    <div class="d-flex flex-column align-items-stretch">
+                       <div *ngFor="let message of messages" >
+                          <app-message [message]="message"></app-message>
+                       </div>
+                       <form [formGroup]="newMessageForm" (validSubmit)="sendMessage()" class="mt-3">
+                        <div class="row align-items-center">
+                            <div class="col-10">
+                                <textarea class="form-control"  formControlName="message" rows="3" placeholder="Enter text here..."></textarea>
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn btn-primary" > Send </button>
+                            </div>
+                        </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-3 pt-2" align="center">
+            <p>
+              <a routerLink="/room/{{reservation.roomId}}">
+              See room <i class="fa fa-arrow-right blue-fa" aria-hidden="true"></i>
+              </a>
+            </p>
+
+            <div class="d-flex flex-column border rounded p-2">
+                <div class="border-bottom pb-2 text-center">Basic details about room</div>
+                <div class="d-flex flex-row justify-content-between pt-2"><small> Type: {{room.roomType.name}}</small></div>
+                <div class="d-flex flex-row justify-content-between pt-1"><small>Floor number: {{room.roomFloor}}</small></div>
+                <div class="d-flex flex-row justify-content-between pt-1"><small>Room number: {{room.roomNumber}}</small></div>
+                <div class="d-flex flex-row justify-content-between pt-1"><small>Category: {{room.roomCategory.numberOfStars}} stars</small></div>
+                <div class="d-flex flex-row justify-content-between pt-1"><small>Number of people: {{room.numberOfPeople}}</small></div>
+                <div class="d-flex flex-row justify-content-between pt-1"><small>Cancelation: {{room.cancelationDays}} days</small></div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row border rounded align-items-center py-2 mb-2 bg-white">
+    <div class ="col-auto border-right" align="center">{{ reservation.dateFrom | date }}<br><i class="fas fa-arrow-down"></i><br>{{ reservation.dateTo | date }}</div>
+    <div class = "col" align="left">
+    <span class="badge badge-warning" *ngIf="reservation.status == 'RESERVED'" >{{reservation.status}}</span>
+    <span class="badge badge-success" *ngIf="reservation.status == 'HAPPENED'" >{{reservation.status}}</span>
+    <span class="badge badge-danger" *ngIf="reservation.status == 'CANCELED'" >{{reservation.status}}</span>
+    <br>#{{reservation.id}}<br>
+    <span class="text-muted" *ngIf="reservation.customer" >{{reservation.customer.firstName}} {{reservation.customer.lastName}} @{{reservation.customer.username}}</span></div>
+    <div class="col-auto" align="center">
+        <button class="btn btn-primary px-4 mr-2" (click)="approveReservation()" *ngIf="reservation.status == 'RESERVED'" >
+            Approve
+        </button>
+        <button class="btn btn-secondary px-4" routerLink="/reservation/{{reservation.id}}">
+            Details...
+        </button>
+    </div>
+</div>
