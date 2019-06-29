@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './auth/response-interceptor';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 // datepicker
@@ -24,8 +25,6 @@ import { RoleGuardService } from './auth/role-guard.service';
 import { HotelBasicDetailsComponent } from './components/hotel/hotel-basic-details/hotel-basic-details.component';
 import { AllHotelsPageComponent } from './pages/all-hotels-page/all-hotels-page.component';
 import { MapComponent } from './components/map/map.component';
-import { ProfileComponent } from './components/user/profile/profile.component';
-import { EditProfileFormComponent } from './components/user/edit-profile-form/edit-profile-form.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { AllReservationsComponent } from './components/reservations-history/all-reservations/all-reservations.component';
 import { ReservationComponent } from './components/reservations-history/reservation/reservation.component';
@@ -44,6 +43,8 @@ import {RatingModule} from 'ngx-rating';
 import { ReservationPageComponent } from './components/reservations-history/reservation-page/reservation-page.component';
 import { SearchedRoomBasicInfoComponent } from './components/hotel/searched-room-basic-info/searched-room-basic-info.component';
 import {NgPipesModule} from 'ngx-pipes';
+import { CreateRecensionComponent } from './components/reservations-history/create-recension/create-recension.component';
+import { MessagesDetailsComponent } from './components/reservations-history/messages-details/messages-details.component';
 
 @NgModule({
   declarations: [
@@ -58,8 +59,6 @@ import {NgPipesModule} from 'ngx-pipes';
     HotelBasicDetailsComponent,
     AllHotelsPageComponent,
     MapComponent,
-    ProfileComponent,
-    EditProfileFormComponent,
     SearchPageComponent,
     AllReservationsComponent,
     ReservationComponent,
@@ -73,6 +72,9 @@ import {NgPipesModule} from 'ngx-pipes';
     ReviewDetailsComponent,
     ReservationPageComponent,
     SearchedRoomBasicInfoComponent,
+    CreateRecensionComponent,
+    MessagesDetailsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import {NgPipesModule} from 'ngx-pipes';
     NgPipesModule
   ],
   providers: [RoleGuardService, DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

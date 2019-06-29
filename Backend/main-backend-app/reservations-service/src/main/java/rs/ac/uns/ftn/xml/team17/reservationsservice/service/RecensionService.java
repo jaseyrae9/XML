@@ -20,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionResponseDTO;
-import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RoomRecensionDTO;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.NotFoundException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.exception.RecensionException;
 import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservation;
@@ -75,13 +74,13 @@ public class RecensionService {
 		
 	}
 
-	public RoomRecensionDTO getRoomRecensions(Integer roomId) {
+	public List<RecensionResponseDTO> getRoomRecensions(Integer roomId) {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		RoomRecensionDTO roomRecension = new RoomRecensionDTO();
-		HttpEntity<RoomRecensionDTO> entity = new HttpEntity<RoomRecensionDTO>(roomRecension, headers);
-		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/" + roomId, HttpMethod.GET, entity, RoomRecensionDTO.class).getBody();
+		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
+		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
+		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/" + roomId, HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {	}).getBody();
 	}
 
 	public Boolean approveRecension(String recensionId) {
@@ -93,11 +92,12 @@ public class RecensionService {
 		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + recensionId,HttpMethod.PUT, entity, Boolean.class).getBody();
 	}
 
-	public RecensionResponseDTO addRecension(Integer customer, @Valid RecensionDTO recensionDTO) throws NotFoundException, RecensionException {
+	public RecensionResponseDTO addRecension(Integer customer, @Valid RecensionDTO recensionDTO, String username) throws NotFoundException, RecensionException {
 		Reservation reservation = this.reservationService.getReservation(recensionDTO.getReservationId(), customer);
 		if(reservation.getStatus() != Reservation.ReservationStatus.HAPPENED) {
 			throw new RecensionException(recensionDTO.getReservationId());
 		}
+		recensionDTO.setUsername(username);
 		recensionDTO.setRoomId(reservation.getRoom().getId());
 		recensionDTO.setHotelId(reservation.getRoom().getHotel().getId());
 		

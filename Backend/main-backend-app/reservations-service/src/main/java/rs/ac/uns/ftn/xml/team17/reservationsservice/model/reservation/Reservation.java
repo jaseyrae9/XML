@@ -120,9 +120,13 @@ public class Reservation {
 		LocalDate now = (new Date(System.currentTimeMillis())).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate cancelDate = this.getDayReservations().get(0).getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		cancelDate.plusDays(this.getRoom().getCancelationDays());
+		System.out.println(cancelDate);
+		System.out.println(now);
 		if(now.isAfter(cancelDate) || this.status != ReservationStatus.RESERVED) {
+			System.out.println("uso");
 			return false;
 		}
+		System.out.println("nije usao");
 		return true;
 	}
 

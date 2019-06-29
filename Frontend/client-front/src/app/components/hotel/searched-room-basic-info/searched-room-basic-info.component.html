@@ -5,12 +5,21 @@
                   
     </div>
   
-    <div class="col pt-2 border-left border-right p-3" align="center">
-        <p style="font-size: 22px;"> {{room.hotel.name}}
-            <br><small class="text-muted"> Room type: {{room.type.name}} </small>
-            <br><small class="text-muted"> Number of stars: {{room.category.numberOfStars}} </small>
-            </p>
+    <div class="col pt-2 border-left border-right p-3" >
+            <div class="d-flex">
+                    <div class="pt-2">
+                          <h5 class="display-4" align="left">{{room.hotel.name}}</h5>
+                    </div>
+                    <div class="ml-auto p-2">
+                          <rating [max]="5" [readonly]="true" [(ngModel)]="room.totalRating"></rating>
+                    </div>
+              </div>
+
+              <p class="text-muted" align="left"> Room type: {{room.type.name}},  Number of stars: {{room.category.numberOfStars}} 
+                   </p>
+       
             <hr>
+
         <div>
           <div class="row">
             

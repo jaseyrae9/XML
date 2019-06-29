@@ -18,8 +18,6 @@ export class UserService {
   getCurrentUserProfile(): Observable<any> {
     return this.http.get('changeme/profile/info');
   }
-
-
   changePassword(data: ChangePasswordData): Observable<any> {
       return this.http.post<ChangePasswordData>('https://isa-back.herokuapp.com/profile/changePassword', data, httpOptions);
   }

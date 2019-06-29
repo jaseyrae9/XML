@@ -18,9 +18,9 @@
             
             <div class="rating-block bg-light rounded p-1">
               <!--[(ngModel)]="roomFull.totalRating" -->
-                <rating [max]="5" [readonly]="true" [(ngModel)]="averageRating" ></rating>
+                <rating [max]="5" [readonly]="true" [(ngModel)]="roomFull.totalRating"></rating>
                 <p class="text-detail">
-                    Rated {{roomRecension.ratingCount}} times
+                    Rated {{roomFull.numberOfRatings}} times
                 </p>
             </div>
               <!-- SIDEBAR MENU -->
@@ -104,7 +104,7 @@
                 
                    
                     <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
-                      <app-review-details [recensions]="roomRecension.retRecensions">|</app-review-details>
+                      <app-review-details [recensions]="recensions"></app-review-details>
                   </div>
               </div>
            
@@ -136,6 +136,10 @@
                           <input class="form-control" #drp="bsDaterangepicker" [bsConfig]='datePickerConfig'
                           bsDaterangepicker placeholder="Book room from to"
                           required="required" formControlName="bsRangeValue">
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" *ngIf="errorMessage.length != 0">
+                      {{errorMessage}}
                     </div>
 
                     <button type="button" class="btn btn-primary btn-block" (click)="bookRoom()" > Book </button>

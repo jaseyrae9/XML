@@ -31,6 +31,7 @@ export class SearchPageComponent implements OnInit {
   rooms: RoomPreview[] = [];
   searchRequest: SearchRequest = new SearchRequest();
   defaultValue = 'category_asc';
+  searchActive = false;
 
   constructor(public datePipe: DatePipe,
               private searchService: SearchService,
@@ -86,7 +87,6 @@ export class SearchPageComponent implements OnInit {
 
   search() {
     const value = this.searchForm.value;
-
     this.searchRequest.location = value.location;
     this.searchRequest.numberOfPeople = value.numberOfPeople;
     this.searchRequest.start = this.datePipe.transform(value.bsRangeValue[0], 'yyyy-MM-dd');
@@ -104,6 +104,8 @@ export class SearchPageComponent implements OnInit {
     console.log(this.searchRequest);
     this.searchService.search(this.searchRequest).subscribe(
       (data) => {
+        console.log('data', data);
+        this.searchActive = true;
         this.populateView(data);
       }
     );
@@ -135,6 +137,13 @@ export class SearchPageComponent implements OnInit {
       data.sort((a, b) => b.totalStayPrice - a.totalStayPrice);
     }
 
+    if (this.defaultValue === 'rating_asc') {
+      data.sort((a, b) => a.totalRating - b.totalRating);
+    }
+
+    if (this.defaultValue === 'rating_desc') {
+      data.sort((a, b) => b.totalRating - a.totalRating);
+    }
     this.rooms = data;
   }
 
@@ -145,11 +154,13 @@ export class SearchPageComponent implements OnInit {
 
   cancelSearch() {
     this.rooms = [];
+    this.searchActive = false;
     this.formValues.resetForm();
   }
 
   cancelFilter() {
     this.rooms = [];
+    this.searchActive = false;
     this.formValues.resetForm();
   }
 

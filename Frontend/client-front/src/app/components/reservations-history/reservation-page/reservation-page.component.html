@@ -53,19 +53,43 @@
             <!--REVIEWS-->
             <li class="nav-item">
               <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
-                <i class="fa fa-star mr-1" aria-hidden="true"></i> Reviews
+                <i class="fa fa-star mr-1" aria-hidden="true"></i> Review
               </a>
             </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="messages" aria-labelledby="messages-tab">
-              <p> deo za poruke </p>
+              
+              <div class="d-flex flex-column align-items-stretch">
+                <div *ngFor="let message of messages" >
+                   <app-messages-details [message]="message"></app-messages-details>
+                </div>
+                <form [formGroup]="newMessageForm" (validSubmit)="sendMessage()" class="mt-3">
+                 <div class="row align-items-center">
+                     <div class="col-10">
+                         <textarea class="form-control"  formControlName="message" rows="3" placeholder="Enter text here..."></textarea>
+                     </div>
+
+                     <div class="alert alert-danger" role="alert" *ngIf="errorMessage.length != 0">
+                      {{errorMessage}}
+                    </div>
+                    
+                     <div class="col-2">
+                         <button type="submit" class="btn btn-primary" > Send </button>
+                     </div>
+                 </div>
+                </form>
+             </div>
+
             </div>
           
              
               <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
-                <p>deo za komentare</p>
+                <app-create-recension *ngIf="reservation.status == 'HAPPENED' && !reservation.hasRecension " [reservationId]='reservationId' ></app-create-recension>
+                <p *ngIf="reservation.hasRecension"  style="color: #33cabb; font-size: 15px" class="pt-2"> You've already post a review. </p>
+                <p *ngIf="reservation.status != 'HAPPENED'"  style="color: #33cabb; font-size: 15px" class="pt-2"> You can't post a review because your reservation hasn't happen. </p>
+
               </div>
         </div>
         <br/>

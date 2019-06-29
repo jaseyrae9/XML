@@ -4,7 +4,6 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { RoleGuardService } from 'src/app/auth/role-guard.service';
 import { AllHotelsPageComponent } from './pages/all-hotels-page/all-hotels-page.component';
-import { ProfileComponent } from './components/user/profile/profile.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { AllReservationsComponent } from './components/reservations-history/all-reservations/all-reservations.component';
 import { HotelPageComponent } from './components/hotel/hotel-page/hotel-page.component';
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'hotels', component: AllHotelsPageComponent },
   { path: 'hotel/:id', component: HotelPageComponent },
   { path: 'room/:id', component:  RoomPageComponent },
-  { path: 'profile', component: ProfileComponent },
   { path: 'history', component: AllReservationsComponent},
   { path: 'history/:id', component: ReservationPageComponent},
   { path: 'find-hotel', component: SearchPageComponent },

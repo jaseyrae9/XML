@@ -70,8 +70,8 @@ public class RecensionController {
 	 */
 	@PreAuthorize("hasAnyRole('CUSTOMER')")
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> addRecension(@RequestHeader(value="UserId") Integer customerId, @Valid @RequestBody RecensionDTO recensionDTO) throws NotFoundException, RecensionException {
-		return new ResponseEntity<>(recensionService.addRecension(customerId, recensionDTO), HttpStatus.OK);
+	public ResponseEntity<?> addRecension(@RequestHeader(value="UserId") Integer customerId,@RequestHeader(value="Username") String username, @Valid @RequestBody RecensionDTO recensionDTO) throws NotFoundException, RecensionException {
+		return new ResponseEntity<>(recensionService.addRecension(customerId, recensionDTO, username), HttpStatus.OK);
 	}
 	
 	
