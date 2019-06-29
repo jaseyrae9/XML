@@ -16,9 +16,11 @@ function App() {
   const roomType = { id: "integer", name: "", active: "bool" }
   const roomCategory = { id: "integer", numberOfStars: "integer", description: "", active: "bool" }
   const additionalServices = { id: "integer", name: "", active: "bool" }
-  const hotel = { id: "", name: "", address: { id: "", country: "", state: "", city: "", postalCode: "", street: "", streetNumber: "", lat: "integer", lng: "integer" }, pib: "" }
+  const hotel = { id: "", pib: "", name: "", address: { id: "", country: "", state: "", city: "", postalCode: "", street: "", streetNumber: "", lat: "integer", lng: "integer" } }
   const customer = { id: "integer", username: "", firstName: "", lastName: "", blocked: "bool", active: "bool" }
-  const recension = { id: "integer", isApproved: "bool", rating: "integer", comment: "", creationDate: "", modificationDate: "" }
+  const recension = { id: "integer", isApproved: "bool", rating: "integer", comment: "", creationDate: "", reservationId: "integer", title: "", username: "jeca" }
+
+  const url_prefix = 'http://localhost:8762'
 
   return (
     <BrowserRouter>
@@ -29,14 +31,14 @@ function App() {
         <AuthComponent>
 
           <Route exact path='/' component={Home} />
-          <Route exact path='/types' render={() => <GenericView url='http://127.0.0.1:8762/admin-service/roomType' modalData={roomType} />} />
-          <Route exact path='/categories' render={() => <GenericView url='http://127.0.0.1:8762/admin-service/roomCategory' modalData={roomCategory} />} />
-          <Route exact path='/additional_services' render={() => <GenericView url='http://localhost:8762/admin-service/additionalService' modalData={additionalServices} />} />
-          <Route exact path='/hotels' render={() => <HotelView url='http://localhost:8762/room-service/hotel' modalData={hotel} />} />
+          <Route exact path='/types' render={() => <GenericView url={url_prefix + '/admin-service/roomType'} modalData={roomType} />} />
+          <Route exact path='/categories' render={() => <GenericView url={url_prefix + '/admin-service/roomCategory'} modalData={roomCategory} />} />
+          <Route exact path='/additional_services' render={() => <GenericView url={url_prefix + '/admin-service/additionalService'} modalData={additionalServices} />} />
+          <Route exact path='/hotels' render={() => <HotelView url={url_prefix + '/room-service/hotel'} modalData={hotel} />} />
           <Route path='/hotels/:id' component={HotelDetails} />
-          <Route exact path='/customers' render={() => <Customer url='http://localhost:8762/auth-service/customer' modalData={customer} />} />
-          <Route exact path='/add_agent' render={() => <NewAgent url='http://localhost:8762/auth-service/auth/registerAgent' />} />
-          <Route exact path='/recensions' render={() => <Recensions url='http://localhost:8762/reservations-service/recension' modalData={recension} />} />
+          <Route exact path='/customers' render={() => <Customer url={url_prefix + '/auth-service/customer'} modalData={customer} />} />
+          <Route exact path='/add_agent' render={() => <NewAgent url={url_prefix + '/auth-service/registerAgent'} />} />
+          <Route exact path='/recensions' render={() => <Recensions url={url_prefix + '/reservations-service/recension'} modalData={recension} />} />
 
         </AuthComponent>
 

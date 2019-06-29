@@ -13,26 +13,30 @@ const getHeader = () => {
 const get = (url, func) => {
     axios.get(url, getHeader())
             .then(results => func(results.data, false, null))
-            .catch(error => func(null, false, error));
+            .catch(error => {
+                const msg = error + " ---> " + error.response.data.message
+                func(null, false, msg)})
 }
 
 const post = (url, data, func) => {
     axios.post(url, JSON.stringify(data), getHeader())
             .then(results => func(results.data))
-            .catch(error => alert(error))
+            .catch(error => alert(error + "\n\n" + error.response.data.message))
 }
 
 const update = (url, data, func) => {
-    console.log(JSON.stringify(data));
-    
     axios.put(url + "/" + data.id, JSON.stringify(data), getHeader())
             .then(results => func(results.data))
-            .catch(error => alert(error))
+            .catch(error => alert(error + "\n\n" + error.response.data.message))
 }
 
 const del = (url, id, func) => {
-    axios.delete(url + "/" + id, JSON.stringify(id), getHeader())
+    console.log(url + "/" + id);
+    console.log(JSON.stringify(id));
+    console.log(getHeader());
+    
+    axios.delete(url + "/" + id, getHeader())
             .then(func(id))
-            .catch(error => alert(error))
+            .catch(error => alert(error + "\n\n" + error.response.data.message))
 }
-export {get, post, update, del};
+export {get, post, update, del, getHeader};

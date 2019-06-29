@@ -11,7 +11,7 @@ const returnHeader = (modelData) => {
 // pazi uvrnutog resenja na liniji 21, da bi posalo samo podatke a ne kopiju reference na objekat
 const returnBody = (error, isLoading, data, updateInternal, del) => {
     if (error) {
-        return <tr><td className="tema">Error: {error.message}</td></tr>
+        return <tr><td className="tema">{error}</td></tr>
     } else if (isLoading) {
         return <tr><td className="tema"> Loading...</td></tr>
     } else {

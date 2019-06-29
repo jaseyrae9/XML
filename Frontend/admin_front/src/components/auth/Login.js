@@ -14,7 +14,7 @@ class Login extends React.Component {
     }
 
     onClick = (e) => {
-        post('http://127.0.0.1:8762/auth-service/auth/login', { username: this.state.username, password: this.state.password }, this.afterSubmit)
+        post('http://127.0.0.1:8762/auth-service/login', { username: this.state.username, password: this.state.password }, this.afterSubmit)
     }
 
     afterSubmit = (token) => {

@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup, CustomInput } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, FormGroup } from 'reactstrap';
 
 const returnHeader = (modelData) => {
     return Object.keys(modelData)
@@ -9,7 +9,7 @@ const returnHeader = (modelData) => {
 // pazi uvrnutog resenja na liniji 21, da bi posalo samo podatke a ne kopiju reference na objekat
 const returnBody = (error, isLoading, data, updateInternal, del) => {
     if (error) {
-        return <tr><td className="tema">Error: {error.message}</td></tr>
+        return <tr><td className="tema">{error}</td></tr>
     } else if (isLoading) {
         return <tr><td className="tema"> Loading...</td></tr>
     } else {
@@ -54,10 +54,11 @@ const returnForm = (modelData, data, changeToSend) => {
         else if (modelData[field] === 'integer')
             formField = <Input type="number" name={field} defaultValue={data[field]} onChange={changeToSend} />
         else if (modelData[field] === 'bool')
-            formField = <div>
-                <CustomInput type="radio" id={"radio_true" + field} name={field} label="True" value="True" checked={String(data[field]).toLowerCase() === "true"} onChange={changeToSend} />
-                <CustomInput type="radio" id={"radio_false" + field} name={field} label="False" value="False" checked={String(data[field]).toLowerCase() === "false"} onChange={changeToSend} />
-            </div>
+            // formField = <div>
+            //     <CustomInput type="radio" id={"radio_true" + field} name={field} label="True" value="True" checked={String(data[field]).toLowerCase() === "true"} onChange={changeToSend} />
+            //     <CustomInput type="radio" id={"radio_false" + field} name={field} label="False" value="False" checked={String(data[field]).toLowerCase() === "false"} onChange={changeToSend} />
+            // </div>
+            return null
 
         return <FormGroup key={field}>
             <Label className="pr-5">{field}</Label>

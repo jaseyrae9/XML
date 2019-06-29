@@ -6,16 +6,6 @@ import { withRouter } from 'react-router-dom';
 class NewAgent extends React.Component {
 
     state = {
-        address: {
-            country: "",
-            state: "",
-            city: "",
-            postalCode: "",
-            street: "",
-            streetNumber: "",
-            lat: "integer",
-            lng: "integer"
-        },
         user: {
             username: "",
             firstName: "",
@@ -25,16 +15,6 @@ class NewAgent extends React.Component {
             username: "",
             firstName: "",
             lastName: "",
-            address: {
-                country: "",
-                state: "",
-                city: "",
-                postalCode: "",
-                street: "",
-                streetNumber: "",
-                lat: null,
-                lng: null
-            },
             hotelId: null
         }
     };
@@ -43,13 +23,6 @@ class NewAgent extends React.Component {
         console.log("Change user");
         const toSend = this.state.toSend;
         toSend[e.target.name] = e.target.value;
-        this.setState({ toSend });
-    }
-
-    onChangeAddress = (e) => {
-        console.log("Change address");
-        const toSend = this.state.toSend;
-        toSend.address[e.target.name] = e.target.value;
         this.setState({ toSend });
     }
 
@@ -84,22 +57,16 @@ class NewAgent extends React.Component {
     }
 
     render() {
-        const { toSend, address, user } = this.state
-        const address_form = this.returnForm(address, toSend.address, this.onChangeAddress)
+        const { toSend, user } = this.state
         const user_form = this.returnForm(user, toSend, this.onChange)
 
         return (
             <div className="tema">
-                <h4 className="text-center">Add a new agent</h4>
+                <h5 className="text p-3">Add a new agent</h5>
                 <Table dark>
                     <tbody>
                         <tr>
-                            <td className="col-5">
-                                <Label className="pr-5">Agent address</Label>
-                                {address_form}
-                            </td>
                             <td className="col-3">
-                                <Label className="pr-5">Agent</Label>
                                 {user_form}
                                 <FormGroup key='hotelId' row>
                                     <Label for='hotelId' md={2}>hotelId</Label>
@@ -107,7 +74,9 @@ class NewAgent extends React.Component {
                                         <Input type="number" name='hotelId' id='hotelId' onChange={this.onChange} />
                                     </Col>
                                 </FormGroup>
-                                <Button color="primary" onClick={this.postAPI} method="POST" className="text-center">Add agent</Button>
+                                <div className="d-flex justify-content-end pt-2">
+                                    <Button color="primary" onClick={this.postAPI} method="POST" className="text-center">Add agent</Button>
+                                </div>
                             </td>
 
                             <td className="col-4">
@@ -115,7 +84,7 @@ class NewAgent extends React.Component {
                         </tr>
                     </tbody>
                 </Table>
-            </div>
+            </div >
         );
     }
 }
