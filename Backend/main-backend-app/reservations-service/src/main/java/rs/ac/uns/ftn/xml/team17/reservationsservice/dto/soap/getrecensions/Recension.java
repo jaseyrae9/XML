@@ -51,6 +51,8 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 	"roomId",
     "id",
     "rating",
+    "username",
+    "title",
     "comment",
     "date",
     "isApproved"
@@ -62,6 +64,8 @@ public class Recension {
     protected int roomId;
 	protected String id;
     protected double rating;
+    protected String username;
+    protected String title;
     @XmlElement(required = true)
     protected String comment;
     @XmlElement(required = true)
@@ -80,8 +84,9 @@ public class Recension {
         
 		this.date = strDate;
 		this.isApproved = recension.getIsApproved();
-		
+		this.title = recension.getTitle();
 		this.roomId = recension.getRoomId();
+		this.username = recension.getUsername();
 	}
 
     
@@ -209,6 +214,34 @@ public class Recension {
 
 	public void setRoomId(int roomId) {
 		this.roomId = roomId;
+	}
+
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

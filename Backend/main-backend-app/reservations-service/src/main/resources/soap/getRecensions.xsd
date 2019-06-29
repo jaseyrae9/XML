@@ -25,6 +25,8 @@
         	<xs:element name="roomId" type="xs:int"/>
             <xs:element name="id" type="xs:string"/> <!-- ID recenzije-->
 			<xs:element name="rating" type="xs:double"/>
+			<xs:element name="username" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
 			<xs:element name="comment" type="xs:string"/>
 			<xs:element name="date" type="xs:string"/>
 			<xs:element name="isApproved" type="xs:boolean"/>
