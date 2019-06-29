@@ -1,25 +1,29 @@
-<div class="container">
+<div class="container" *ngIf="recensions.length == 0" >
+  There are no reviews yet.
+</div>
+<div class="container" *ngFor="let recension of recensions" >
   <div class="row border rounded pt-2">
       <div class="col-sm-3">
-          <span class="badge badge-secondary">Status</span>
-          <div>username</div>
-          <div class="text-detail">January 29, 2016</div>
+          <span class="badge badge-secondary" *ngIf="recension.isApproved">Approved</span>
+          <span class="badge badge-secondary" *ngIf="!recension.isApproved">Waiting for approval</span>
+          <div>{{recension.username}}</div>
+          <div class="text-detail">{{ recension.date | date }}</div>
       </div>
       <div class="col-sm-9">
           <div class="row">
               <div class="col-8">
                   <p class="lead">
-                    Review title
+                    {{recension.title}}
                   </p>
               </div>
               <div class="col-4 text-right">
-                  <rating [max]="5" [readonly]="true"></rating>
+                  <rating [max]="5" [readonly]="true" [(ngModel)]="recension.rating"></rating>
               </div>
           </div>
           <div class="row">
             <div class="col-12">
                 <p>
-                    Review text
+                  {{recension.comment}}
                 </p>
             </div>
           </div>

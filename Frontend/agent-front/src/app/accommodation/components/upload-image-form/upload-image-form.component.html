@@ -1,0 +1,16 @@
+<div class="card mb-2">
+  <div class="card-body">
+    <h5 class="card-title"  style="color: #33cabb;">Add image</h5>
+    <hr/>
+
+    <form [formGroup]="uploadImageForm" (validSubmit)="uploadImage()">
+        <div class="input-group form-group py-1">
+            <input type="file" class="form-control-file btn btn-primary p-0" formControlName="photo" (change)="onFileChange($event)">
+        </div>
+        <input type="checkbox" class="form-check-input" formControlName="is_cover" class="btn btn-primary btn-block mt-2">
+        <label class="form-check-label" for="exampleCheck1">Use as main?</label>
+      <button type="submit" class="btn btn-primary btn-block mt-2" > Upload image </button>
+    </form>
+
+  </div>
+</div>

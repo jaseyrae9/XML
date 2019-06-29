@@ -69,6 +69,9 @@ export class RoomFormComponent implements OnInit {
 
   createRoom() {
     const roomData = this.createRoomForm.value;
+    if (roomData.additionalService === ''){
+      roomData.additionalService = [];
+    }
     this.accommodationHTTPService.createRoom(roomData).subscribe(
       (data) => {
         this.router.navigate(['room/' + data.id]);

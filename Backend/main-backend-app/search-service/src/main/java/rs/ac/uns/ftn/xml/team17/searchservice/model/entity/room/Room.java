@@ -1,6 +1,7 @@
 
 package rs.ac.uns.ftn.xml.team17.searchservice.model.entity.room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -23,6 +25,7 @@ import lombok.Setter;
 import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.additionalService.AdditionalService;
 import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.address.Address;
 import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.hotel.Hotel;
+import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.image.Image;
 import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomCategory.RoomCategory;
 import rs.ac.uns.ftn.xml.team17.searchservice.model.entity.roomType.RoomType;
 
@@ -93,5 +96,17 @@ public class Room{
 	
 	@Column(nullable = false)
 	protected Double totalRating = 0.0;
+	
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	protected List<Image> images = new ArrayList<Image>();
+	
+	public byte[] getMainImage() {
+		for (Image i : images) {
+			if (i.getMainImage()) {
+				return i.getImage();
+			}
+		}
+		return null;
+	}
 
 }

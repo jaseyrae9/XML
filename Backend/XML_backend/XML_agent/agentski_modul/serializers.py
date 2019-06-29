@@ -36,13 +36,31 @@ class HotelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Hotel
         fields = '__all__'
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoomFotos
+        fields = '__all__'
         
 
 class RoomSerializer(serializers.ModelSerializer):
+    fotos = ImageSerializer(many=True, read_only=True)
+    avg_rating = serializers.FloatField(source='getRating', read_only=True)
+    number_of_ratings = serializers.IntegerField(source='getRatingCount', read_only=True)
     class Meta:
         model = Room
-        fields = '__all__'
+        fields = ('__all__')
         depth = 1
+        extra_fields = ['fotos', 'avg_rating']
+
+    def get_field_names(self, declared_fields, info):
+        expanded_fields = super(RoomSerializer, self).get_field_names(declared_fields, info)
+
+        if getattr(self.Meta, 'extra_fields', None):
+            return expanded_fields + self.Meta.extra_fields
+        else:
+            return expanded_fields
 
 
 class RoomSerializerInput(serializers.ModelSerializer):
@@ -79,12 +97,6 @@ class RoomSerializerInput(serializers.ModelSerializer):
         room.save()
 
         return room
-
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RoomFotos
-        fields = '__all__'
 
 
 class PriceSerializer(serializers.ModelSerializer):

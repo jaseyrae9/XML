@@ -11,6 +11,7 @@ interface Room{
   numberOfPeople: number;
   cancelationDays: number;
   description: string;
-  totalRating: number;
-  numberOfRatings: number;
+  avg_rating: number;
+  number_of_ratings: number;
+  fotos: Image[];
 }

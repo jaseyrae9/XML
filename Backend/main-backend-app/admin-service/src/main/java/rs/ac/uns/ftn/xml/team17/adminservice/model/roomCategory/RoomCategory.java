@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -45,6 +46,7 @@ public class RoomCategory {
 	protected Integer id;
 
 	@Column(nullable = false)
+	@NotNull(message = "Please, enter number of stars.")
 	@XmlElement(namespace = "http://www.tim17.com/roomCategory")
 	protected Integer numberOfStars;
 

@@ -11,6 +11,7 @@ export class RoomPreview {
     category: RoomCategory;
     numberOfPeople: number;
     roomNumber: number;
+    mainImage: any[];
 
     // for search
     hotel: HotelPreview;

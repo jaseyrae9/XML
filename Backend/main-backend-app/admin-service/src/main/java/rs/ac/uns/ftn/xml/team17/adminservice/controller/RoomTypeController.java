@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,7 @@ public class RoomTypeController {
 	 * @param roomTypeDTO - informations of the room type
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<RoomType> addRoomType(@Valid @RequestBody RoomType roomTypeDTO) {
 		RoomType roomType = new RoomType(roomTypeDTO.getName());
@@ -66,6 +68,7 @@ public class RoomTypeController {
 	 * @return
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<RoomType> editRoomType(@PathVariable Integer id, @Valid @RequestBody RoomType roomTypeDTO) throws NotFoundException {
 		RoomType ret = roomTypeService.editRoomType(id, roomTypeDTO);
@@ -79,6 +82,7 @@ public class RoomTypeController {
 	 * @return
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRoomType(@PathVariable Integer id) throws NotFoundException {
 		RoomType ret = roomTypeService.deleteRoomType(id);

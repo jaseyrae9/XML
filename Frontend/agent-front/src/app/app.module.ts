@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateRoomPageComponent } from './pages/create-room-page/create-room-page.component';
 import { AllReservationsPageComponent } from './pages/all-reservations-page/all-reservations-page.component';
 import { ReservationPageComponent } from './pages/reservation-page/reservation-page.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { ReservationPageComponent } from './pages/reservation-page/reservation-p
     BrowserAnimationsModule,
     ReservationModule
   ],
-  providers: [JwtInterceptor],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

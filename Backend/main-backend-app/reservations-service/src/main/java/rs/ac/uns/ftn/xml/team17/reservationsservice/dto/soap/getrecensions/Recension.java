@@ -48,8 +48,11 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Recension", propOrder = {
 	"reservationId",
+	"roomId",
     "id",
     "rating",
+    "username",
+    "title",
     "comment",
     "date",
     "isApproved"
@@ -58,8 +61,11 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 public class Recension {
 
 	protected int reservationId;
-    protected String id;
+    protected int roomId;
+	protected String id;
     protected double rating;
+    protected String username;
+    protected String title;
     @XmlElement(required = true)
     protected String comment;
     @XmlElement(required = true)
@@ -78,8 +84,14 @@ public class Recension {
         
 		this.date = strDate;
 		this.isApproved = recension.getIsApproved();
+		this.title = recension.getTitle();
+		this.roomId = recension.getRoomId();
+		this.username = recension.getUsername();
 	}
 
+    
+    
+    
 	/**
      * Gets the value of the id property.
      * 
@@ -175,5 +187,61 @@ public class Recension {
     public void setIsApproved(boolean value) {
         this.isApproved = value;
     }
+
+
+
+
+	public int getReservationId() {
+		return reservationId;
+	}
+
+
+
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
+
+
+
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+
+
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
+
+
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }
