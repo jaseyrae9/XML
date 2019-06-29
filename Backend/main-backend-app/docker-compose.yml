@@ -5,6 +5,8 @@ services:
     image: postgres:latest
     networks:
       - xml-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: always
@@ -113,4 +115,4 @@ networks:
     driver: bridge
 
 volumes:
-  data: {}
+  pgdata: {}
