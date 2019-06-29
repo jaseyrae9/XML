@@ -28,6 +28,7 @@ public class RoomPreview {
 	private Integer numberOfPeople;
 	private Integer numberOfRatings;
 	private Double totalRating;
+	private byte[] mainImage;
 	/*
 	 * Calculated details
 	 */
@@ -44,6 +45,7 @@ public class RoomPreview {
 		this.numberOfPeople = room.getNumberOfPeople();
 		this.numberOfRatings = room.getNumberOfRatings();
 		this.totalRating = room.getTotalRating();
+		this.mainImage = room.getMainImage();
 	}
 	
 }
