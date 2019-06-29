@@ -34,8 +34,9 @@ public class ReservationEndpoint {
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/Reservation", localPart = "confirmReservationRequest")
     @ResponsePayload
     public ConfirmReservationResponse confirmReservation(@RequestPayload ConfirmReservationRequest confirmReservationRequest) throws NotFoundException, ReservationStatusException {
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
 		ConfirmReservationResponse response = new ConfirmReservationResponse();
-		reservationService.confirmReservation(confirmReservationRequest.getId());
+		reservationService.confirmReservation(confirmReservationRequest.getId(), hotelId);
 		response.setSuccessfully(true);
         return response;
     }
@@ -55,8 +56,9 @@ public class ReservationEndpoint {
     @ResponsePayload
     public NewReservationResponse newReservation(@RequestPayload NewReservationRequest newReservationRequest) throws ReservationImpossibleException, NotFoundException {
 		System.out.println("New reservation controller");
+		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
 		NewReservationResponse response = new NewReservationResponse();
-		rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation(reservationService.newReservation(newReservationRequest));
+		rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation r = new rs.ac.uns.ftn.xml.team17.reservationsservice.dto.soap.newreservation.Reservation(reservationService.newReservation(newReservationRequest, hotelId));
         response.setReservation(r);
 		return response;
     }

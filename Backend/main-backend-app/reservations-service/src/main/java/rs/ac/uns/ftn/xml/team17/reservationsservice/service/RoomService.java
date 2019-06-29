@@ -14,6 +14,14 @@ public class RoomService {
 	@Autowired
 	private RoomRepository roomRepository;
 	
+	public Room getAgentRoom(Integer id, Integer hotelId) throws NotFoundException {
+		Optional<Room> opt = roomRepository.findAgentRoom(id, hotelId);
+		if (!opt.isPresent()) {
+			throw new NotFoundException(id, Room.class.getSimpleName());
+		}
+		return opt.get();
+	}
+	
 	/**
 	 * Finds room with given id.
 	 * @param id

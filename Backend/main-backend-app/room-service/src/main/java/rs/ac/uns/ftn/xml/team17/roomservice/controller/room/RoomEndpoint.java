@@ -30,7 +30,6 @@ public class RoomEndpoint {
 	@PayloadRoot(namespace = "http://www.team17.xml.ftn.uns.ac.rs/NewRoom", localPart = "newRoomRequest")
 	@ResponsePayload
 	public NewRoomResponse addRoom(@RequestPayload NewRoomRequest newRoomRequest){		
-		//TODO: izbaci oba id iz hotela
 		NewRoomResponse response = new NewRoomResponse();
 		Integer hotelId = Integer.parseInt(request.getHeader("Hotel"));
 		Room r = roomService.addRoom(newRoomRequest, hotelId);

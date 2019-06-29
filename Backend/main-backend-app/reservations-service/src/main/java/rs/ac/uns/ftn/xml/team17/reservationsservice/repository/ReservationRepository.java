@@ -23,4 +23,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	
 	@Query("SELECT r FROM Reservation r WHERE r.customer.id = :customer")
 	public Page<ReservationDTO> findCustomerReservation(Integer customer, Pageable pageable);
+	
+	@Query("SELECT r FROM Reservation r WHERE r.id = :id and r.room.hotel.id = :hotel")
+	public Optional<Reservation> findAgentReservation(Integer id, Integer hotel);
 }
