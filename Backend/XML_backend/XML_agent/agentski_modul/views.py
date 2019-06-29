@@ -139,13 +139,15 @@ class Login(APIView):
             print("Getting recensions from main backend")
             client = return_zeep_client('/reservations-service/ws/getRecensions.wsdl', str(result_token), '/reservations-service/ws/getRecensions')
             result = client.service.getRecensions(lu.last_updated)
+            
 
             input_dict = zeep.helpers.serialize_object(result)
             output_dict = json.loads(json.dumps(input_dict))
             
             print("Saving feched recension data")
             for obj_dict in output_dict:
-                obj_dict['reservationId_id'] = obj_dict.pop('reservationId') 
+                obj_dict['reservationId_id'] = obj_dict.pop('reservationId')
+                obj_dict['roomId_id'] = obj_dict.pop('roomId')
                 obj, created = Recension.objects.update_or_create(id=obj_dict.pop('id'), defaults = {**obj_dict})
             print("Recensions synchronised")
             
@@ -169,35 +171,41 @@ class Login(APIView):
 
 
 class RoomCategoryView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = RoomCategory.objects.all()
     serializer_class = RoomCategorySerializer
     filterset_fields = ('active',)
 
 
 class RoomTypeView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = RoomType.objects.all()
     serializer_class = RoomTypeSerializer
     filterset_fields = ('active',)
 
 
 class AdditionalServiceView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = AdditionalService.objects.all()
     serializer_class = AdditionalServiceSerializer
     filterset_fields = ('active',)
 
 
 class RecensionView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Recension.objects.all()
     serializer_class = RecensionSerializer
-    filterset_fields = ('reservationId',)
+    filterset_fields = ('reservationId', 'roomId')
 
 
 class HotelView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
 
 
 class RoomView(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Room.objects.all()
     http_method_names = ['get', 'post', 'delete', 'head', 'options']
 
@@ -298,6 +306,7 @@ class RoomReservationFilter(filters.FilterSet):
 
 
 class ResrvationView(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Resrvation.objects.all()
     filterset_class = RoomReservationFilter
     
@@ -349,6 +358,7 @@ class ResrvationView(viewsets.ModelViewSet):
 
 
 class ImageView(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = RoomFotos.objects.all()
     serializer_class = ImageSerializer
     filterset_fields = ('room',)
@@ -379,6 +389,7 @@ class ImageView(viewsets.ModelViewSet):
 
 
 class MessageView(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'post', 'head', 'options']
     queryset = Message.objects.all()
     serializer_class = MessageSerializer

@@ -46,11 +46,13 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class RoomSerializer(serializers.ModelSerializer):
     fotos = ImageSerializer(many=True, read_only=True)
+    avg_rating = serializers.FloatField(source='getRating', read_only=True)
+    number_of_ratings = serializers.IntegerField(source='getRatingCount', read_only=True)
     class Meta:
         model = Room
         fields = ('__all__')
         depth = 1
-        extra_fields = ['fotos']
+        extra_fields = ['fotos', 'avg_rating']
 
     def get_field_names(self, declared_fields, info):
         expanded_fields = super(RoomSerializer, self).get_field_names(declared_fields, info)

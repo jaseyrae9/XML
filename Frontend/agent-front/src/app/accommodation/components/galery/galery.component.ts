@@ -46,22 +46,23 @@ export class GaleryComponent implements OnInit {
     ];
   }
 
-  addImage(image) {
-    if (!this.images) {
+  addImages(images) {
+    if (this.images === undefined && images.length !== 0) {
       this.galleryImages = [];
     }
-    const galleryImage = {
-      small: 'http://127.0.0.1:8000/' + image.photo,
-      medium: 'http://127.0.0.1:8000/' + image.photo,
-      big: 'http://127.0.0.1:8000/' + image.photo
-    };
-    this.galleryImages.push(galleryImage);
+    this.images = images;
+    this.images.forEach(image => {
+      const galleryImage = {
+        small: image.photo,
+        medium: image.photo,
+        big: image.photo
+      };
+      this.galleryImages.push(galleryImage);
+    });
   }
 
-  addImages(images) {
-    if (!this.images && !images) {
-      this.galleryImages = [];
-    }
+  reloadImages(images) {
+    this.galleryImages = [];
     this.images = images;
     this.images.forEach(image => {
       const galleryImage = {

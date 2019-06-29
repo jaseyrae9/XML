@@ -4,7 +4,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 12000
+            timeoutInMilliseconds: 60000
 
 zuul:
   host:

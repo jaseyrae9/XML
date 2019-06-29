@@ -13,26 +13,23 @@
           <ns0:lng>19.7050399</ns0:lng>
         </ns0:address>
         <ns0:type>
-          <ns0:id>6</ns0:id>
+          <ns0:id>14</ns0:id>
         </ns0:type>
         <ns0:category>
-          <ns0:id>6</ns0:id>
+          <ns0:id>4</ns0:id>
         </ns0:category>
-        <ns0:defaultPrice>111</ns0:defaultPrice>
-        <ns0:numberOfPeople>1</ns0:numberOfPeople>
-        <ns0:cancelationDays>1</ns0:cancelationDays>
+        <ns0:defaultPrice>3</ns0:defaultPrice>
+        <ns0:numberOfPeople>3</ns0:numberOfPeople>
+        <ns0:cancelationDays>3</ns0:cancelationDays>
         <ns0:additionalServices>
-          <ns0:id>1</ns0:id>
+          <ns0:id>2</ns0:id>
         </ns0:additionalServices>
         <ns0:additionalServices>
-          <ns0:id>5</ns0:id>
+          <ns0:id>3</ns0:id>
         </ns0:additionalServices>
-        <ns0:additionalServices>
-          <ns0:id>6</ns0:id>
-        </ns0:additionalServices>
-        <ns0:description>dsfsdgfsgd</ns0:description>
-        <ns0:floor>1</ns0:floor>
-        <ns0:roomNumber>1</ns0:roomNumber>
+        <ns0:description></ns0:description>
+        <ns0:floor>3</ns0:floor>
+        <ns0:roomNumber>3</ns0:roomNumber>
       </ns0:room>
     </ns0:newRoomRequest>
   </soap-env:Body>

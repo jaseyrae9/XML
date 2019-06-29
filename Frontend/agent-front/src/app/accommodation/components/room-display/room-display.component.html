@@ -4,9 +4,9 @@
             <app-galery [images]="room.fotos" #galery></app-galery>
             <app-upload-image-form [roomId]="room.id" (uploadEvent)="uploadImage($event)"></app-upload-image-form>
             <div class="rating-block bg-light rounded p-1">
-                <rating [max]="5" [readonly]="true" [(ngModel)]="room.totalRating"></rating>
+                <rating [max]="5" [readonly]="true" [(ngModel)]="room.avg_rating"></rating>
                 <p class="text-detail">
-                    Rated {{room.numberOfRatings}} times
+                    Rated {{room.number_of_ratings}} times
                 </p>
             </div>
             <div class="text-left">
@@ -64,7 +64,7 @@
                       <app-price-table [roomId]="room.id" [defaultPrice]="room.defaultPrice"></app-price-table>
                     </div>
                     <div class="tab-pane fade" id="reviews" role="tabpanel">
-                      <app-review-display></app-review-display>
+                      <app-review-display [recensions]="recensions"></app-review-display>
                     </div>
                   </div>
             </div>

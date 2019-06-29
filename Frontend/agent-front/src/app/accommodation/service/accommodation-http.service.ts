@@ -14,7 +14,8 @@ export class AccommodationHTTPService {
   roomTypeUrl = '/room_type/';
   roomCategoryUrl = '/room_category/';
   additionalServicesUrl  = '/additional_services/';
-  imageUrl = '/room_image/'
+  imageUrl = '/room_image/';
+  recensionUrl = '/recensions/';
 
   constructor(private http: HttpClient) { }
 
@@ -26,7 +27,7 @@ export class AccommodationHTTPService {
     return this.http.get(this.url + this.roomUrl);
   }
 
-  getRoom(roomId: string): Observable<Room> {
+  getRoom(roomId): Observable<Room> {
     return this.http.get<Room>(this.url + this.roomUrl + roomId);
   }
 
@@ -56,5 +57,9 @@ export class AccommodationHTTPService {
 
   addImage(imageData: FormData): Observable<any> {
     return this.http.post(this.url + this.imageUrl, imageData);
+  }
+
+  getRecensions(roomId): Observable<any> {
+    return this.http.get(this.url + this.recensionUrl + '?roomId=' + roomId);
   }
 }

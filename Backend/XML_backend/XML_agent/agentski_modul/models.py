@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -55,15 +56,19 @@ class Room(models.Model):
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
     roomType = models.ForeignKey(RoomType, blank=False, on_delete=models.PROTECT)
     roomCategory = models.ForeignKey(RoomCategory, blank=False, on_delete=models.PROTECT)
-    additionalService = models.ManyToManyField(AdditionalService)
+    additionalService = models.ManyToManyField(AdditionalService, blank=True)
     roomNumber = models.IntegerField()
     roomFloor = models.IntegerField()
     defaultPrice = models.FloatField()
     numberOfPeople = models.IntegerField(validators=[MinValueValidator(1)])
     cancelationDays = models.IntegerField(validators=[MinValueValidator(0)], null=True)
     description = models.CharField(blank=True, max_length=256, default='')
-    totalRating = models.FloatField(blank=True, null=True)
-    numberOfRaitings = models.IntegerField(blank=True, null=True)
+
+    def getRating(self):
+        return Recension.objects.filter(roomId = self.id).aggregate(Avg('rating'))['rating__avg']
+
+    def getRatingCount(self):
+        return Recension.objects.filter(roomId = self.id).count()
 
 
 class RoomFotos(models.Model):
@@ -108,9 +113,12 @@ class Message(models.Model):
 
 class Recension(models.Model):
     id = models.CharField(primary_key=True, max_length=256)
+    roomId = models.ForeignKey(Room, on_delete=models.CASCADE)
     reservationId = models.ForeignKey(Resrvation, on_delete=models.CASCADE)
     rating = models.FloatField()
-    comment = models.CharField(max_length=512)
+    comment = models.CharField(max_length=512, default='')
+    title = models.CharField(max_length=512, default='')
+    username = models.CharField(max_length=512, default='')
     date = models.DateTimeField()
     isApproved = models.BooleanField()
 

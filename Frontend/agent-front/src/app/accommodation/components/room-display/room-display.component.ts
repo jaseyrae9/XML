@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RoomDisplayComponent implements OnInit {
   room: Room = {} as Room;
+  recensions: Recension[] = [];
+
   constructor(private route: ActivatedRoute, private accommodationHTTPService: AccommodationHTTPService) { }
 
   @ViewChild('galery') galery;
@@ -19,12 +21,21 @@ export class RoomDisplayComponent implements OnInit {
       (data) => {
         this.room = data;
         this.galery.addImages(this.room.fotos);
+        this.accommodationHTTPService.getRecensions(this.room.id).subscribe(
+          (recensions) => {
+            this.recensions = recensions.results;
+          }
+        );
       }
     );
   }
 
-  uploadImage(image){
-    this.galery.addImage(image);
+  uploadImage(image) {
+    this.accommodationHTTPService.getRoom(this.room.id).subscribe(
+      (data) => {
+        this.galery.reloadImages(data.fotos);
+      }
+    );
   }
 
 }
