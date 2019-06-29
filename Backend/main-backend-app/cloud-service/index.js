@@ -56,8 +56,8 @@ app.post('/recension', function (req, res) {
 		reservationId: req.body.reservationId,
 		roomId: req.body.roomId,
 		hotelId: req.body.hotelId,
-		creationDate: new Date(),
-		modificationDate: new Date()
+		creationDate: new Date( new Date().getTime() + 2 * 3600 * 1000),
+		modificationDate: new Date( new Date().getTime() + 2 * 3600 * 1000)
 	} 
 
 	console.log('U funkciji' + req.body.roomId);
@@ -69,7 +69,7 @@ app.post('/recension', function (req, res) {
 				roomId: req.body.roomId,
 				numberOfRatings: 1,
 				totalRating: req.body.rating,
-				modificationDate: new Date()
+				modificationDate: new Date( new Date().getTime() + 2 * 3600 * 1000)
 			}
 
 			db.collection('ratings').doc(req.body.roomId.toString()).set(rating);
@@ -78,7 +78,7 @@ app.post('/recension', function (req, res) {
 			console.log('Document data:', doc.data());
 
 			db.collection('ratings').doc(req.body.roomId.toString()).update({
-				numberOfRatings: doc.data().numberOfRatings+1, totalRating: doc.data().totalRating + req.body.rating, modificationDate : new Date()
+				numberOfRatings: doc.data().numberOfRatings+1, totalRating: doc.data().totalRating + req.body.rating, modificationDate : new Date( new Date().getTime() + 2 * 3600 * 1000)
 			});
 		}
 	})
@@ -91,15 +91,15 @@ app.get('/rating/:date', function (req, res) {
 
 	let ratingRef = db.collection('ratings');
 	ratingRef.where('modificationDate', '>', new Date(req.params.date)).get().then(snapshot => {
-		if (snapshot.empty) {
-			console.log('No matching documents.');
-			res.status(404).send('Ne postoje nove ocene!');
-			return;
-		}  
 		let retVal = [];
+		if (snapshot.empty) {
+			res.json(retVal);
+
+		}  
 		snapshot.docs.forEach(function(rating) {
 			let tmp = rating.data();
 			tmp.modificationDate = rating.get('modificationDate').toDate();
+			tmp.totalRating = tmp.totalRating / tmp.numberOfRatings;
 			retVal.push(tmp);
 		});
 		res.json(retVal);
@@ -134,20 +134,20 @@ app.get('/recension', (req, res, next) => {
 
 	let recensionsRef = db.collection('recensions');
 	recensionsRef.where('isApproved', '==', false).get().then(snapshot => {
+		let retVal = [];
+		
 		if (snapshot.empty) {
 			console.log('No matching documents.');
-			return;
+			res.json(retVal);
 		}  
-		let retVal = [];
-		snapshot.docs.forEach(function(recension) {
-			let tmp = recension.data();
-			tmp.creationDate = recension.get('creationDate').toDate();
-			retVal.push(tmp);
-		});
-		res.json(retVal);
-
-
-		// res.json(snapshot.docs.map(doc => doc.data()));
+		else {
+			snapshot.docs.forEach(function(recension) {
+				let tmp = recension.data();
+				tmp.creationDate = recension.get('creationDate').toDate();
+				retVal.push(tmp);
+			});
+			res.json(retVal);
+		}
 	});
 });
 
@@ -155,8 +155,6 @@ app.get('/recension', (req, res, next) => {
 app.get('/approvedRecensions/:id', (req, res) => {
 
 	let retRecensions = [];
-	let totalRating = 0;
-	let ratingCount = 0;
 
 	let xmlRef = db.collection('recensions');
 
@@ -164,7 +162,6 @@ app.get('/approvedRecensions/:id', (req, res) => {
 		if (snapshot.empty) {
 			console.log('No matching documents.');
 			res.status(404).send('Trazena soba ne postoji!');
-			return;
 		}  
 		
 		snapshot.docs.forEach(function(recension) {
@@ -173,10 +170,8 @@ app.get('/approvedRecensions/:id', (req, res) => {
 				tmp.creationDate = recension.get('creationDate').toDate();
 				retRecensions.push(tmp);
 			}
-			ratingCount+=1;
-			totalRating+=recension.get('rating');
 		});
-		res.json({retRecensions, ratingCount, totalRating});
+		res.json(retRecensions);
 	});	
     
 });
@@ -184,19 +179,20 @@ app.get('/approvedRecensions/:id', (req, res) => {
 app.get('/recension/:hotelId/:date', (req, res) => {
 	let xmlRef = db.collection('recensions');
 	xmlRef.where('hotelId', '==', parseInt(req.params.hotelId)).get().then(snapshot => {
-		if (snapshot.empty) {
-			console.log('No matching documents.');
-			return;
-		}  
 		let retVal = [];
-		snapshot.docs.forEach(function(recension) {
-			if(recension.get('modificationDate').toDate() > new Date(req.params.date)) {
-				let tmp = recension.data();
-				tmp.creationDate = recension.get('creationDate').toDate();
-				retVal.push(tmp);
-			}
-		});
-		res.json(retVal);
+		if (snapshot.empty) {
+			res.json(retVal);
+		}  
+		else {
+			snapshot.docs.forEach(function(recension) {
+				if(recension.get('modificationDate').toDate() > new Date(req.params.date)) {
+					let tmp = recension.data();
+					tmp.creationDate = recension.get('creationDate').toDate();
+					retVal.push(tmp);
+				}
+			});
+			res.json(retVal);
+		}
 	});	
 });
 

@@ -1,19 +1,20 @@
 <div class="container">
+  
+    <div class="jumbotron-holder p-4">
+        <div class="jumbotron jumbotron-fluid p-2 m-0">
+            <div class="container text-center">
+              <h1 class="display-4">{{hotelFull.name}}</h1>
+              <p class="lead">Welcome</p>
+            </div>
+        </div>
+    </div>
   <div class="row">
-    <div class="col-md-3">
-            
+    <div class="col-md-3">            
         <!-- SIDEBAR MAP -->
         <div class="map-holder">
           <app-map ></app-map>     
         </div>
         <!-- END SIDEBAR MAP -->
-
-        <!-- SIDEBAR HOTEL TITLE -->
-        <div class="hotel-name">
-            <h4>{{ hotelFull.name }}</h4>         
-        </div>
-        <!-- END SIDEBAR HOTEL TITLE -->
-
         <!-- SIDEBAR ADDRESS -->
         <app-address-details [address]="hotelFull.address"></app-address-details>
         <!-- END SIDEBAR ADDRESS -->
@@ -27,11 +28,15 @@
         >
           There are no rooms.
         </p>
-        <!--p *ngIf='hotelFull.rooms.length != 0' style="font-size: 25px; color:  #33cabb;" align="center">Rooms</p-->
         <div *ngFor="let room of hotelFull.rooms">
           <app-room-basic-info [room]="room"></app-room-basic-info>
         </div>     
     </div>
 
+  </div>
+
+  
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessage.length != 0">
+    {{errorMessage}}
   </div>
 </div>

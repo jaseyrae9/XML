@@ -36,16 +36,10 @@
           >
         </div>
     
-        
-        <div class="alert alert-danger row" role="alert" *ngIf="errorMessage.length != 0">
-          {{errorMessage}}
-        </div>
-    
         <div class="row">
           <div class="container-fluid">
             <div class="col-sm-12 text-center">
               <input type="submit" class="btn btn-primary btn-space" value="Search" (click)="search()" />
-              <!--(click)="cancelSearch()"-->
               <button type="button" class="btn btn-primary btn-space" (click)="cancelSearch()"> Cancel </button>
             </div>
           </div>
@@ -91,6 +85,10 @@
                         </div>
                     </div>
 
+                    <div class="alert alert-danger row" role="alert" *ngIf="errorMessage.length != 0">
+                      {{errorMessage}}
+                    </div>                
+
                     <div class="row">
                       <div class="col-md-12 mb-3">
                           <label>Additional Services</label>
@@ -104,7 +102,6 @@
 
                   <div class="container-fluid">
                     <div class="col-sm-12 text-center">
-                      <!--(click)="filter()" (click)="cancelFilter"-->
                       <button type="submit" class="btn btn-primary btn-space" (click)="search()" > Filter </button>
                       <button type="button" class="btn btn-primary btn-space" (click)="cancelFilter()" > Cancel </button>
                     </div>
@@ -117,6 +114,7 @@
           </div>
         </div>
       </div>  
+      <!--search (filter) - end-->
 
    
     </form>
@@ -127,23 +125,34 @@
         </p>
       </div>
 
+      <div class="row justify-content-center">
+        <p class="pt-3 text-center" *ngIf="searchActive && rooms.length == 0" style="font-size: 25px; color:  #33cabb;">
+          Nothing was found.
+        </p>
+      </div>
+
+      <div class="text-center mt-3">
+      </div>
       <div class="row justify-content-end" *ngIf="rooms.length != 0">
           <div class="col-3">
               <select class="form-control form-control-sm" (change)="onSortChange($event.target.value)">
+               
                   <option value="category_asc">Sort by category, A-Z</option>
                   <option value="category_desc">Sort by category, Z-A</option>
                   <option value="distance_asc">Sort by distance, A-Z</option>
                   <option value="distance_desc">Sort by distance, Z-A</option>
                   <option value="price_asc">Sort by price, A-Z</option>
                   <option value="price_desc">Sort by price, Z-A</option>
+                  <option value="rating_asc">Sort by rating, A-Z</option>
+                  <option value="rating_desc">Sort by rating, Z-A</option>
                 </select>
           </div>
       </div>
     
      
     </div>  
-   
-      <!--search (filter) - end-->
+
+      
       <div *ngFor="let room of rooms" style="margin: 1%">
         <app-searched-room-basic-info [room]="room"></app-searched-room-basic-info>
       </div>  

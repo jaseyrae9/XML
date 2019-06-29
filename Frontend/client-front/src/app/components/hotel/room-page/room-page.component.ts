@@ -5,10 +5,10 @@ import { DatePipe } from '@angular/common';
 import { RoomService } from 'src/app/services/hotel/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/hotel/reservation.service';
-import { RoomRecension } from 'src/app/model/reservation/roomRecension';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReservationRequest } from 'src/app/model/reservation/reservationRequest';
 import { Router } from '@angular/router';
+import { Recension } from 'src/app/model/reservation/recension';
 
 @Component({
   selector: 'app-room-page',
@@ -18,7 +18,9 @@ import { Router } from '@angular/router';
 export class RoomPageComponent implements OnInit {
 
   @Input() roomFull: RoomFull = new RoomFull();
-  roomRecension: RoomRecension = new RoomRecension();
+  recensions: Recension[] = [];
+  errorMessage = '';
+
   averageRating = 0;
   roomId;
 
@@ -56,6 +58,8 @@ export class RoomPageComponent implements OnInit {
     this.roomService.getRoom(this.roomId).subscribe(
       (data) => {
         this.roomFull = data;
+      }, (error) => {
+        this.errorMessage = error.error.error;
       }
     );
   }
@@ -63,10 +67,8 @@ export class RoomPageComponent implements OnInit {
   loadRecensions() {
     this.reservationService.getRecensions(this.roomId).subscribe(
       (data) => {
-        this.roomRecension = data;
-        this.averageRating = this.roomRecension.totalRating / this.roomRecension.ratingCount;
+        this.recensions = data;
         console.log(data);
-        console.log('Average rating: ' + this.averageRating);
       }
     );
   }
@@ -82,7 +84,9 @@ export class RoomPageComponent implements OnInit {
     this.reservationService.createReservation(this.reservationRequest).subscribe(
       (data) => {
         this.router.navigate(['/history']);
-        alert('Reservisano.');
+      },
+      (error) => {
+        this.errorMessage = error.error.error;
       }
 
     );

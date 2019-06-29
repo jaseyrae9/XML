@@ -1,0 +1,116 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres:latest
+    networks:
+      - xml-network
+    ports:
+      - "5432:5432"
+    restart: always
+    hostname: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: familija
+      POSTGRES_DB: xml
+
+  eureka-server:
+    image: eureka-server:latest
+    networks:
+      - xml-network
+    ports:
+      - "8761:8761"
+      
+    links: 
+      - postgres
+      
+  gateway:
+    image: gateway
+    networks:
+      - xml-network
+    ports:
+      - "8762:8762"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+        
+  auth-service:
+    image: auth-service
+    networks:
+      - xml-network
+    ports:
+      - "9100-9200:9100"
+    depends_on:  
+      - eureka-server
+    links:
+      - eureka-server
+    environment:
+       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/xml
+       
+  reservation-service:
+    image: reservation-service
+    networks:
+      - xml-network
+    ports:
+      - "8200-8300:8200"
+    depends_on:  
+      - eureka-server  
+    links:
+      - eureka-server
+    environment:
+       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/xml
+       
+  room-service:
+    image: room-service
+    networks:
+      - xml-network
+    ports:
+      - "8400-8500:8400"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    environment:
+       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/xml
+       
+  search-service:
+    image: search-service
+    networks:
+      - xml-network
+    ports:
+      - "8300-8400:8300"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    environment:
+       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/xml
+       
+  admin-service:
+    image: admin-service
+    networks:
+      - xml-network
+    ports:
+      - "8100-8200:8100"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+    environment:
+       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/xml       
+
+networks:
+  xml-network:
+    driver: bridge
+
+volumes:
+  data: {}

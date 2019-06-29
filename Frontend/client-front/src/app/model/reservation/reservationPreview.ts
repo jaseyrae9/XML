@@ -11,6 +11,7 @@ export class ReservationPreview {
     totalPrice: number;
     status: string;
     canCancel: boolean;
+    hasRecension: boolean;
 
     // Details about hotel
     hotel: HotelPreview = new HotelPreview();

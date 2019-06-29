@@ -2,14 +2,6 @@ body {
   background: #f1f3fa;
 }
 
-.hotel-name {
-  text-align: center;
-  color: #33cabb;
-  margin: 1%;
-}
-
-
-
 .map-holder {
   padding-top: 25px;
   padding-bottom: 3px;
@@ -18,4 +10,15 @@ body {
 .rooms-display {
   padding-top: 20px;
   padding-left: 3%;
+}
+
+.jumbotron-holder {
+  background-image: url("/assets/images/banner/hotelBanner.jpg");
+  background-size: cover;
+  margin-bottom: 1%;
+  margin-top: 2%;
+}
+
+.jumbotron {
+  background: rgba(	211,211,211, 0.7);
 }

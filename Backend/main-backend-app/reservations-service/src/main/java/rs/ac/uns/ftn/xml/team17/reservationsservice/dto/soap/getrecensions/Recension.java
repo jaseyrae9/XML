@@ -48,6 +48,7 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Recension", propOrder = {
 	"reservationId",
+	"roomId",
     "id",
     "rating",
     "comment",
@@ -58,7 +59,8 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.dto.recension.RecensionRespo
 public class Recension {
 
 	protected int reservationId;
-    protected String id;
+    protected int roomId;
+	protected String id;
     protected double rating;
     @XmlElement(required = true)
     protected String comment;
@@ -78,8 +80,13 @@ public class Recension {
         
 		this.date = strDate;
 		this.isApproved = recension.getIsApproved();
+		
+		this.roomId = recension.getRoomId();
 	}
 
+    
+    
+    
 	/**
      * Gets the value of the id property.
      * 
@@ -175,5 +182,33 @@ public class Recension {
     public void setIsApproved(boolean value) {
         this.isApproved = value;
     }
+
+
+
+
+	public int getReservationId() {
+		return reservationId;
+	}
+
+
+
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
+
+
+
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+
+
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
+	}
 
 }

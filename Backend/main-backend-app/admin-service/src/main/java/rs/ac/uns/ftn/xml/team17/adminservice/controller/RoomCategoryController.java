@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,7 @@ public class RoomCategoryController {
 	 * @param roomCategoryDTO - informations of the room category
 	 * @return
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<RoomCategory> addRoomCategory(@Valid @RequestBody RoomCategory roomCategoryDTO) {
 		RoomCategory roomCategory = new RoomCategory(roomCategoryDTO.getNumberOfStars(), roomCategoryDTO.getDescription());
@@ -66,6 +68,7 @@ public class RoomCategoryController {
 	 * @return
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<RoomCategory> editRoomCategory(@PathVariable Integer id, @Valid @RequestBody RoomCategory roomCategoryDTO) throws NotFoundException {
 		RoomCategory ret = roomCategoryService.editRoomCategory(id, roomCategoryDTO);
@@ -79,6 +82,7 @@ public class RoomCategoryController {
 	 * @return
 	 * @throws NotFoundException 
 	 */
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRoomCategory(@PathVariable Integer id) throws NotFoundException {
 		RoomCategory ret = roomCategoryService.deleteRoomCategory(id);

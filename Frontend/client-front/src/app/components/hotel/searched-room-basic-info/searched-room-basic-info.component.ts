@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RoomPreview } from 'src/app/model/room/roomPreview';
+import { RoomFull } from 'src/app/model/room/roomFull';
 
 @Component({
   selector: 'app-searched-room-basic-info',
@@ -7,7 +7,7 @@ import { RoomPreview } from 'src/app/model/room/roomPreview';
   styleUrls: ['./searched-room-basic-info.component.css', '../../../shared/css/inputField.css']
 })
 export class SearchedRoomBasicInfoComponent implements OnInit {
-  @Input() room: RoomPreview;
+  @Input() room: RoomFull;
 
   constructor() { }
 

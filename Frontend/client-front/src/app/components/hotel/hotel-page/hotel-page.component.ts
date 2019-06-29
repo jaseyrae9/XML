@@ -12,6 +12,7 @@ export class HotelPageComponent implements OnInit {
 
   hotelFull: HotelFull = new HotelFull();
   hotelId;
+  errorMessage = '';
 
   constructor(private route: ActivatedRoute,
               private hotelService: HotelService) { }
@@ -26,6 +27,9 @@ export class HotelPageComponent implements OnInit {
       (data) => {
         this.hotelFull = data;
         console.log('Hotel: ' + data.name);
+      },
+      (error) => {
+        this.errorMessage = error.error.message;
       }
     );
   }
