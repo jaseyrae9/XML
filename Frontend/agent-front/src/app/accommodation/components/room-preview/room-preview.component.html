@@ -1,6 +1,7 @@
 <div class="row border rounded align-items-center py-2 mt-2">
     <div class="col-auto pt-1 px-2" align="center">
-        <img src="//placehold.it/250x200" width="200px" class="rounded">
+        <img src="assets/images/no-image.png" width="200px" class="rounded" *ngIf="room.fotos.length == 0" >
+        <img src="{{room.fotos[0].photo}}" width="200px" class="rounded" *ngIf="room.fotos.length != 0" >
     </div>
 
     <div class="col pt-2 border-left border-right p-3" align="center">

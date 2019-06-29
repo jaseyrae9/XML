@@ -20,6 +20,7 @@ import { GaleryComponent } from './components/galery/galery.component';
 import { PriceTableComponent } from './components/price-table/price-table.component';
 import { ReviewDisplayComponent } from './components/review-display/review-display.component';
 import { RoomFormComponent } from './components/room-form/room-form.component';
+import { UploadImageFormComponent } from './components/upload-image-form/upload-image-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RoomFormComponent } from './components/room-form/room-form.component';
     GaleryComponent,
     PriceTableComponent,
     ReviewDisplayComponent,
-    RoomFormComponent
+    RoomFormComponent,
+    UploadImageFormComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgxGalleryImage, NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gallery';
 
 @Component({
@@ -7,6 +7,7 @@ import { NgxGalleryImage, NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./galery.component.css']
 })
 export class GaleryComponent implements OnInit {
+  @Input() images = [];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
@@ -36,29 +37,40 @@ export class GaleryComponent implements OnInit {
           preview: false
       }
     ];
-
     this.galleryImages = [
       {
-          small: 'assets/images/room/queen/small.jpg',
-          medium: 'assets/images/room/queen/medium.jpg',
-          big: 'assets/images/room/queen/big.jpg'
-      },
-      {
-          small: 'assets/images/room/king/small.jpg',
-          medium: 'assets/images/room/king/medium.jpg',
-          big: 'assets/images/room/king/big.jpg'
-      },
-      {
-          small: 'assets/images/room/single/small.jpg',
-          medium: 'assets/images/room/single/medium.jpg',
-          big: 'assets/images/room/single/big.jpg'
-      },
-      {
-          small: 'assets/images/room/double/small.jpg',
-          medium: 'assets/images/room/double/medium.jpg',
-          big: 'assets/images/room/double/big.jpg'
-       },
+        small: 'assets/images/no-image.png',
+        medium: 'assets/images/no-image.png',
+        big: 'assets/images/no-image.png'
+      }
     ];
+  }
+
+  addImage(image) {
+    if (!this.images) {
+      this.galleryImages = [];
+    }
+    const galleryImage = {
+      small: 'http://127.0.0.1:8000/' + image.photo,
+      medium: 'http://127.0.0.1:8000/' + image.photo,
+      big: 'http://127.0.0.1:8000/' + image.photo
+    };
+    this.galleryImages.push(galleryImage);
+  }
+
+  addImages(images) {
+    if (!this.images && !images) {
+      this.galleryImages = [];
+    }
+    this.images = images;
+    this.images.forEach(image => {
+      const galleryImage = {
+        small: image.photo,
+        medium: image.photo,
+        big: image.photo
+      };
+      this.galleryImages.push(galleryImage);
+    });
   }
 
 }

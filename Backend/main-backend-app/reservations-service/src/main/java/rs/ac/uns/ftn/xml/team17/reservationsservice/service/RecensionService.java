@@ -61,6 +61,8 @@ public class RecensionService {
 			ret.add(r);
 		}
 		
+		System.out.println("Konvertovao, vracam rezultat");
+		System.out.println(ret);
 		return ret;
 		
 	}
