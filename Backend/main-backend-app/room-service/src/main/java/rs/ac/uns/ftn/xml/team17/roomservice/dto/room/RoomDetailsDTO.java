@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.xml.team17.roomservice.dto.room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class RoomDetailsDTO {
 	private Double defaultPrice;
 	private Integer numberOfRatings;
 	private Double totalRating;
-	private List<Image> images;
+	private List<byte[]> images;
 	
 	public RoomDetailsDTO(Room room) {
 		this.id = room.getId();
@@ -48,6 +49,9 @@ public class RoomDetailsDTO {
 		this.defaultPrice = room.getDefaultPrice();
 		this.numberOfRatings = room.getNumberOfRatings();
 		this.totalRating = room.getTotalRating();
-		this.images = room.getImages();
+		this.images = new ArrayList<byte[]>();
+		for(Image image:room.getImages()) {
+			this.images.add(image.getImage());
+		}
 	}
 }

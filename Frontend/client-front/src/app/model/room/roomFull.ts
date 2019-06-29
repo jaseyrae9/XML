@@ -19,4 +19,5 @@ export class RoomFull {
     defaultPrice: number; // double
     totalRating: number; // double
     numberOfRatings: number;
+    images: string[];
 }

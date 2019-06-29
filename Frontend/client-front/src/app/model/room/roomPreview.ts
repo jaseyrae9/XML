@@ -11,11 +11,12 @@ export class RoomPreview {
     category: RoomCategory;
     numberOfPeople: number;
     roomNumber: number;
-    mainImage: any[];
+    mainImage: string;
 
     // for search
     hotel: HotelPreview;
     totalStayPrice: number;
     distance: number;
+    totalRating: number;
 
 }

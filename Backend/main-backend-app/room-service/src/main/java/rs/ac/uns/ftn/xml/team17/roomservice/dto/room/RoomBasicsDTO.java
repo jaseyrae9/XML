@@ -19,6 +19,7 @@ public class RoomBasicsDTO {
 	private RoomCategory category;
 	private Integer numberOfPeople;
 	private Integer roomNumber;
+	private Double defaultPrice;
 	private byte[] mainImage;
 	
 	public RoomBasicsDTO(Room room) {
@@ -29,5 +30,6 @@ public class RoomBasicsDTO {
 		this.numberOfPeople = room.getNumberOfPeople();
 		this.roomNumber = room.getRoomNumber();
 		this.mainImage = room.getMainImage();
+		this.defaultPrice = room.getDefaultPrice();
 	}
 }

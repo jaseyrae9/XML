@@ -13,9 +13,9 @@
       <div class="row">
         <div class="col-12 text-center">
             <div class="gallery-sidebar">
-                <app-gallery></app-gallery>
+                <app-gallery #gallery></app-gallery>
             </div>
-            
+
             <div class="rating-block bg-light rounded p-1">
               <!--[(ngModel)]="roomFull.totalRating" -->
                 <rating [max]="5" [readonly]="true" [(ngModel)]="roomFull.totalRating"></rating>
@@ -71,7 +71,7 @@
                 <div  class="d-inline-flex pr-1" *ngFor="let additionalService of roomFull.additionalServices">
                   <span class="badge badge-pill badge-primary">{{additionalService.name}}</span>
                 </div>
-                
+
               </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
 
       <!--tab red-->
       <div class="row">
-        <div class="col-12">      
+        <div class="col-12">
               <ul class="nav nav-tabs">
                   <!--CENOVNIK-->
                   <li class="nav-item active">
@@ -88,7 +88,7 @@
                       <i class="fa fa-tags mr-1" aria-hidden="true"></i> Price Table
                     </a>
                   </li>
-                 
+
                   <!--REVIEWS-->
                   <li class="nav-item">
                     <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
@@ -99,15 +99,15 @@
 
               <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade show active" id="pricelist" aria-labelledby="pricelist-tab">
-                    <app-price-table [defaultPrice]="roomFull.defaultPrice" [roomId]="roomId"></app-price-table>
+                    <app-price-table #prices [defaultPrice]="roomFull.defaultPrice" [roomId]="roomId"></app-price-table>
                     </div>
-                
-                   
+
+
                     <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
                       <app-review-details [recensions]="recensions"></app-review-details>
                   </div>
               </div>
-           
+
             <br/>
         </div>
       </div>
@@ -125,10 +125,10 @@
                 <div class="card-body">
                   <h5 class="card-title"  style="color: #33cabb;">Book your room</h5>
                   <hr/>
-                 
+
                   <form name="form" [formGroup]="bookForm">
                       <div class="input-group form-group py-1">
-                        <div class="input-group-prepend"> 
+                        <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="fa fa-calendar-alt" aria-hidden="true"></i>
                             </span>
@@ -145,7 +145,7 @@
                     <button type="button" class="btn btn-primary btn-block" (click)="bookRoom()" > Book </button>
 
                   </form>
-                 
+
                 </div>
               </div>
         </div>
@@ -160,8 +160,8 @@
                   <div>
                     <app-map [address]="roomFull.address" ></app-map>
                   </div>
-                  <!-- END SIDEBAR USERPIC -->          
-                 
+                  <!-- END SIDEBAR USERPIC -->
+
                   <!-- SIDEBAR MENU -->
                   <app-address-details [address]="roomFull.address"></app-address-details>
 

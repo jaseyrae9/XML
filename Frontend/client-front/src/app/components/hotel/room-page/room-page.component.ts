@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RoomFull } from 'src/app/model/room/roomFull';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
@@ -32,6 +32,9 @@ export class RoomPageComponent implements OnInit {
 
   reservationRequest: ReservationRequest = new ReservationRequest();
 
+  @ViewChild('gallery') gallery;
+  @ViewChild('prices') prices;
+
   constructor(public datePipe: DatePipe,
               private route: ActivatedRoute,
               private roomService: RoomService,
@@ -55,11 +58,14 @@ export class RoomPageComponent implements OnInit {
   }
 
   loadRoom() {
+    console.log('loading room');
     this.roomService.getRoom(this.roomId).subscribe(
       (data) => {
         this.roomFull = data;
+        this.gallery.populateGallery(this.roomFull.images);
+        this.prices.removeUndefined(this.roomFull.defaultPrice);
       }, (error) => {
-        this.errorMessage = error.error.error;
+        this.errorMessage = error.error.message;
       }
     );
   }
