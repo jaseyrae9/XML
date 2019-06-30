@@ -160,18 +160,18 @@ app.get('/approvedRecensions/:id', (req, res) => {
 
 	xmlRef.where('roomId', '==', parseInt(req.params.id)).get().then(snapshot => {
 		if (snapshot.empty) {
-			console.log('No matching documents.');
-			res.status(404).send('Trazena soba ne postoji!');
+			res.json(retRecensions);
 		}  
-		
-		snapshot.docs.forEach(function(recension) {
-			if(recension.get('isApproved')) {
-				let tmp = recension.data();
-				tmp.creationDate = recension.get('creationDate').toDate();
-				retRecensions.push(tmp);
-			}
-		});
-		res.json(retRecensions);
+		else {
+			snapshot.docs.forEach(function(recension) {
+				if(recension.get('isApproved')) {
+					let tmp = recension.data();
+					tmp.creationDate = recension.get('creationDate').toDate();
+					retRecensions.push(tmp);
+				}
+			});
+			res.json(retRecensions);
+		}
 	});	
     
 });
