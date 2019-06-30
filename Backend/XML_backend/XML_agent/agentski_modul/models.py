@@ -34,7 +34,7 @@ class RoomCategory(models.Model):
 class Address(models.Model):
     id = models.IntegerField(primary_key=True)
     country = models.CharField(max_length=30, default='', blank=False)
-    state = models.CharField(max_length=30, default='', blank=True)
+    state = models.CharField(max_length=30, default='', blank=True, null=True)
     city = models.CharField(max_length=30, default='', blank=False)
     postalCode = models.CharField(max_length=30, default='', blank=False)
     street = models.CharField(max_length=30, default='', blank=False)

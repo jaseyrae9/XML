@@ -26,7 +26,7 @@ from django_filters import rest_framework as filters, DateFromToRangeFilter
 
 
 def return_zeep_client(wsdl_url, token, address):
-    prefix = 'http://localhost:8762'
+    prefix = 'http://192.168.0.100:8762'
     client = zeep.Client(prefix + wsdl_url)
     client.transport.session.headers.update({'Authorization': 'Bearer ' + token})
     client.service._binding_options['address'] = prefix + address
@@ -44,16 +44,19 @@ def read_and_save_zeep_result(result, model):
 class Login(APIView):
     def post(self, request, format=None):
         data = request.data
+        print(request.data)
         username = data.get('username', None)
         password = data.get('password', None)
+        print(password)
+        print(username)
         
         lu = Update.objects.last()
         if (lu == None):
             lu = Update.objects.create(last_updated = '2000-01-01 00:00:00')
 
         # deo sa autentifikacijom sa glavnim backom
-        client = zeep.Client('http://localhost:8762/auth-service/auth/soap/authentication.wsdl')
-        # client.service._binding_options['address'] = 'http://localhost:8762/auth-service/auth/soap'
+        client = zeep.Client('http://192.168.0.100:8762/auth-service/auth/soap/authentication.wsdl')
+        client.service._binding_options['address'] = 'http://192.168.0.100:8762/auth-service/auth/soap'
 
         try:
             result_token = client.service.authentication(username, password)
@@ -152,7 +155,7 @@ class Login(APIView):
             print("Recensions synchronised")
             
             
-            lu = Update.objects.create(last_updated = '2000-01-01 00:00:00')
+            lu = Update.objects.create(last_updated = last_update_datetime)
             token = Token.objects.first()
             if token == None:
                 token = Token.objects.create(last_token = str(result_token))
@@ -365,9 +368,11 @@ class ImageView(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = ImageSerializer(data=request.data)
+        print(request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        print("Mesec")
         validated_data = serializer.validated_data
         base_64_img = base64.b64encode(validated_data['photo'].read())
 

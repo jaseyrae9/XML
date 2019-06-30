@@ -27,6 +27,9 @@ import rs.ac.uns.ftn.xml.team17.reservationsservice.model.reservation.Reservatio
 @Service
 public class RecensionService {
 	
+	private static final String RECENSION = "https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/"; 
+	private static final String APPROVED_RECENSIONS = "https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/";
+	
 	@Autowired
 	private ReservationService reservationService;
 	
@@ -49,8 +52,8 @@ public class RecensionService {
 		strDate = strDate.replace(" ", "T");
 		strDate += "Z";
 		
-		System.out.println("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + hotelId + "/" + strDate);
-		List<RecensionResponseDTO> retRecensions = restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + hotelId + "/" + strDate,
+		System.out.println(RECENSION + hotelId + "/" + strDate);
+		List<RecensionResponseDTO> retRecensions = restTemplate.exchange(RECENSION + hotelId + "/" + strDate,
 				HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
 				}).getBody();
 	
@@ -71,7 +74,7 @@ public class RecensionService {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
 		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
-		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension",HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
+		return restTemplate.exchange(RECENSION,HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {
 				}).getBody();
 		
 	}
@@ -82,7 +85,7 @@ public class RecensionService {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		List<RecensionResponseDTO> recensions = new ArrayList<RecensionResponseDTO>();
 		HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
-		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/approvedRecensions/" + roomId, HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {	}).getBody();
+		return restTemplate.exchange(APPROVED_RECENSIONS + roomId, HttpMethod.GET, entity, new ParameterizedTypeReference<List<RecensionResponseDTO>>() {	}).getBody();
 	}
 
 	public Boolean approveRecension(String recensionId) {
@@ -91,7 +94,7 @@ public class RecensionService {
 		
 		RecensionResponseDTO recension = new RecensionResponseDTO();
 		HttpEntity<RecensionResponseDTO> entity = new HttpEntity<RecensionResponseDTO>(recension, headers);
-		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension/" + recensionId,HttpMethod.PUT, entity, Boolean.class).getBody();
+		return restTemplate.exchange(RECENSION + recensionId,HttpMethod.PUT, entity, Boolean.class).getBody();
 	}
 
 	public RecensionResponseDTO addRecension(Integer customer, @Valid RecensionDTO recensionDTO, String username) throws NotFoundException, RecensionException {
@@ -110,7 +113,7 @@ public class RecensionService {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		
 		HttpEntity<RecensionDTO> entity = new HttpEntity<RecensionDTO>(recensionDTO, headers);
-		return restTemplate.exchange("https://us-central1-xmlprojekat.cloudfunctions.net/app/recension",HttpMethod.POST, entity, RecensionResponseDTO.class).getBody();
+		return restTemplate.exchange(RECENSION,HttpMethod.POST, entity, RecensionResponseDTO.class).getBody();
 	}
 
 }

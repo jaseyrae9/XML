@@ -14,7 +14,7 @@ class HotelDetails extends React.Component {
 
     componentDidMount() {
         this.setState({ isLoading: true });
-        get('http://localhost:8762/room-service/hotel/' + this.props.match.params.id, this.readCRUD)
+        get('http://192.168.0.100:8762/room-service/hotel/' + this.props.match.params.id, this.readCRUD)
     }
 
     readCRUD = (data, isLoading, error) => {
