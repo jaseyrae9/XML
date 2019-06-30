@@ -20,7 +20,8 @@ function App() {
   const customer = { id: "integer", username: "", firstName: "", lastName: "", blocked: "bool", active: "bool" }
   const recension = { id: "integer", isApproved: "bool", rating: "integer", comment: "", creationDate: "", reservationId: "integer", title: "", username: "jeca" }
 
-  const url_prefix = 'http://localhost:8762'
+  // const url_prefix = 'http://localhost:8762'
+  const url_prefix = 'http://192.168.0.100:8762'
 
   return (
     <BrowserRouter>

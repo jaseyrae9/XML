@@ -1,6 +1,6 @@
 import React from "react"
 import { Table, Button } from 'reactstrap'
-import { get, getHeader, del } from '../crud'
+import { get, getHeader } from '../crud'
 import axios from 'axios'
 
 class Recensions extends React.Component {
@@ -50,7 +50,7 @@ class Recensions extends React.Component {
                     {values}
                     <td>
                         <Button color="warning" onClick={() => this.update(this.props.url, object, this.afterDelete)} className="mr-2">Change</Button>
-                        <Button color="danger" value={object.id} onClick={() => del(this.props.url, object.id, this.afterDelete)}>Delete</Button>
+                        {/* <Button color="danger" value={object.id} onClick={() => del(this.props.url, object.id, this.afterDelete)}>Delete</Button> */}
                     </td>
                 </tr>
             })
