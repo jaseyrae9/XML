@@ -2,7 +2,8 @@
 
 
 ### Pokretanje bez docker-a
-Pokretanje Spring Boot glavnog backend-a
+
+#### Pokretanje Spring Boot glavnog backend-a
 * Uraditi maven update projekta za sve mikroservise
 * Pokrenuti eureka-server
 * Pokrenuti ostale mikroservise
