@@ -36,7 +36,7 @@ export class UploadImageFormComponent implements OnInit {
     this.accommodationHTTPService.addImage(fd).subscribe(
       (data) => {
         this.uploadEvent.next(data);
-        this.uploadImageForm.reset();
+        this.uploadImageForm.reset({is_cover: false});
       }
     );
   }

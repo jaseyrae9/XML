@@ -9,29 +9,29 @@
             <a routerLink="/history">
               <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to all reservations
             </a>
-        </div>  
+        </div>
 
         <div class="card mb-2">
             <div class="card-body">
-              <h6 class="card-title"  style="color: #33cabb;"> 
-                 
+              <h6 class="card-title"  style="color: #33cabb;">
+
                   <a routerLink="/hotel/{{reservation.hotel.id}}">
                     {{reservation.hotel.name}}
                  </a>
               </h6>
-              <hr/>    
-             
-              <div>
-                  <small>Reserved on: {{createdOn}} </small>
+              <hr/>
+
+              <div> <!--{{ message.creationDate | date }}-->
+                  <small>Reserved on: {{ reservation.created }} </small>
               </div>
               <div>
-                  <small  style="color: #33cabb" *ngIf="reservation.status == 'CANCELED'">Canceled</small>            
+                  <small  style="color: #33cabb" *ngIf="reservation.status == 'CANCELED'">Canceled</small>
 
                   <small style="color: #33cabb" *ngIf="reservation.status != 'CANCELED'">Total price: €{{reservation.totalPrice}}</small>
               </div>
-                      
+
             </div>
-        </div>        
+        </div>
     </div>
     <!--kraj levog dela-->
 
@@ -40,7 +40,7 @@
     <div class="col-md-6 text-center">
         <div class="col-auto mb-2 text-center">
           <p style="font-size: 22px; color: #33cabb">Reserved from : {{reservation.start}} to {{reservation.end}} </p>
-        </div>  
+        </div>
 
         <ul class="nav nav-tabs mt-1">
             <!--PORUKE-->
@@ -49,7 +49,7 @@
                 <i class="fa fa-envelope mr-1" aria-hidden="true"></i> Messages
               </a>
             </li>
-           
+
             <!--REVIEWS-->
             <li class="nav-item">
               <a href="#reviews" role="tab" data-toggle="tab" class="nav-link">
@@ -60,12 +60,12 @@
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="messages" aria-labelledby="messages-tab">
-              
+
               <div class="d-flex flex-column align-items-stretch">
                 <div *ngFor="let message of messages" >
                    <app-messages-details [message]="message"></app-messages-details>
                 </div>
-                <form [formGroup]="newMessageForm" (validSubmit)="sendMessage()" class="mt-3">
+                <form [formGroup]="newMessageForm" (validSubmit)="sendMessage()" class="mt-3" #sendMessageForm="ngForm">
                  <div class="row align-items-center">
                      <div class="col-10">
                          <textarea class="form-control"  formControlName="message" rows="3" placeholder="Enter text here..."></textarea>
@@ -74,7 +74,7 @@
                      <div class="alert alert-danger" role="alert" *ngIf="errorMessage.length != 0">
                       {{errorMessage}}
                     </div>
-                    
+
                      <div class="col-2">
                          <button type="submit" class="btn btn-primary" > Send </button>
                      </div>
@@ -83,10 +83,10 @@
              </div>
 
             </div>
-          
-             
+
+
               <div class="tab-pane fade" id="reviews" aria-labelledby="reviews-tab">
-                <app-create-recension *ngIf="reservation.status == 'HAPPENED' && !reservation.hasRecension " [reservationId]='reservationId' ></app-create-recension>
+                <app-create-recension *ngIf="reservation.status == 'HAPPENED' && !reservation.hasRecension " [reservationId]='reservationId' (recensionCreated)="recensionCreated($event)" ></app-create-recension>
                 <p *ngIf="reservation.hasRecension"  style="color: #33cabb; font-size: 15px" class="pt-2"> You've already post a review. </p>
                 <p *ngIf="reservation.status != 'HAPPENED'"  style="color: #33cabb; font-size: 15px" class="pt-2"> You can't post a review because your reservation hasn't happen. </p>
 
@@ -102,40 +102,40 @@
             <a routerLink="/room/{{reservation.roomId}}">
                See room <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
-        </div>  
+        </div>
 
         <div class="card mb-2">
             <div class="card-body">
               <h6 class="card-title"  style="color: #33cabb;">Basic details about room</h6>
-              <hr/>    
-             
+              <hr/>
+
               <div>
                   <small>Room number: {{reservation.roomNumber}} </small>
               </div>
               <div>
                   <small>Number of people: {{reservation.numberOfPeople}} </small>
-              </div>                      
+              </div>
             </div>
-        </div>  
+        </div>
 
         <div class="profile-sidebar">
             <!-- SIDEBAR USERPIC -->
             <div>
               <app-map></app-map>
             </div>
-            <!-- END SIDEBAR USERPIC -->          
-           
+            <!-- END SIDEBAR USERPIC -->
+
             <!-- SIDEBAR MENU -->
             <app-address-details [address]="reservation.address"></app-address-details>
 
             <!-- END MENU -->
-        </div>      
+        </div>
     </div>
     <!--kraj desnog dela-->
 
 </div>
 
-  
+
 
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/hotel/reservation.service';
 import { ReservationPreview } from 'src/app/model/reservation/reservationPreview';
@@ -18,6 +18,7 @@ export class ReservationPageComponent implements OnInit {
   @Input() reservation: ReservationPreview = new ReservationPreview();
   createdOn;
   errorMessage = '';
+  @ViewChild('sendMessageForm') sendMessageForm;
 
   messages: Message[] = [];
   newMessageForm: FormGroup;
@@ -42,7 +43,7 @@ export class ReservationPageComponent implements OnInit {
     this.reservationService.getReservation(this.reservationId).subscribe(
       (data) => {
         this.reservation = data;
-        this.createdOn = this.datePipe.transform(this.reservation.created, 'yyyy-MM-dd');
+        // this.createdOn = this.datePipe.transform(this.reservation.created, 'yyyy-MM-dd');
        // console.log('Rezervacija', data);
       },
       (error) => {
@@ -60,11 +61,13 @@ export class ReservationPageComponent implements OnInit {
     );
   }
 
+
   sendMessage() {
     this.messageRequest.message =  this.newMessageForm.value.message;
     this.reservationService.sendMessage(this.reservationId, this.messageRequest).subscribe(
       (data) => {
         console.log(data);
+        this.sendMessageForm.resetForm();
         this.messages.push(data);
       },
       (error) => {
@@ -73,4 +76,7 @@ export class ReservationPageComponent implements OnInit {
     );
   }
 
+  recensionCreated(data) {
+    this.reservation.hasRecension = true;
+  }
 }

@@ -1,3 +1,4 @@
+import { Message } from 'src/app/model/reservation/message';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { RoomFull } from 'src/app/model/room/roomFull';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
@@ -92,7 +93,7 @@ export class RoomPageComponent implements OnInit {
         this.router.navigate(['/history']);
       },
       (error) => {
-        this.errorMessage = error.error.error;
+        this.errorMessage = error.error.message;
       }
 
     );

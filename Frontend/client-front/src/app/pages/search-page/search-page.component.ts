@@ -107,6 +107,9 @@ export class SearchPageComponent implements OnInit {
         console.log('data', data);
         this.searchActive = true;
         this.populateView(data);
+      },
+      (error) => {
+        this.errorMessage = error.error.message;
       }
     );
   }

@@ -13,6 +13,7 @@ export class ReservationDetailsComponent implements OnInit {
   room: Room = {} as Room;
   messages: Message[] = [];
   newMessageForm: FormGroup;
+  @ViewChild('sendMessageForm') sendMessageForm;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private reservationService: ReservationService) {
     this.newMessageForm = this.formBuilder.group({
@@ -55,6 +56,7 @@ export class ReservationDetailsComponent implements OnInit {
     this.reservationService.sendMessage(messageInfo).subscribe(
       (data) => {
         console.log(data);
+        this.sendMessageForm.resetForm();
         this.messages.push(data);
       },
       (error) => {

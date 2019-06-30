@@ -1,14 +1,14 @@
 <div class="container" >
- 
+
     <p *ngIf="recensions.length == 0" class="text-muted pt-3">
         There are no reviews for this room.
     </p>
- 
-        
-    <div class="row border rounded pt-2 " *ngFor="let recension of recensions">
-       
+
+
+    <div class="row border rounded pt-2 mt-2" *ngFor="let recension of recensions">
+
       <div class="col-sm-3 my-4"  >
-          
+
           <div > {{recension.username}} </div>
           <div class="text-detail"> {{recension.creationDate}} </div>
       </div>

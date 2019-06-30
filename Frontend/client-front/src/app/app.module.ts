@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/basic-components/navigation/navigation.component';
 import { LoginFormComponent } from './components/user/login-form/login-form.component';
 import { RegisterFormComponent } from './components/user/register-form/register-form.component';
-import { ChangePasswordFormComponent } from './components/user/change-password-form/change-password-form.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { BannerComponent } from './components/basic-components/banner/banner.component';
@@ -46,6 +45,7 @@ import { SearchedRoomBasicInfoComponent } from './components/hotel/searched-room
 import {NgPipesModule} from 'ngx-pipes';
 import { CreateRecensionComponent } from './components/reservations-history/create-recension/create-recension.component';
 import { MessagesDetailsComponent } from './components/reservations-history/messages-details/messages-details.component';
+import { FooterComponent } from './components/basic-components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,6 @@ import { MessagesDetailsComponent } from './components/reservations-history/mess
     NavigationComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    ChangePasswordFormComponent,
     HomePageComponent,
     ErrorPageComponent,
     BannerComponent,
@@ -74,7 +73,8 @@ import { MessagesDetailsComponent } from './components/reservations-history/mess
     ReservationPageComponent,
     SearchedRoomBasicInfoComponent,
     CreateRecensionComponent,
-    MessagesDetailsComponent
+    MessagesDetailsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

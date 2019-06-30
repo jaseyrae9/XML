@@ -11,6 +11,10 @@
             <input formControlName="date" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker placeholder="Choose period" [bsConfig]="datePickerConfig">
         </div>
 
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage" >
+          <strong>Oh snap!</strong> {{errorMessage}}
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block" > Create reservation </button>
       </form>
 

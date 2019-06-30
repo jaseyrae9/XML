@@ -1,4 +1,4 @@
-<div style="padding: 1%" class="container">
+<div style="padding: 1%" class="container mb-3">
     <small class="class=" text-muted> Find available accommodation when <b>You</b> need them: </small>
     <hr>
 
@@ -14,7 +14,7 @@
             </div>
             <input formControlName="location" type="text" class="form-control" placeholder="Location">
           </div>
-      
+
           <div class="col-md-4 input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
@@ -24,7 +24,7 @@
             <input formControlName="numberOfPeople" type="text" class="form-control" placeholder="Number of people">
           </div>
 
-          <div class="col-md-4 input-group form-group">          
+          <div class="col-md-4 input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="fa fa-calendar-alt" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
           </div
           >
         </div>
-    
+
         <div class="row">
           <div class="container-fluid">
             <div class="col-sm-12 text-center">
@@ -60,14 +60,14 @@
           <div id="collapseOne" class="collapse" data-parent="#accordion">
 
             <div class="card-body">
-    
+
                     <div class="row">
                         <div class="col-md-3 mb-3">
                           <label>Room type</label>
                           <ng-select [searchable]="true" [items]="roomTypes" bindValue="id" bindLabel="name" placeholder="Select room type" formControlName="roomType">
                           </ng-select>
                         </div>
-                    
+
                         <div class="col-md-3 mb-3">
                           <label>Room category</label>
                           <ng-select [searchable]="true" [items]="roomCategories" bindValue="id" bindLabel="numberOfStars" placeholder="Select room category" formControlName="roomCategory">
@@ -75,19 +75,19 @@
                         </div>
 
                         <div class="col-md-3 mb-3 ">
-                            <label>Distance from location</label>                           
+                            <label>Distance from location (in km)</label>
                             <input formControlName="distance" type="text" class="form-control " placeholder="Distance from location">
                           </div>
 
                         <div class="col-md-3 mb-3 ">
-                            <label>Cancelation days</label>                           
+                            <label>Cancelation days</label>
                             <input formControlName="cancelationDays" type="text" class="form-control " placeholder="Cancelation days">
                         </div>
                     </div>
 
                     <div class="alert alert-danger row" role="alert" *ngIf="errorMessage.length != 0">
                       {{errorMessage}}
-                    </div>                
+                    </div>
 
                     <div class="row">
                       <div class="col-md-12 mb-3">
@@ -107,16 +107,16 @@
                     </div>
                   </div>
 
-           
+
             </div>
 
 
           </div>
         </div>
-      </div>  
+      </div>
       <!--search (filter) - end-->
 
-   
+
     </form>
     <div>
       <div class="row justify-content-center">
@@ -136,7 +136,7 @@
       <div class="row justify-content-end" *ngIf="rooms.length != 0">
           <div class="col-3">
               <select class="form-control form-control-sm" (change)="onSortChange($event.target.value)">
-               
+
                   <option value="category_asc">Sort by category, A-Z</option>
                   <option value="category_desc">Sort by category, Z-A</option>
                   <option value="distance_asc">Sort by distance, A-Z</option>
@@ -148,14 +148,14 @@
                 </select>
           </div>
       </div>
-    
-     
-    </div>  
 
-      
+
+    </div>
+
+
       <div *ngFor="let room of rooms" style="margin: 1%">
         <app-searched-room-basic-info [room]="room"></app-searched-room-basic-info>
-      </div>  
-   
-   
+      </div>
+
+
 </div>

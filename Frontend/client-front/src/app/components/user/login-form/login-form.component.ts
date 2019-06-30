@@ -1,4 +1,3 @@
-import { ChangePasswordFormComponent } from './../change-password-form/change-password-form.component';
 import { JwtResponse } from './../../../auth/jwt-response';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
@@ -16,8 +15,6 @@ export class LoginFormComponent implements OnInit {
 
   form: any = {};
   errorMessage = '';
-  @ViewChild(ChangePasswordFormComponent)
-  private changePasswordModal: ChangePasswordFormComponent;
 
   private loginInfo: AuthLoginInfo;
 
@@ -37,15 +34,11 @@ export class LoginFormComponent implements OnInit {
     this.authService.attemptAuth(this.loginInfo).subscribe(
       (data: JwtResponse) => {
         this.tokenStorage.saveUsername(this.form.username);
-        if (data.needsPasswordChange) {
-          this.changePasswordModal.openModalWithToken(data.token);
-        } else {
           this.tokenStorage.saveToken(data.token);
           const tokenPayload: TokenPayload = decode(data.token);
           this.tokenStorage.saveRoles(tokenPayload.roles);
           // this.tokenStorage.saveComapny(tokenPayload.companyId);
           console.log(tokenPayload);
-        }
       },
       error => {
         this.errorMessage = error.error.details;

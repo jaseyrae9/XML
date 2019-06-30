@@ -11,6 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NewReservationFormComponent implements OnInit {
   @Input() roomId: number;
+  errorMessage = '';
 
   datePickerConfig: Partial<BsDatepickerConfig> = Object.assign({},
     {
@@ -30,6 +31,7 @@ export class NewReservationFormComponent implements OnInit {
   }
 
   submitReservation() {
+    this.errorMessage = '';
     const reservationInfo = {
       roomId : this.roomId,
       dateFrom: this.datePipe.transform(this.newReservationForm.value.date[0], 'yyyy-MM-dd'),
@@ -40,7 +42,7 @@ export class NewReservationFormComponent implements OnInit {
         alert('Reservation created');
       },
       (error) => {
-        alert('Reservation error');
+        this.errorMessage = error.error;
       }
     )
     this.newReservationForm.reset();

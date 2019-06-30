@@ -2,7 +2,7 @@
   There are no reviews yet.
 </div>
 <div class="container" *ngFor="let recension of recensions" >
-  <div class="row border rounded pt-2">
+  <div class="row border rounded pt-2 mt-2">
       <div class="col-sm-3">
           <span class="badge badge-secondary" *ngIf="recension.isApproved">Approved</span>
           <span class="badge badge-secondary" *ngIf="!recension.isApproved">Waiting for approval</span>

@@ -1,5 +1,5 @@
 <div class="container">
-  
+
     <div class="jumbotron-holder p-4">
         <div class="jumbotron jumbotron-fluid p-2 m-0">
             <div class="container text-center">
@@ -9,10 +9,10 @@
         </div>
     </div>
   <div class="row">
-    <div class="col-md-3">            
+    <div class="col-md-3">
         <!-- SIDEBAR MAP -->
         <div class="map-holder">
-          <app-map [address]="hotelFull.address" ></app-map>     
+          <app-map [address]="hotelFull.address" ></app-map>
         </div>
         <!-- END SIDEBAR MAP -->
         <!-- SIDEBAR ADDRESS -->
@@ -20,7 +20,7 @@
         <!-- END SIDEBAR ADDRESS -->
       </div>
 
-    <div class="col-md-9 rooms-display">    
+    <div class="col-md-9 rooms-display mt-2 pr-4">
         <p
           *ngIf="hotelFull.rooms.length == 0"
           style="color:  #33cabb;"
@@ -30,12 +30,12 @@
         </p>
         <div *ngFor="let room of hotelFull.rooms">
           <app-room-basic-info [room]="room"></app-room-basic-info>
-        </div>     
+        </div>
     </div>
 
   </div>
 
-  
+
   <div class="alert alert-danger" role="alert" *ngIf="errorMessage.length != 0">
     {{errorMessage}}
   </div>

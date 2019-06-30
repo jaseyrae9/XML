@@ -11,7 +11,7 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('Interceptor')
+        console.log('Interceptor');
         if (request.url.match(environment.baseUrl)) {
           const token = this.tokenService.getToken();
           if (token) {

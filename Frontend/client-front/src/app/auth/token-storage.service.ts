@@ -23,6 +23,8 @@ export class TokenStorageService {
 
   constructor() {
     this.isLoggedIn.next(false);
+    this.getUsername();
+    this.getRoles();
   }
 
   loggedInEmitChange(loggedIn: boolean) {

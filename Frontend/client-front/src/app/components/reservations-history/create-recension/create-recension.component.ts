@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Recension } from 'src/app/model/reservation/recension';
 import { ReservationService } from 'src/app/services/hotel/reservation.service';
@@ -9,6 +9,7 @@ import { ReservationService } from 'src/app/services/hotel/reservation.service';
   styleUrls: ['./create-recension.component.css', '../../../shared/css/inputField.css']
 })
 export class CreateRecensionComponent implements OnInit {
+  @Output() recensionCreated: EventEmitter<Recension> = new EventEmitter();
   @Input() reservationId;
   postReviewForm: FormGroup;
   recensionRequest: Recension = new Recension();
@@ -38,6 +39,7 @@ export class CreateRecensionComponent implements OnInit {
       (data) => {
         console.log(data);
         this.recensionResponse = data;
+        this.recensionCreated.emit(data);
       },
       (error) => {
         this.errorMessage = error.error.message;

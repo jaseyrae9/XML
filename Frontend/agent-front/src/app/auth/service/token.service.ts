@@ -10,6 +10,7 @@ const TOKEN_KEY = 'AuthToken';
 export class TokenService {
 
   constructor(public router: Router) {
+    window.sessionStorage.clear();
   }
 
   public saveToken(token: string) {

@@ -23,6 +23,7 @@ public class SearchService {
 	private LocationService locationService;
 	
 	public List<RoomPreview> search(SearchRequest searchRequest){	
+		String locationString = searchRequest.getLocation();
 		//if distance is set, ignore location
 		if(searchRequest.getDistanceFromLocation() != null) {
 			searchRequest.setLocation("");
@@ -47,7 +48,7 @@ public class SearchService {
 		//calculate location for distances
 		Location location = null;
 		if( rooms.size() != 0 ) {
-			location = locationService.getCoordinates(searchRequest.getLocation());
+			location = locationService.getCoordinates(locationString);
 		}
 		
 		//convert results
@@ -55,7 +56,7 @@ public class SearchService {
 		for(Room room:rooms) {
 			RoomPreview rp = new RoomPreview(room);
 			rp.setTotalStayPrice(this.priceService.calculatePrice(room, searchRequest.getStart(), searchRequest.getEnd()));
-			rp.setDistance(this.locationService.distance(location, new Location(room.getAddress().getLat(), room.getAddress().getLng())));
+			rp.setDistance(this.locationService.distance(location.getLat(), location.getLng(), rp.getAddress().getLat(), rp.getAddress().getLng(), "K"));			
 			if(rp.getDistance() <= searchRequest.getDistanceFromLocation()) {				
 				ret.add(rp);
 			}

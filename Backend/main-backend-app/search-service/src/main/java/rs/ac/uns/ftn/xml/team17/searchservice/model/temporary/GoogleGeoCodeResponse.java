@@ -11,10 +11,7 @@ public class GoogleGeoCodeResponse {
 	private String status;
 	private Result[] results;
 	
-	public Location getLocation() {
-		if(status != "OK") {
-			return new Location(0.0, 0.0);
-		}
+	public Location getLocation() {			
 		if(results.length == 0) {
 			return new Location(0.0, 0.0);
 		}

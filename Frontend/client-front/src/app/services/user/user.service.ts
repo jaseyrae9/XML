@@ -8,7 +8,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-@Injectable({ 
+@Injectable({
   providedIn: 'root'
 })
 export class UserService {
@@ -17,13 +17,6 @@ export class UserService {
 
   getCurrentUserProfile(): Observable<any> {
     return this.http.get('changeme/profile/info');
-  }
-  changePassword(data: ChangePasswordData): Observable<any> {
-      return this.http.post<ChangePasswordData>('https://isa-back.herokuapp.com/profile/changePassword', data, httpOptions);
-  }
-
-  updateProfile(info: User): Observable<any> {
-    return this.http.post<ChangePasswordData>('https://isa-back.herokuapp.com/profile/updateProfile', info, httpOptions);
   }
 
 }

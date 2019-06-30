@@ -36,6 +36,7 @@ export class LoginFormComponent implements OnInit {
         this.router.navigate(['hotel']);
       },
       (error) => {
+        console.log(error.error)
         this.loading = false;
         this.message = error.error;
       }
